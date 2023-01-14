@@ -9,7 +9,7 @@
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic":"chromatic"
+    "chromatic": "chromatic"
   },
   "dependencies": {
     "next": "13.1.1",
@@ -35,6 +35,7 @@
     "chromatic": "^6.14.0",
     "eslint": "^8.31.0",
     "eslint-config-next": "13.1.1",
+    "eslint-plugin-no-relative-import-paths": "^1.5.2",
     "postcss": "^8.4.20",
     "tailwindcss": "^3.2.4",
     "typescript": "4.9.4"

@@ -5566,6 +5566,11 @@
     "minimatch" "^3.1.2"
     "semver" "^6.3.0"
 
+"eslint-plugin-no-relative-import-paths@^1.5.2":
+  "integrity" "sha512-wMlL+TVuDhKk1plP+w3L4Hc7+u89vUkrOYq6/0ARjcYqwc9/YaS9uEXNzaqAk+WLoEgakzNL5JgJJw6m4qd5zw=="
+  "resolved" "https://registry.npmjs.org/eslint-plugin-no-relative-import-paths/-/eslint-plugin-no-relative-import-paths-1.5.2.tgz"
+  "version" "1.5.2"
+
 "eslint-plugin-react-hooks@^4.5.0":
   "integrity" "sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g=="
   "resolved" "https://registry.npmjs.org/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.6.0.tgz"

@@ -2,9 +2,6 @@
   "extends": "next/core-web-vitals",
   "plugins": ["no-relative-import-paths"],
   "rules": {
-    "no-relative-import-paths/no-relative-import-paths": [
-      "error",
-      { "allowSameFolder": true }
-    ]
+    "import/no-anonymous-default-export": "off"
   }
 }
