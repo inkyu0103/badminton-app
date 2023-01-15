@@ -4,4 +4,8 @@ export default {
   component: Racket,
 };
 
-export const Default = () => <Racket />;
+export const Default = () => (
+  <div>
+    <Racket />
+  </div>
+);

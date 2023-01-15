@@ -1,4 +1,10 @@
+import Image from "next/image";
+
 const Racket = () => {
-  return <section className="w-12 h-12 bg-blue-200">하이</section>;
+  return (
+    <section className="">
+      <p>라켓 이름</p>
+    </section>
+  );
 };
 export default Racket;
