@@ -27,6 +27,7 @@ enum Gender {
 model User {
   id       Int      @id @default(autoincrement())
   email    String   @unique
+  password String
   rank     Rank     @default(E)
   gender   Gender   @default(MALE)
   birthday DateTime
