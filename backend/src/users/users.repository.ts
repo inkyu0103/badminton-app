@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { HttpException } from '@nestjs/common/exceptions';
-import { HttpStatus } from '@nestjs/common/enums';
+import {
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common/exceptions';
 
 @Injectable()
 export class UsersRepository {
@@ -19,7 +21,7 @@ export class UsersRepository {
     });
 
     if (exists) {
-      throw new HttpException('Conflict', HttpStatus.CONFLICT);
+      throw new ConflictException();
     }
 
     return await this.prismaService.user.create({
@@ -47,7 +49,7 @@ export class UsersRepository {
     });
 
     if (!exists) {
-      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+      throw new BadRequestException();
     }
 
     return await this.prismaService.user.delete({
