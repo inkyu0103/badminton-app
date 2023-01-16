@@ -6,6 +6,10 @@ export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async createUser(user) {
-    return await this.usersRepository.create(user);
+    return await this.usersRepository.createUser(user);
+  }
+
+  async deleteUser(userId) {
+    return await this.usersRepository.deleteUser(userId);
   }
 }
