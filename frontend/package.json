@@ -9,7 +9,14 @@
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "chromatic"
+    "chromatic": "chromatic",
+    "prepare": "cd .. && husky install frontend/.husky",
+    "lint-staged": {
+      "*.{ts,tsx}": [
+        "prettier --write",
+        "eslint --fix"
+      ]
+    }
   },
   "dependencies": {
     "next": "13.1.1",
@@ -37,6 +44,8 @@
     "eslint-config-next": "13.1.1",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-no-relative-import-paths": "^1.5.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.3",
     "storybook-addon-next": "^1.7.1",
