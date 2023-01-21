@@ -1,4 +1,4 @@
-import Racket from "./Racket";
+import Racket from "components/rackets/Racket";
 
 export default {
   component: Racket,

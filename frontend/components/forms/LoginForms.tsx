@@ -1,4 +1,4 @@
-import Input from "./Input";
+import Input from "components/forms/Input";
 
 const LoginForms = () => {
   return (
