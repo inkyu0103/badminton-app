@@ -8,10 +8,8 @@ export default {
   },
 };
 
-export const Default = () => {
-  return (
-    <div className="p-0">
-      <Header />
-    </div>
-  );
-};
+export const Default = () => (
+  <div className="p-0">
+    <Header />
+  </div>
+);
