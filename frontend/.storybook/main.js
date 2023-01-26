@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   stories: ["../(components|pages)/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
@@ -5,7 +7,7 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/addon-postcss",
-    //"storybook-addon-next",
+    "storybook-addon-next",
   ],
   framework: "@storybook/react",
   core: {

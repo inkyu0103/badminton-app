@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Racket from "../components/rackets/Racket";
+import Racket from "components/rackets/Racket";
 
 const Home: NextPage = () => {
   return (
