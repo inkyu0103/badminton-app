@@ -4,14 +4,14 @@ import { Fragment } from "react";
 import Header from "components/common/Header";
 
 const Home: NextPage = () => (
-  <Fragment>
+  <div>
     <Header />
-    <div className="container flex flex-wrap gap-3 ">
+    <div className="container flex flex-wrap gap-3 mx-auto mt-3 ">
       {data.map((name, idx) => (
         <Racket key={idx} name={name} />
       ))}
     </div>
-  </Fragment>
+  </div>
 );
 
 export default Home;
