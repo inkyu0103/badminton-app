@@ -1,15 +1,17 @@
 import { RacketProps } from "interface/Racket.interface";
 
 const Racket = ({ name }: RacketProps) => (
-  <section className=" p-2 rounded-md shadow-lg hover:cursor-pointer  [&>div>img]:hover:scale-125 hover:bg-slate-50 ease-in duration-100 ">
-    <div className="w-40 h-40 overflow-hidden bg-red-100 max-sm:w-32 max-sm:h-32">
+  <section className="flex items-center w-full h-32 p-2 mt-1 duration-300 ease-out rounded-md cursor-pointer drop-shadow-sm hover:bg-slate-100 gap-x-2 gap sm:w-80 sm:h-80 sm:block">
+    <div className="justify-center sm:flex">
       <img
-        className="overflow-hidden duration-100 ease-in"
+        className="rounded-md w-28 h-28 sm:w-64 sm:h-64"
         alt="racket"
         src="https://m.woosungsports.com/web/product/big/412_5ff22e3f894ac8106c2773bec3fbe12c.jpg"
       />
     </div>
-    <p>{name}</p>
+    <div className="h-full sm:h-auto">
+      <p>{name}</p>
+    </div>
   </section>
 );
 

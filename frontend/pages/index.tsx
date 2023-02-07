@@ -1,12 +1,11 @@
 import type { NextPage } from "next";
 import Racket from "components/rackets/Racket";
-import { Fragment } from "react";
 import Header from "components/common/Header";
 
 const Home: NextPage = () => (
   <div>
     <Header />
-    <div className="container flex flex-wrap gap-3 mx-auto mt-3 ">
+    <div className="mx-auto my-10 max-w-[1280px] flex flex-wrap">
       {data.map((name, idx) => (
         <Racket key={idx} name={name} />
       ))}
@@ -16,4 +15,4 @@ const Home: NextPage = () => (
 
 export default Home;
 
-const data = Array(10).fill("Yonex nanoray");
+const data = Array(11).fill("Yonex nanoray");
