@@ -1,7 +1,7 @@
 import { RacketProps } from "interface/Racket.interface";
 
 const Racket = ({ name }: RacketProps) => (
-  <section className="flex items-center w-full h-32 p-2 mt-1 duration-300 ease-out rounded-md cursor-pointer drop-shadow-sm hover:bg-slate-100 gap-x-2 gap sm:w-80 sm:h-80 sm:block">
+  <section className="flex items-center w-full h-32 p-2 mt-1 duration-300 ease-out rounded-md cursor-pointer drop-shadow-sm hover:bg-slate-100 gap-x-2 gap sm:w-[300px] sm:h-[300px] sm:block">
     <div className="justify-center sm:flex">
       <img
         className="rounded-md w-28 h-28 sm:w-64 sm:h-64"

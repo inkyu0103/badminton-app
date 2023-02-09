@@ -1,0 +1,7 @@
+import Chart from "components/rackets/Chart";
+
+export default {
+  component: Chart,
+};
+
+export const Default = () => <Chart />;

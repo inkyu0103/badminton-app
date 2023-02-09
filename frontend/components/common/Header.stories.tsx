@@ -1,7 +1,6 @@
 import Header from "components/common/Header";
 
 export default {
-  title: "common/Header",
   component: Header,
   parameters: {
     layout: "fullscreen",
