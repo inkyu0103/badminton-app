@@ -1,48 +1,35 @@
-import {
-  RadarChart,
-  Radar,
-  Legend,
-  PolarAngleAxis,
-  PolarGrid,
-  PolarRadiusAxis,
-} from "recharts";
+import { RadarChart, Radar, Legend, PolarAngleAxis, PolarGrid } from "recharts";
 
 const data = [
   {
-    subject: "Math",
-    A: 120,
-    B: 110,
-    fullMark: 150,
+    subject: "컨트롤",
+    A: 3,
+    B: 4,
+    fullMark: 5,
   },
   {
-    subject: "Chinese",
-    A: 98,
-    B: 130,
-    fullMark: 150,
+    subject: "힘 전달",
+    A: 3,
+    B: 2,
+    fullMark: 5,
   },
   {
-    subject: "English",
-    A: 86,
-    B: 130,
-    fullMark: 150,
+    subject: "무게",
+    A: 3,
+    B: 5,
+    fullMark: 5,
   },
   {
-    subject: "Geography",
-    A: 99,
-    B: 100,
-    fullMark: 150,
+    subject: "디자인",
+    A: 3,
+    B: 1,
+    fullMark: 5,
   },
   {
-    subject: "Physics",
-    A: 85,
-    B: 90,
-    fullMark: 150,
-  },
-  {
-    subject: "History",
-    A: 65,
-    B: 85,
-    fullMark: 150,
+    subject: "추천 정도",
+    A: 3,
+    B: 2,
+    fullMark: 5,
   },
 ];
 
@@ -50,16 +37,15 @@ const Chart = () => (
   <RadarChart outerRadius={90} width={328} height={328} data={data}>
     <PolarGrid />
     <PolarAngleAxis dataKey="subject" />
-    <PolarRadiusAxis angle={30} domain={[0, 150]} />
     <Radar
-      name="Mike"
+      name="20대"
       dataKey="A"
       stroke="#8884d8"
       fill="#8884d8"
       fillOpacity={0.6}
     />
     <Radar
-      name="Lily"
+      name="30대"
       dataKey="B"
       stroke="#82ca9d"
       fill="#82ca9d"
