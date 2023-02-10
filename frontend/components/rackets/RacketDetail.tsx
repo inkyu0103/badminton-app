@@ -2,14 +2,17 @@ import EvaluateButton from "components/common/EvaluateButton";
 import { RacketDetailProps } from "interface/RacketDetail.interface";
 import Chart from "components/rackets/Chart";
 import Review from "components/rackets/Review";
+import { ReviewProps } from "interface/Review.interface";
 
-const testReivew = [
+const testReivew: ReviewProps[] = [
   {
     createdAt: "1시간 전",
     title: "와하하",
     userId: "test-user",
     content: "이 라켓은 정말 최고입니다. 와하하 정말 후회하지 않으십니다요",
     value: 5,
+    age: 20,
+    rank: "A",
   },
   {
     createdAt: "2시간 전",
@@ -17,6 +20,8 @@ const testReivew = [
     userId: "test-user",
     content: "이 라켓은 정말 최고입니다. 와하하 정말 후회하지 않으십니다요",
     value: 5,
+    age: 20,
+    rank: "A",
   },
   {
     createdAt: "3시간 전",
@@ -24,6 +29,8 @@ const testReivew = [
     userId: "test-user",
     content: "이 라켓은 정말 최고입니다. 와하하 정말 후회하지 않으십니다요",
     value: 5,
+    age: 30,
+    rank: "D",
   },
   {
     createdAt: "4시간 전",
@@ -31,6 +38,8 @@ const testReivew = [
     userId: "test-user",
     content: "이 라켓은 정말 최고입니다. 와하하 정말 후회하지 않으십니다요",
     value: 5,
+    age: 20,
+    rank: "C",
   },
 ];
 
