@@ -1,1 +1,3 @@
-export interface EvaluateButtonProps {}
+export interface EvaluateButtonProps {
+  handleClick: () => {};
+}
