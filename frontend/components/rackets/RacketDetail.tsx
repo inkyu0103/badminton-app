@@ -5,6 +5,7 @@ import Review from "components/rackets/Review";
 import { ReviewProps } from "interface/Review.interface";
 import { Fragment, useState } from "react";
 import Modal from "components/common/Modal";
+import Evaluate from "components/rackets/Evaluate";
 
 const testReivew: ReviewProps[] = [
   {
@@ -77,15 +78,10 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
         </section>
       </div>
       <Modal isOpen={isModalOpen}>
-        <div className=" min-w-[328px] md:w-[562px]   bg-white rounded-md">
-          안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요
-          안뇽하세요 안뇽하세요안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요
-          안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요안뇽하세요 안뇽하세요
-          안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요
-          안뇽하세요안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요
-          안뇽하세요 안뇽하세요 안뇽하세요안뇽하세요 안뇽하세요 안뇽하세요
-          안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요 안뇽하세요
-        </div>
+        <Evaluate
+          handleCloseModal={() => setIsModalOpen(false)}
+          handleReviewSave={() => {}}
+        />
       </Modal>
     </Fragment>
   );
