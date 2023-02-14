@@ -17,4 +17,6 @@ Default.args = {
   value: 4,
   title: "최고의 라켓",
   createdAt: "1시간 전",
+  age: 20,
+  rank: "A",
 };

@@ -4,4 +4,6 @@ export interface ReviewProps {
   userId: string;
   content: string;
   value: number;
+  age?: number;
+  rank: string;
 }
