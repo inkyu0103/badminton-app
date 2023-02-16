@@ -10,6 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Rank {
+  S
+  A
+  B
+  C
+  D
+  E
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
 model User {
-  id Int @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  password String
+  rank     Rank     @default(E)
+  gender   Gender   @default(MALE)
+  birthday DateTime
+
+  @@map("USER")
 }
