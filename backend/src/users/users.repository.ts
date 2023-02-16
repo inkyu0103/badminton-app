@@ -40,22 +40,4 @@ export class UsersRepository {
       },
     });
   }
-
-  async deleteUser(userId) {
-    const exists = await this.prismaService.user.findUnique({
-      where: {
-        id: userId,
-      },
-    });
-
-    if (!exists) {
-      throw new BadRequestException();
-    }
-
-    return await this.prismaService.user.delete({
-      where: {
-        id: userId,
-      },
-    });
-  }
 }
