@@ -8,8 +8,4 @@ export class UsersService {
   async createUser(user) {
     return await this.usersRepository.createUser(user);
   }
-
-  async deleteUser(userId) {
-    return await this.usersRepository.deleteUser(userId);
-  }
 }

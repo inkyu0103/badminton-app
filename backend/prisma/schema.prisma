@@ -25,12 +25,42 @@ enum Gender {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
+  userId   Int      @id @default(autoincrement()) @map("USER_ID")
   email    String   @unique
   password String
   rank     Rank     @default(E)
   gender   Gender   @default(MALE)
   birthday DateTime
+  Review   Review[]
 
   @@map("USER")
+}
+
+model Racket {
+  racketId Int    @id @default(autoincrement()) @map("RACKET_ID")
+  name     String @unique
+  rating   Float
+
+  Review Review[]
+
+  @@map("RACKET")
+}
+
+model Review {
+  id        Int    @id @default(autoincrement())
+  control   Int
+  power     Int
+  weight    Int
+  design    Int
+  recommend Int
+  review    String
+
+  // for review
+  racketId Int @map("RACKET_ID")
+  userId   Int @map("USER_ID")
+
+  racket Racket @relation(fields: [racketId], references: [racketId])
+  user   User   @relation(fields: [userId], references: [userId])
+
+  @@map("REVIEW")
 }
