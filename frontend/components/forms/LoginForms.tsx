@@ -1,4 +1,5 @@
 import Input from "components/forms/Input";
+import Link from "next/link";
 
 const LoginForms = () => {
   return (
@@ -17,9 +18,13 @@ const LoginForms = () => {
         <button className="w-full h-8 bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-500">
           로그인
         </button>
-        <button className="w-full h-8 bg-blue-100 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-300">
+
+        <Link
+          className="flex justify-center items-center w-full h-8 bg-blue-100 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-300"
+          href="/signup"
+        >
           회원가입
-        </button>
+        </Link>
       </form>
     </div>
   );

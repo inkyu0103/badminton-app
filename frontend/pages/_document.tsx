@@ -1,3 +1,4 @@
+import Header from "components/common/Header";
 import { Html, Main, NextScript, Head } from "next/document";
 
 const Document = () => {
@@ -8,6 +9,7 @@ const Document = () => {
         <meta name="apple-mobile-web-app-capable" content="yes" />
       </Head>
       <body>
+        <Header />
         <Main />
         <div id="modal-root" />
         <NextScript />

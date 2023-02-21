@@ -1,9 +1,9 @@
 import Header from "components/common/Header";
 import LoginForms from "components/forms/LoginForms";
+import { NextPage } from "next";
 
-const Login = () => (
+const Login: NextPage = () => (
   <div className="h-screen">
-    <Header />
     <LoginForms />
   </div>
 );
