@@ -12,6 +12,7 @@ export const Default = (args: { type: string }) => (
 
 Default.args = {
   type: "text",
+  placeholder: "입력해주세요",
 };
 
 Default.argTypes = {
