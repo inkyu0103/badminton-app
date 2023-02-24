@@ -21,7 +21,7 @@ const LoginForms = () => {
 
         <Link
           className="flex justify-center items-center w-full h-8 bg-blue-100 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-300"
-          href="/signup"
+          href="/emailVerify"
         >
           회원가입
         </Link>
