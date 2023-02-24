@@ -1,6 +1,7 @@
 import { CalendarProps } from "interface/Calendar.interface";
 import { forwardRef } from "react";
 import DatePicker from "react-datepicker";
+import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Calendar = ({ value, handleChangeDate }: CalendarProps) => {
@@ -22,6 +23,10 @@ const Calendar = ({ value, handleChangeDate }: CalendarProps) => {
       onChange={handleChangeDate}
       customInput={<CustomInput />}
       dateFormat="yyyy년 MM월 dd일"
+      locale={ko}
+      showMonthDropdown
+      showYearDropdown
+      dropdownMode="select"
     />
   );
 };
