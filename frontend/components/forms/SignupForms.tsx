@@ -23,7 +23,7 @@ const SignupForms = () => {
   const [date, setDate] = useState(new Date());
   return (
     // screen 100vh 수정
-    <div className="h-screen flex flex-col gap-y-2 mx-auto w-[328px] justify-center">
+    <form className="h-screen flex flex-col gap-y-2 mx-auto w-[328px] justify-center">
       <p className="text-2xl font-semibold text-center">회원가입</p>
       <label className="text-sm">
         이메일
@@ -31,6 +31,27 @@ const SignupForms = () => {
           value="inkyu0103@gmail.com"
           className="w-full py-2 text-sm rounded-md shadow-md outline-none indent-2 disabled:text-slate-500 disabled:bg-slate-200"
           disabled
+        />
+      </label>
+
+      <label className="text-sm">
+        비밀번호
+        <input
+          type="password"
+          className="w-full py-2 text-sm rounded-md shadow-md cursor-pointer outline outline-1 outline-white hover:outline-blue-200 indent-2"
+          placeholder="사용하실 비밀번호를 입력해주세요"
+          pattern="/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/"
+          required
+        />
+      </label>
+
+      <label className="text-sm">
+        비밀번호 확인
+        <input
+          type="password"
+          className="w-full py-2 text-sm rounded-md shadow-md cursor-pointer outline outline-1 outline-white hover:outline-blue-200 indent-2"
+          placeholder="비밀번호를 한 번 더 입력해주세요"
+          required
         />
       </label>
 
@@ -142,7 +163,11 @@ const SignupForms = () => {
           </Transition>
         </div>
       </Listbox>
-    </div>
+
+      <button className="w-full h-9 bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-500 font-semibold">
+        회원가입
+      </button>
+    </form>
   );
 };
 export default SignupForms;
