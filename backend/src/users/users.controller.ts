@@ -15,9 +15,4 @@ export class UsersController {
   async createUser(@Body() body: CreateUserDto) {
     return this.usersService.createUser(body);
   }
-
-  @Delete('/:id')
-  async deleteUser(@Param('id', ParseIntPipe) userId: number) {
-    return this.usersService.deleteUser(userId);
-  }
 }
