@@ -64,3 +64,11 @@ model Review {
 
   @@map("REVIEW")
 }
+
+model Verification {
+  id       Int       @id @default(autoincrement())
+  token    String    @unique
+  createAt DateTime? @default(now())
+
+  @@map("VERIFICATION")
+}
