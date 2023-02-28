@@ -2,15 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-export class ReviewsRepository {
+export class AuthRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async createReview(review: any) {
-    return this.prismaService.review.create({
+  async createEmailVerifyToken(emailToken: string) {
+    await this.prismaService.verification.create({
       data: {
-        userId: 1,
-        racketId: 1,
-        ...review,
+        token: emailToken,
       },
     });
   }
