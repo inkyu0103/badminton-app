@@ -22,7 +22,7 @@ export class AuthService {
 
     await this.mailerService.sendMail({
       to: email,
-      from: 'inkyu0103@naver.com',
+      from: process.env.SMTP_HOST_EMAIL,
       subject: '인증메일입니다.',
       text: 'welcome!!',
       html: `<a href="http://${process.env.APP_URL_LOCAL}/signup?token=${emailToken}">회원가입 완료하기</a>`,
