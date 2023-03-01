@@ -15,10 +15,6 @@ export class AuthController {
 
   @Get('/verify-token/:emailToken')
   async verifyEmailToken(@Param() param: { emailToken: string }) {
-    try {
-      return await this.authService.verifyEmailToken(param.emailToken);
-    } catch (e) {
-      return e;
-    }
+    return await this.authService.verifyEmailToken(param.emailToken);
   }
 }
