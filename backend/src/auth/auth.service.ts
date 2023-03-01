@@ -42,7 +42,8 @@ export class AuthService {
   async verifyEmailToken(emailToken: string) {
     const result = await this.authRepository.getEmailToken(emailToken);
 
-    if (!result) throw new BadRequestException();
+    if (!result)
+      throw new BadRequestException('Token is not exist in database');
 
     try {
       return this.getEmailFromToken(emailToken);
