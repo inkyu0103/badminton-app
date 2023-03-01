@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
 import { MailerService } from '@nestjs-modules/mailer/dist';
 import { JwtService } from '@nestjs/jwt';
@@ -12,7 +16,13 @@ export class AuthService {
   ) {}
 
   createVerifyEmailToken(email: string) {
-    return this.jwtSerice.sign({ email });
+    return this.jwtSerice.sign({ email }, { expiresIn: '1h' });
+  }
+
+  getEmailFromToken(emailToken: string) {
+    return this.jwtSerice.verify(emailToken, {
+      secret: process.env.JWT_SECRET_KEY,
+    });
   }
 
   async sendVerifyEmail(email: string) {
@@ -27,5 +37,18 @@ export class AuthService {
       text: 'welcome!!',
       html: `<a href="http://${process.env.APP_URL_LOCAL}/signup?token=${emailToken}">회원가입 완료하기</a>`,
     });
+  }
+
+  async verifyEmailToken(emailToken: string) {
+    const result = await this.authRepository.getEmailToken(emailToken);
+
+    if (!result)
+      throw new BadRequestException('Token is not exist in database');
+
+    try {
+      return this.getEmailFromToken(emailToken);
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
   }
 }

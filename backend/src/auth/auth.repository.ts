@@ -12,4 +12,14 @@ export class AuthRepository {
       },
     });
   }
+
+  async getEmailToken(emailToken: string) {
+    const result = await this.prismaService.verification.findUnique({
+      where: {
+        token: emailToken,
+      },
+    });
+
+    return result;
+  }
 }
