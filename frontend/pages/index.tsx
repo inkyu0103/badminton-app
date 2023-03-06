@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Racket from "components/rackets/Racket";
-import Header from "components/common/Header";
 
 const Home: NextPage = () => (
   <div>

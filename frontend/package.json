@@ -29,6 +29,7 @@
     "react-datepicker": "^4.10.0",
     "react-dom": "18.2.0",
     "react-rating-stars-component": "^2.2.0",
+    "react-responsive-carousel": "^3.2.23",
     "recharts": "^2.3.2"
   },
   "devDependencies": {
