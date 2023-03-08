@@ -1,6 +1,10 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const CheckMounted = ({ children }: { children: ReactNode }) => {
+const CheckMounted = ({
+  children,
+}: {
+  children: JSX.Element;
+}): JSX.Element | null => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
