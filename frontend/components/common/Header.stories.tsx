@@ -1,14 +1,24 @@
-import Header from "components/common/Header";
+import { HeaderView } from "components/common/Header";
 
 export default {
-  component: Header,
+  component: HeaderView,
   parameters: {
     layout: "fullscreen",
   },
 };
 
-export const Default = () => (
+export const Default = (args) => (
   <div className="p-0">
-    <Header />
+    <HeaderView {...args} />
   </div>
 );
+
+Default.args = {
+  handleLogout: () => {},
+  loginUser: true,
+};
+
+Default.argTypes = {
+  handleLogout: { table: { disable: true } },
+  loginUser: { control: "boolean" },
+};
