@@ -6,10 +6,12 @@ import {
   Post,
   HttpCode,
   UseGuards,
+  Res,
+  Req,
 } from '@nestjs/common';
-import { LocalGuard } from './auth.guard';
+import { AuthGuard } from '@nestjs/passport/dist';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/loginDto';
 import { SendVerifyEmailDto } from './dto/sendVerifyEmailDTO';
 
 @Controller('auth')
@@ -29,9 +31,14 @@ export class AuthController {
   }
 
   @Post('/login')
-  @UseGuards(LocalGuard)
+  @UseGuards(AuthGuard('local'))
   @HttpCode(200)
-  async login(@Body() loginFormData: LoginDto) {
-    return this.authService.login(loginFormData);
+  async login(@Req() req, @Res({ passthrough: true }) res: Response) {
+    const { access_token, refresh_token } = await this.authService.login(
+      req.user,
+    );
+
+    res.cookie('refresh_token', refresh_token);
+    return { access_token };
   }
 }
