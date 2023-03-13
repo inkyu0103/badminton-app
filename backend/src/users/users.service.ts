@@ -8,4 +8,8 @@ export class UsersService {
   async createUser(user) {
     return await this.usersRepository.createUser(user);
   }
+
+  async getUser(email: string) {
+    return await this.usersRepository.getUserWithEmail(email);
+  }
 }

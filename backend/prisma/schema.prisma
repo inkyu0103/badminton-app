@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,20 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-enum Rank {
-  S
-  A
-  B
-  C
-  D
-  E
-}
-
-enum Gender {
-  MALE
-  FEMALE
 }
 
 model User {
@@ -37,11 +20,10 @@ model User {
 }
 
 model Racket {
-  racketId Int    @id @default(autoincrement()) @map("RACKET_ID")
-  name     String @unique
+  racketId Int      @id @default(autoincrement()) @map("RACKET_ID")
+  name     String   @unique
   rating   Float
-
-  Review Review[]
+  Review   Review[]
 
   @@map("RACKET")
 }
@@ -54,13 +36,10 @@ model Review {
   design    Int
   recommend Int
   review    String
-
-  // for review
-  racketId Int @map("RACKET_ID")
-  userId   Int @map("USER_ID")
-
-  racket Racket @relation(fields: [racketId], references: [racketId])
-  user   User   @relation(fields: [userId], references: [userId])
+  racketId  Int    @map("RACKET_ID")
+  userId    Int    @map("USER_ID")
+  racket    Racket @relation(fields: [racketId], references: [racketId])
+  user      User   @relation(fields: [userId], references: [userId])
 
   @@map("REVIEW")
 }
@@ -71,4 +50,18 @@ model Verification {
   createAt DateTime? @default(now())
 
   @@map("VERIFICATION")
+}
+
+enum Rank {
+  S
+  A
+  B
+  C
+  D
+  E
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }

@@ -3,9 +3,12 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthRepository } from './auth.repository';
 import { MailerService } from '@nestjs-modules/mailer/dist';
+import { AuthRepository } from './auth.repository';
 import { JwtService } from '@nestjs/jwt';
+import { User } from './types/auth.interface';
+import { UsersService } from 'src/users/users.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +16,7 @@ export class AuthService {
     private readonly authRepository: AuthRepository,
     private readonly mailerService: MailerService,
     private readonly jwtSerice: JwtService,
+    private readonly usersService: UsersService,
   ) {}
 
   createVerifyEmailToken(email: string) {
@@ -50,5 +54,26 @@ export class AuthService {
     } catch (e) {
       throw new UnauthorizedException();
     }
+  }
+
+  async validateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.usersService.getUser(email);
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return null;
+    }
+
+    return user;
+  }
+
+  async login(user: User) {
+    const payload = { email: user.email, id: user.userId };
+    const access_token = this.jwtSerice.sign(payload, { expiresIn: '15m' });
+    const refresh_token = this.jwtSerice.sign(payload, { expiresIn: '14d' });
+
+    return {
+      access_token,
+      refresh_token,
+    };
   }
 }

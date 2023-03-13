@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { ConflictException } from '@nestjs/common/exceptions';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UsersRepository {
@@ -34,6 +35,14 @@ export class UsersRepository {
         gender: true,
         rank: true,
         password: false,
+      },
+    });
+  }
+
+  async getUserWithEmail(email: string): Promise<User | null> {
+    return await this.prismaService.user.findUnique({
+      where: {
+        email,
       },
     });
   }
