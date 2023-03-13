@@ -40,6 +40,8 @@ export class AuthRepository {
       throw new UnauthorizedException();
     }
 
-    return { ...result, ['password']: null };
+    const { password, ...userWithoutPassword } = result;
+
+    return userWithoutPassword;
   }
 }

@@ -1,7 +1,7 @@
 export interface User {
   userId: number;
   email: string;
-  password: string | null;
+  password?: string | null;
   rank: string;
   gender: string;
   birthday: Date;
