@@ -6,7 +6,7 @@ import {
 import { MailerService } from '@nestjs-modules/mailer/dist';
 import { AuthRepository } from './auth.repository';
 import { JwtService } from '@nestjs/jwt';
-import { LoginFormData, User } from './types/auth.interface';
+import { User } from './types/auth.interface';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 
@@ -56,7 +56,24 @@ export class AuthService {
     }
   }
 
-  async login(loginFormData: LoginFormData): Promise<User | null> {
-    this.jwtSerice.sign();
+  async validateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.usersService.getUser(email);
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return null;
+    }
+
+    return user;
+  }
+
+  async login(user: User) {
+    const payload = { email: user.email, id: user.userId };
+    const access_token = this.jwtSerice.sign(payload, { expiresIn: '15m' });
+    const refresh_token = this.jwtSerice.sign(payload, { expiresIn: '14d' });
+
+    return {
+      access_token,
+      refresh_token,
+    };
   }
 }
