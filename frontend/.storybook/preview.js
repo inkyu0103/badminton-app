@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { RecoilRoot } from "recoil";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -13,8 +14,10 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <RecoilRoot>
-      <Story />
-    </RecoilRoot>
+    <QueryClientProvider client={new QueryClient()}>
+      <RecoilRoot>
+        <Story />
+      </RecoilRoot>
+    </QueryClientProvider>
   ),
 ];
