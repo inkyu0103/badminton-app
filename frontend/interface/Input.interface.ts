@@ -1,6 +1,2 @@
-export interface InputProps {
-  type: string;
-  placeholder?: string;
-  isRequired?: boolean;
-  disabled?: boolean;
-}
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}

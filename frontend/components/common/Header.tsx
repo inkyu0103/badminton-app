@@ -1,17 +1,24 @@
 import Link from "next/link";
-import { useRecoilState } from "recoil";
-import { loginState } from "recoil/atoms/loginState";
+import { useLogoutMutation } from "query/auth/logout";
+import { useRecoilValue } from "recoil";
+import { accessTokenState } from "recoil/atoms/accessToken";
 
 const Header = () => {
-  const [loginUser, setLoginUser] = useRecoilState(loginState);
+  const loginUser = useRecoilValue(accessTokenState);
+  const { mutate: handleLogout } = useLogoutMutation();
 
-  const handleLogout = () => {};
+  const isLogin = loginUser !== "NO_LOGIN" && loginUser !== "PENDING";
 
-  return <HeaderView handleLogout={handleLogout} loginUser={loginUser} />;
+  return <HeaderView handleLogout={handleLogout} loginUser={isLogin} />;
 };
 export default Header;
 
-export const HeaderView = ({ handleLogout, loginUser }) => (
+interface HeaderViewProps {
+  handleLogout: () => void;
+  loginUser: boolean;
+}
+
+export const HeaderView = ({ handleLogout, loginUser }: HeaderViewProps) => (
   <header className="flex items-center justify-end h-12 px-4 bg-black w-vw gap-x-2">
     {loginUser ? (
       <>

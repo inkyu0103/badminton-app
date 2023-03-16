@@ -1,4 +1,3 @@
-import Header from "components/common/Header";
 import LoginForms from "components/forms/LoginForms";
 import { NextPage } from "next";
 
