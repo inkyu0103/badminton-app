@@ -1,6 +1,7 @@
 import Racket from "components/rackets/Racket";
 import { useEffect, useState } from "react";
 import Slider, { Settings } from "react-slick";
+import { debounce } from "utils/debounce";
 
 const MainRacketCarousel = ({ rackets }: any) => {
   const [clientWidth, setClientWidth] = useState(
@@ -13,7 +14,7 @@ const MainRacketCarousel = ({ rackets }: any) => {
   const isMobile = () => clientWidth < 768;
 
   useEffect(() => {
-    addEventListener("resize", handleResize);
+    addEventListener("resize", debounce(handleResize));
 
     return removeEventListener("resize", () => {});
   }, []);
