@@ -1,20 +1,15 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { removeBearerToken } from "query/interceptors";
-import { useRecoilState } from "recoil";
-import { loginState } from "recoil/atoms/loginState";
+import { useLogoutMutation } from "query/auth/logout";
+import { useRecoilValue } from "recoil";
+import { accessTokenState } from "recoil/atoms/accessToken";
 
 const Header = () => {
-  const [loginUser, setLoginUser] = useRecoilState(loginState);
-  const router = useRouter();
+  const loginUser = useRecoilValue(accessTokenState);
+  const { mutate: handleLogout } = useLogoutMutation();
 
-  const handleLogout = () => {
-    removeBearerToken();
-    setLoginUser(false);
-    router.push("/");
-  };
+  const isLogin = loginUser !== "NO_LOGIN" && loginUser !== "PENDING";
 
-  return <HeaderView handleLogout={handleLogout} loginUser={loginUser} />;
+  return <HeaderView handleLogout={handleLogout} loginUser={isLogin} />;
 };
 export default Header;
 

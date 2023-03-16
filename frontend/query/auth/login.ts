@@ -1,10 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import axios from "query/axios";
-import { setBearerToken } from "query/interceptors";
-import { useSetRecoilState } from "recoil";
-import { loginState } from "recoil/atoms/loginState";
+import { setBearerToken, removeBearerToken } from "query/interceptors";
+import { queryKeys } from "query/queryKeys";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { accessTokenState, LoginState } from "recoil/atoms/accessToken";
 
 interface LoginFormData {
   email: string;
@@ -21,12 +22,12 @@ const login = async (loginFormData: LoginFormData) => {
 
 export const useLoginMutation = () => {
   const router = useRouter();
-  const setLoginState = useSetRecoilState(loginState);
+  const setAccessTokenState = useSetRecoilState(accessTokenState);
 
   return useMutation((loginFormData: LoginFormData) => login(loginFormData), {
     onSuccess: (data) => {
       setBearerToken(data.access_token);
-      setLoginState(true);
+      setAccessTokenState(data.access_token);
       router.push("/");
     },
     onError: (error: AxiosError) => {
@@ -36,5 +37,27 @@ export const useLoginMutation = () => {
         alert("로그인에 실패하였습니다.");
       }
     },
+  });
+};
+
+const silentLogin = async () => {
+  const { data } = await axios.get("/auth/validate-token");
+  return data;
+};
+
+export const useSlientLoginQuery = () => {
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
+  return useQuery(queryKeys.auth.tokenState, silentLogin, {
+    onSuccess: (data) => {
+      setAccessToken(data);
+      setBearerToken(data);
+    },
+    onError: () => {
+      setAccessToken(LoginState["NO_LOGIN"]);
+      removeBearerToken();
+    },
+    enabled: accessToken === LoginState["PENDING"],
+    retry: false,
   });
 };

@@ -76,4 +76,16 @@ export class AuthService {
       refresh_token,
     };
   }
+
+  validateRefreshToken(refreshToken) {
+    const result = this.jwtSerice.verify(refreshToken);
+
+    if (!result) throw new UnauthorizedException();
+
+    const payload = { email: result.email, id: result.id };
+
+    const newAccessToken = this.jwtSerice.sign(payload, { expiresIn: '15m' });
+
+    return newAccessToken;
+  }
 }
