@@ -20,26 +20,32 @@ model User {
 }
 
 model Racket {
-  racketId Int      @id @default(autoincrement()) @map("RACKET_ID")
-  name     String   @unique
+  racketId Int          @id @default(autoincrement()) @map("RACKET_ID")
+  brand    String
+  name     String       @unique
   rating   Float
+  price    Int
+  image    String?
+  shaft    Shaft
+  weight   RacketWeight
   Review   Review[]
 
   @@map("RACKET")
 }
 
 model Review {
-  id        Int    @id @default(autoincrement())
-  control   Int
-  power     Int
-  weight    Int
-  design    Int
-  recommend Int
-  review    String
-  racketId  Int    @map("RACKET_ID")
-  userId    Int    @map("USER_ID")
-  racket    Racket @relation(fields: [racketId], references: [racketId])
-  user      User   @relation(fields: [userId], references: [userId])
+  id         Int    @id @default(autoincrement())
+  control    Int
+  power      Int
+  weight     Int
+  design     Int
+  recommend  Int
+  durability Int
+  review     String
+  racketId   Int    @map("RACKET_ID")
+  userId     Int    @map("USER_ID")
+  racket     Racket @relation(fields: [racketId], references: [racketId])
+  user       User   @relation(fields: [userId], references: [userId])
 
   @@map("REVIEW")
 }
@@ -64,4 +70,22 @@ enum Rank {
 enum Gender {
   MALE
   FEMALE
+}
+
+enum RacketWeight {
+  W3U
+  W4U
+  W5U
+}
+
+enum Balence {
+  HEAD_HEAVY
+  EVEN
+  HEAD_LIGHT
+}
+
+enum Shaft {
+  STIFF
+  MEDIUM
+  FLEXIBLE
 }
