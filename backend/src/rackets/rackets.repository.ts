@@ -19,4 +19,14 @@ export class RacketsRepository {
 
     return result;
   }
+
+  async getRacket(racketId: number) {
+    const result = await this.prismaService.racket.findUnique({
+      where: {
+        racketId,
+      },
+    });
+
+    return result;
+  }
 }

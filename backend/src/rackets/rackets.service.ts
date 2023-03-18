@@ -8,4 +8,8 @@ export class RacketsService {
   async getRacketList(brand: string, page: number) {
     return this.racketsRepository.getRacketList(brand, page);
   }
+
+  async getRacket(racketId: number) {
+    return this.racketsRepository.getRacket(racketId);
+  }
 }
