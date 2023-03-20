@@ -51,7 +51,10 @@ export const RacketListView = ({ brand = "Yonex", data, curPage }) => {
         ))}
       </div>
       <div className="sm:flex sm:justify-center">
-        <Pagination totalPage={Number(data.count / 10)} curPage={curPage} />
+        <Pagination
+          totalPage={Number.parseInt(data.count / 10)}
+          curPage={curPage}
+        />
       </div>
     </div>
   );
