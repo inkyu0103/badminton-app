@@ -1,3 +1,4 @@
-export interface RacketProps{
-  name: string
+export interface RacketProps {
+  name: string;
+  racketId: number;
 }
