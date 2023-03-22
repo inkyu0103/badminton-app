@@ -18,11 +18,9 @@ export const useRacketListQuery = () => {
     query: { brand = "yonex", page },
   } = router;
 
-  console.log(brand, page);
-
   return useQuery(
     queryKeys.rackets.list(brand, page),
     () => getRacketList(brand, page),
-    { suspense: true },
+    { suspense: true, staleTime: 5 * 60 * 1000 },
   );
 };

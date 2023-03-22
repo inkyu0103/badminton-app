@@ -22,7 +22,7 @@ export const HeaderView = ({ handleLogout, loginUser }: HeaderViewProps) => (
   <header className="flex items-center justify-end h-12 px-4 bg-black w-vw gap-x-2">
     {loginUser ? (
       <>
-        <Link href="/rackets/yonex" className="text-white">
+        <Link href="/rackets/yonex?page=1" className="text-white">
           Rackets
         </Link>
         <Link href="/emailVerify" className="text-white">
@@ -34,7 +34,7 @@ export const HeaderView = ({ handleLogout, loginUser }: HeaderViewProps) => (
       </>
     ) : (
       <>
-        <Link href="/rackets/yonex" className="text-white">
+        <Link href="/rackets/yonex?page=1" className="text-white">
           Rackets
         </Link>
         <Link href="/emailVerify" className="text-white">
