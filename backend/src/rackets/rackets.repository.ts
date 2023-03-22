@@ -22,8 +22,8 @@ export class RacketsRepository {
           mode: 'insensitive',
         },
       },
-      skip: 10 * (page-1),
-      take: 10,
+      skip: 12 * (page-1),
+      take: 12,
     });
 
     return {
