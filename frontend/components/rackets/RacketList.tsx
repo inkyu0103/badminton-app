@@ -1,10 +1,7 @@
 import NoResult from "components/common/NoResult";
 import Pagination from "components/common/Pagination";
 import Racket from "components/rackets/Racket";
-import {
-  RacketListViewProps,
-  RacketResponse,
-} from "interface/Racket.interface";
+import { RacketListViewProps } from "interface/Racket.interface";
 import { useRouter } from "next/router";
 import { useRacketListQuery } from "query/rackets/rackets";
 import { useEffect, useState } from "react";
@@ -72,7 +69,7 @@ export const RacketListView = ({
   }, []);
 
   return (
-    <div className="flex flex-col  max-w-[1200px] mx-auto ">
+    <div className="flex flex-col  max-w-[1200px] mx-auto  ">
       <h1 className="text-3xl font-bold my-4">{brand}</h1>
       <div
         className={`md:grid  md:gap-4 md:mx-auto  ${setColNumber(clientWidth)}`}
