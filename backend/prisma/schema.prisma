@@ -8,52 +8,60 @@ datasource db {
 }
 
 model User {
-  userId   Int      @id @default(autoincrement()) @map("USER_ID")
-  email    String   @unique
+  id       Int            @id @default(autoincrement()) @map("USER_ID")
+  email    String         @unique
   password String
-  rank     Rank     @default(E)
-  gender   Gender   @default(MALE)
-  birthday DateTime
-  Review   Review[]
+  rank     Rank           @default(E)
+  gender   Gender         @default(MALE)
+  birthday DateTime       @default(now())
+  Review   RacketReview[]
 
   @@map("USER")
 }
 
 model Racket {
-  racketId Int          @id @default(autoincrement()) @map("RACKET_ID")
-  brand    String
-  name     String       @unique
-  rating   Float
-  price    Int
-  image    String?
-  shaft    Shaft
-  weight   RacketWeight
-  Review   Review[]
+  id     Int            @id @default(autoincrement())
+  brand  String
+  name   String         @unique
+  rating Float
+  price  Int
+  image  String?
+  shaft  Shaft
+  weight RacketWeight
+  Review RacketReview[]
+  score  Float
 
   @@map("RACKET")
 }
 
-model Review {
+model RacketReview {
   id         Int    @id @default(autoincrement())
   control    Int
   power      Int
   weight     Int
   design     Int
-  recommend  Int
   durability Int
   review     String
-  racketId   Int    @map("RACKET_ID")
-  userId     Int    @map("USER_ID")
-  racket     Racket @relation(fields: [racketId], references: [racketId])
-  user       User   @relation(fields: [userId], references: [userId])
+  average    Float
+  racketId   Int    @map("racket_id")
+  userId     Int    @map("uesr_id")
+  racket     Racket @relation(fields: [racketId], references: [id])
+  user       User   @relation(fields: [userId], references: [id])
 
-  @@map("REVIEW")
+  @@map("RACKET_REVIEW")
+}
+
+model Brand {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  @@map("BRAND")
 }
 
 model Verification {
   id       Int       @id @default(autoincrement())
   token    String    @unique
-  createAt DateTime? @default(now())
+  createAt DateTime? @default(now()) @map("create_at")
 
   @@map("VERIFICATION")
 }

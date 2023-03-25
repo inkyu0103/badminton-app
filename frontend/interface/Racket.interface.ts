@@ -15,12 +15,13 @@ export interface RacketListViewProps {
 }
 
 interface Racket {
-  racketId: number;
+  id: number;
   brand: string;
-  image: string | null;
   name: string;
-  price: number;
   rating: 5;
-  shatf: string;
+  price: number;
+  image: string | null;
+  shaft: string;
   weight: string;
+  score: number;
 }

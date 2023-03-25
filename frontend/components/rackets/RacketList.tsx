@@ -70,16 +70,12 @@ export const RacketListView = ({
 
   return (
     <div className="flex flex-col  max-w-[1200px] mx-auto  ">
-      <h1 className="text-3xl font-bold my-4">{brand}</h1>
+      <h1 className="my-4 text-3xl font-bold">{brand}</h1>
       <div
         className={`md:grid  md:gap-4 md:mx-auto  ${setColNumber(clientWidth)}`}
       >
         {data.rackets.map((racket) => (
-          <Racket
-            key={racket.racketId}
-            name={racket.name}
-            racketId={racket.racketId}
-          />
+          <Racket key={racket.id} name={racket.name} racketId={racket.id} />
         ))}
       </div>
       <div className="sm:flex sm:justify-center sm:mt-4">

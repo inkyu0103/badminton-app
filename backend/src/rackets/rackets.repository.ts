@@ -22,7 +22,7 @@ export class RacketsRepository {
           mode: 'insensitive',
         },
       },
-      skip: 12 * (page-1),
+      skip: 12 * (page - 1),
       take: 12,
     });
 
@@ -35,7 +35,7 @@ export class RacketsRepository {
   async getRacket(racketId: number) {
     const result = await this.prismaService.racket.findUnique({
       where: {
-        racketId,
+        id: racketId,
       },
     });
 
