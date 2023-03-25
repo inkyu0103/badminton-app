@@ -9,8 +9,7 @@ export class RacketsRepository {
     const count = await this.prismaService.racket.count({
       where: {
         brand: {
-          equals: brand,
-          mode: 'insensitive',
+          name: brand,
         },
       },
     });
@@ -18,11 +17,10 @@ export class RacketsRepository {
     const rackets = await this.prismaService.racket.findMany({
       where: {
         brand: {
-          equals: brand,
-          mode: 'insensitive',
+          name: brand,
         },
       },
-      skip: 12 * (page-1),
+      skip: 12 * (page - 1),
       take: 12,
     });
 
@@ -35,7 +33,7 @@ export class RacketsRepository {
   async getRacket(racketId: number) {
     const result = await this.prismaService.racket.findUnique({
       where: {
-        racketId,
+        id: racketId,
       },
     });
 

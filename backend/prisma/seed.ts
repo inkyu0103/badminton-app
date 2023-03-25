@@ -7,13 +7,14 @@ const testRacket = () =>
     async (idx, _) =>
       await client.racket.createMany({
         data: {
-          brand: 'YONEX',
           name: `나노레이 ${idx + 1}`,
-          price: 10000,
           rating: 5,
+          image: null,
+          price: 10000,
           shaft: 'FLEXIBLE',
           weight: 'W3U',
-          racketId: idx + 1,
+          score: 5,
+          brandId: 1,
         },
       }),
   );
