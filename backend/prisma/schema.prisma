@@ -20,16 +20,17 @@ model User {
 }
 
 model Racket {
-  id     Int            @id @default(autoincrement())
-  brand  String
-  name   String         @unique
-  rating Float
-  price  Int
-  image  String?
-  shaft  Shaft
-  weight RacketWeight
-  Review RacketReview[]
-  score  Float
+  id      Int            @id @default(autoincrement())
+  name    String         @unique
+  rating  Float
+  price   Int
+  image   String?
+  shaft   Shaft
+  weight  RacketWeight
+  score   Float          @default(0)
+  brandId Int
+  brand   Brand          @relation(references: [id], fields: [brandId])
+  Review  RacketReview[]
 
   @@map("RACKET")
 }
@@ -52,8 +53,9 @@ model RacketReview {
 }
 
 model Brand {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  Racket Racket[]
 
   @@map("BRAND")
 }
