@@ -8,4 +8,9 @@ export const Default = (args) => <SignupFormsView {...args} />;
 
 Default.args = {
   email: "mobae@test.com",
+  handleSignup: () => {},
+};
+
+Default.argTypes = {
+  handleSignup: { table: { disable: true } },
 };

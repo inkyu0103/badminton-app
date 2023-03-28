@@ -1,7 +1,7 @@
-import { useSlientLoginQuery } from "query/auth/login";
+import { useSilentLoginQuery } from "query/auth/login";
 
 const CheckLogin = ({ children }: { children: JSX.Element }) => {
-  useSlientLoginQuery();
+  useSilentLoginQuery();
   return children;
 };
 

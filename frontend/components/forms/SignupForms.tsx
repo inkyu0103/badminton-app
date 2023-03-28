@@ -4,16 +4,17 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import Calendar from "components/forms/Calendar";
 import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
 import { useForm } from "react-hook-form";
-import ranks from "constants/genders";
-import genders from "constants/ranks";
 import useSignupMutation from "query/auth/signup";
+import { CreateUser } from "interface/User.interface";
+import genders from "constants/ranks";
+import ranks from "constants/genders";
 
 const SignupForms = () => {
   const { data } = useVerifyTokenQuery();
   const { mutate: signupUser } = useSignupMutation();
-  const handleSignup = (user) => signupUser(user);
+  const handleSignup = (user: CreateUser) => signupUser(user);
 
-  return <SignupFormsView email={data.email} handleSignup={handleSignup} />;
+  return <SignupFormsView email={data?.email} handleSignup={handleSignup} />;
 };
 export default SignupForms;
 
@@ -39,13 +40,7 @@ export const SignupFormsView = ({ email, handleSignup }) => {
   return (
     <form
       className="h-screen flex flex-col gap-y-2 mx-auto w-[328px] justify-center"
-      onSubmit={handleSubmit(({ passwordConfirm, ...data }) =>
-        handleSignup({
-          ...data,
-          gender: data.gender === "남성" ? "MALE" : "FEMALE",
-          birthday: data.birthday.toISOString(),
-        }),
-      )}
+      onSubmit={handleSubmit((user) => handleSignup(user))}
     >
       <p className="text-2xl font-semibold text-center">회원가입</p>
       <label className="text-sm">
