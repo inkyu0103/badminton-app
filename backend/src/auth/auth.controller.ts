@@ -60,5 +60,8 @@ export class AuthController {
     return;
   }
 
-  //@Post('/signup')
+  @Post('/signup')
+  async signup(@Body() body) {
+    return await this.authService.signup(body);
+  }
 }

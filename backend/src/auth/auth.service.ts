@@ -88,4 +88,13 @@ export class AuthService {
 
     return newAccessToken;
   }
+
+  async signup(user) {
+    const formattedUser = {
+      ...user,
+      password: bcrypt.hashSync(user.password, 10),
+    };
+
+    return await this.authRepository.createUser(formattedUser);
+  }
 }

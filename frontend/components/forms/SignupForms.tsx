@@ -6,15 +6,18 @@ import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
 import { useForm } from "react-hook-form";
 import ranks from "constants/genders";
 import genders from "constants/ranks";
+import useSignupMutation from "query/auth/signup";
 
 const SignupForms = () => {
   const { data } = useVerifyTokenQuery();
+  const { mutate: signupUser } = useSignupMutation();
+  const handleSignup = (user) => signupUser(user);
 
-  return <SignupFormsView email={data.email} />;
+  return <SignupFormsView email={data.email} handleSignup={handleSignup} />;
 };
 export default SignupForms;
 
-export const SignupFormsView = ({ email }) => {
+export const SignupFormsView = ({ email, handleSignup }) => {
   const {
     register,
     watch,
@@ -27,7 +30,7 @@ export const SignupFormsView = ({ email }) => {
       email,
       password: "",
       passwordConfirm: "",
-      birthDay: new Date(),
+      birthday: new Date(),
       rank: "S",
       gender: "남성",
     },
@@ -36,7 +39,13 @@ export const SignupFormsView = ({ email }) => {
   return (
     <form
       className="h-screen flex flex-col gap-y-2 mx-auto w-[328px] justify-center"
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit(({ passwordConfirm, ...data }) =>
+        handleSignup({
+          ...data,
+          gender: data.gender === "남성" ? "MALE" : "FEMALE",
+          birthday: data.birthday.toISOString(),
+        }),
+      )}
     >
       <p className="text-2xl font-semibold text-center">회원가입</p>
       <label className="text-sm">
@@ -93,9 +102,9 @@ export const SignupFormsView = ({ email }) => {
       <label className="text-sm">
         생년월일
         <Calendar
-          value={watch("birthDay")}
-          handleChangeDate={(birthDay) => {
-            setValue("birthDay", birthDay);
+          value={watch("birthday")}
+          handleChangeDate={(birthday) => {
+            setValue("birthday", birthday);
           }}
         />
       </label>

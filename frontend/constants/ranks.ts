@@ -1,5 +1,5 @@
 const genders = [
-  { id: 0, value: "남성" },
-  { id: 1, value: "여성" },
+  { id: 0, display: "남성", value: "MALE" },
+  { id: 1, display: "여성", value: "FEMALE" },
 ];
 export default genders;

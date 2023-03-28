@@ -44,4 +44,11 @@ export class AuthRepository {
 
     return userWithoutPassword;
   }
+
+  async createUser(user) {
+    const result = await this.prismaService.user.create({
+      data: { ...user },
+    });
+    return result;
+  }
 }
