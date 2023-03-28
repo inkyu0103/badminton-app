@@ -1,36 +1,50 @@
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import Calendar from "components/forms/Calendar";
-
-const ranks = [
-  { id: 1, name: "S조" },
-  { id: 2, name: "A조" },
-  { id: 3, name: "B조" },
-  { id: 4, name: "C조" },
-  { id: 5, name: "D조" },
-  { id: 6, name: "E조" },
-];
-
-const genders = [
-  { id: 0, name: "남성" },
-  { id: 1, name: "여성" },
-];
+import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
+import { useForm } from "react-hook-form";
+import ranks from "constants/genders";
+import genders from "constants/ranks";
 
 const SignupForms = () => {
-  const [rank, setRank] = useState(ranks[0]);
-  const [gender, setGender] = useState(genders[0]);
-  const [date, setDate] = useState(new Date());
+  const { data } = useVerifyTokenQuery();
+
+  return <SignupFormsView email={data.email} />;
+};
+export default SignupForms;
+
+export const SignupFormsView = ({ email }) => {
+  const {
+    register,
+    watch,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+    getValues,
+  } = useForm({
+    defaultValues: {
+      email,
+      password: "",
+      passwordConfirm: "",
+      birthDay: new Date(),
+      rank: "S",
+      gender: "남성",
+    },
+  });
+
   return (
-    // screen 100vh 수정
-    <form className="h-screen flex flex-col gap-y-2 mx-auto w-[328px] justify-center">
+    <form
+      className="h-screen flex flex-col gap-y-2 mx-auto w-[328px] justify-center"
+      onSubmit={handleSubmit((data) => console.log(data))}
+    >
       <p className="text-2xl font-semibold text-center">회원가입</p>
       <label className="text-sm">
         이메일
         <input
-          value="inkyu0103@gmail.com"
           className="w-full py-2 text-sm rounded-md shadow-md outline-none indent-2 disabled:text-slate-500 disabled:bg-slate-200"
           disabled
+          {...register("email")}
         />
       </label>
 
@@ -40,9 +54,20 @@ const SignupForms = () => {
           type="password"
           className="w-full py-2 text-sm rounded-md shadow-md cursor-pointer outline outline-1 outline-white hover:outline-blue-200 indent-2"
           placeholder="사용하실 비밀번호를 입력해주세요"
-          pattern="/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/"
-          required
+          {...register("password", {
+            required: {
+              value: true,
+              message: "비밀번호를 입력해주세요",
+            },
+            pattern: {
+              value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/,
+              message: "8자 이상의 숫자, 글자, 특수문자가 필요합니다. ",
+            },
+          })}
         />
+        <p className="mt-1 text-red-600">
+          {errors["password"]?.message?.toString()}
+        </p>
       </label>
 
       <label className="text-sm">
@@ -51,20 +76,40 @@ const SignupForms = () => {
           type="password"
           className="w-full py-2 text-sm rounded-md shadow-md cursor-pointer outline outline-1 outline-white hover:outline-blue-200 indent-2"
           placeholder="비밀번호를 한 번 더 입력해주세요"
-          required
+          {...register("passwordConfirm", {
+            required: {
+              value: true,
+              message: "비밀번호를 한 번 더 입력해주세요",
+            },
+            validate: (value) =>
+              value === watch("password") || "비밀번호와 일치하지 않습니다.",
+          })}
         />
+        <p className="mt-1 text-red-600">
+          {errors["passwordConfirm"]?.message?.toString()}
+        </p>
       </label>
 
       <label className="text-sm">
         생년월일
-        <Calendar value={date} handleChangeDate={setDate} />
+        <Calendar
+          value={watch("birthDay")}
+          handleChangeDate={(birthDay) => {
+            setValue("birthDay", birthDay);
+          }}
+        />
       </label>
 
-      <Listbox value={rank} onChange={setRank}>
-        <div className="relative mt-1">
+      <Listbox
+        value={getValues("rank")}
+        onChange={(rank) => {
+          setValue("rank", rank);
+        }}
+      >
+        <div className="relative mt-1 ">
           <Listbox.Label className="text-sm">급수</Listbox.Label>
-          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm hover:outline hover:outline-1 hover:outline-blue-200">
-            <span className="block truncate">{rank.name}</span>
+          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm hover:outline hover:outline-1 hover:outline-blue-200 hover:cursor-pointer">
+            <span className="block truncate">{`${watch("rank")}조`}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <ChevronUpDownIcon
                 className="w-5 h-5 text-gray-400"
@@ -87,7 +132,7 @@ const SignupForms = () => {
                       active ? "bg-blue-100 text-blue-900" : "text-gray-900"
                     }`
                   }
-                  value={rank}
+                  value={rank.value}
                 >
                   {({ selected }) => (
                     <>
@@ -96,7 +141,7 @@ const SignupForms = () => {
                           selected ? "font-medium" : "font-normal"
                         }`}
                       >
-                        {rank.name}
+                        {`${rank.value}조`}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600">
@@ -112,11 +157,14 @@ const SignupForms = () => {
         </div>
       </Listbox>
 
-      <Listbox value={gender} onChange={setGender}>
+      <Listbox
+        value={getValues("gender")}
+        onChange={(gender) => setValue("gender", gender)}
+      >
         <div className="relative mt-1">
           <Listbox.Label className="text-sm">성별</Listbox.Label>
-          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm hover:outline hover:outline-1 hover:outline-blue-200">
-            <span className="block truncate">{gender.name}</span>
+          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm hover:outline hover:outline-1 hover:outline-blue-200 hover:cursor-pointer">
+            <span className="block truncate">{watch("gender")}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <ChevronUpDownIcon
                 className="w-5 h-5 text-gray-400"
@@ -139,7 +187,7 @@ const SignupForms = () => {
                       active ? "bg-blue-100 text-blue-900" : "text-gray-900"
                     }`
                   }
-                  value={gender}
+                  value={gender.value}
                 >
                   {({ selected }) => (
                     <>
@@ -148,7 +196,7 @@ const SignupForms = () => {
                           selected ? "font-medium" : "font-normal"
                         }`}
                       >
-                        {gender.name}
+                        {gender.value}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600">
@@ -170,4 +218,3 @@ const SignupForms = () => {
     </form>
   );
 };
-export default SignupForms;

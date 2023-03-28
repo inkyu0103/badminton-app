@@ -52,7 +52,7 @@ export class AuthService {
     try {
       return this.getEmailFromToken(emailToken);
     } catch (e) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('token not verified');
     }
   }
 

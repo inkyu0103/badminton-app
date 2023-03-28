@@ -21,7 +21,7 @@ export class AuthController {
 
   async createUser() {}
 
-  @Get('/verify-email')
+  @Post('/verify-email')
   async sendVerifyMail(@Body() body: SendVerifyEmailDto) {
     await this.authService.sendVerifyEmail(body.email);
   }
@@ -43,7 +43,7 @@ export class AuthController {
     return { access_token };
   }
 
-  @Get('/validate-token')
+  @Post('/validate-token')
   async validateToken(@Req() req) {
     const { refresh_token } = req.cookies;
 
@@ -59,4 +59,6 @@ export class AuthController {
     res.clearCookie('refresh_token');
     return;
   }
+
+  //@Post('/signup')
 }
