@@ -33,7 +33,7 @@ const data = [
   },
 ];
 
-const Chart = () => (
+const Chart = ({ isAnimationActive = true }) => (
   <RadarChart outerRadius={90} width={328} height={328} data={data}>
     <PolarGrid />
     <PolarAngleAxis dataKey="subject" />
@@ -43,6 +43,7 @@ const Chart = () => (
       stroke="#8884d8"
       fill="#8884d8"
       fillOpacity={0.6}
+      isAnimationActive={isAnimationActive}
     />
     <Radar
       name="30대"
@@ -50,6 +51,7 @@ const Chart = () => (
       stroke="#82ca9d"
       fill="#82ca9d"
       fillOpacity={0.6}
+      isAnimationActive={isAnimationActive}
     />
     <Legend />
   </RadarChart>

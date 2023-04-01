@@ -4,4 +4,8 @@ export default {
   component: Chart,
 };
 
-export const Default = () => <Chart />;
+export const Default = (args) => <Chart {...args} />;
+
+Default.args = {
+  isAnimationActive: false,
+};
