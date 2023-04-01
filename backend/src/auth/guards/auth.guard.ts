@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import { LoginFormData } from './types/auth.interface';
+import { LoginFormData } from '../types/auth.interface';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

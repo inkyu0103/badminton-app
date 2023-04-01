@@ -1,7 +1,16 @@
-import SignupForms from "components/forms/SignupForms";
+import { SignupFormsView } from "components/forms/SignupForms";
 
 export default {
-  component: SignupForms,
+  component: SignupFormsView,
 };
 
-export const Default = () => <SignupForms />;
+export const Default = (args) => <SignupFormsView {...args} />;
+
+Default.args = {
+  email: "mobae@test.com",
+  handleSignup: () => {},
+};
+
+Default.argTypes = {
+  handleSignup: { table: { disable: true } },
+};

@@ -1,4 +1,4 @@
 export interface CalendarProps {
   value: Date | undefined | null;
-  handleChangeDate: (date: Date | null) => {};
+  handleChangeDate: (date: Date | null) => void;
 }

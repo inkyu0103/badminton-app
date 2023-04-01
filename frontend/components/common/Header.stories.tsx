@@ -7,7 +7,7 @@ export default {
   },
 };
 
-export const Default = (args) => (
+export const Default = (args: any) => (
   <div className="p-0">
     <HeaderView {...args} />
   </div>

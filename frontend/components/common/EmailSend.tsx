@@ -1,8 +1,11 @@
 import Lottie from "lottie-react";
 import emailSend from "assets/lottie/emailSend.json";
 const EmailSend = () => (
-  <div className="w-[360px]">
+  <div className=" w-[360px] ">
     <Lottie animationData={emailSend} loop={false} />
+    <div className="flex flex-col items-center">
+      <p className="text-2xl font-bold">이메일이 전송되었습니다!</p>
+    </div>
   </div>
 );
 export default EmailSend;

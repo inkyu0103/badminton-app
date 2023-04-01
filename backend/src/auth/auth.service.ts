@@ -1,14 +1,14 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer/dist';
 import { AuthRepository } from './auth.repository';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './types/auth.interface';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
+import {
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common/exceptions';
 
 @Injectable()
 export class AuthService {
@@ -52,7 +52,7 @@ export class AuthService {
     try {
       return this.getEmailFromToken(emailToken);
     } catch (e) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('email token is expired');
     }
   }
 
@@ -87,5 +87,19 @@ export class AuthService {
     const newAccessToken = this.jwtSerice.sign(payload, { expiresIn: '15m' });
 
     return newAccessToken;
+  }
+
+  async signup(user) {
+    const formattedUser = {
+      ...user,
+      password: bcrypt.hashSync(user.password, 10),
+    };
+
+    if (await this.usersService.getUser(user.email))
+      throw new ConflictException();
+
+    await this.authRepository.createUser(formattedUser);
+
+    return await this.login(user);
   }
 }

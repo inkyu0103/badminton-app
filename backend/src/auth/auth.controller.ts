@@ -19,9 +19,7 @@ import { SendVerifyEmailDto } from './dto/sendVerifyEmailDTO';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  async createUser() {}
-
-  @Get('/verify-email')
+  @Post('/verify-email')
   async sendVerifyMail(@Body() body: SendVerifyEmailDto) {
     await this.authService.sendVerifyEmail(body.email);
   }
@@ -58,5 +56,13 @@ export class AuthController {
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('refresh_token');
     return;
+  }
+
+  @Post('/signup')
+  async signup(@Body() body, @Res({ passthrough: true }) res: Response) {
+    const { access_token, refresh_token } = await this.authService.signup(body);
+
+    res.cookie('refresh_token', refresh_token);
+    return { access_token };
   }
 }

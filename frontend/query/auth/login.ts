@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import useMounted from "hooks/useMounted";
 import { useRouter } from "next/router";
 import axios from "query/axios";
 import { setBearerToken, removeBearerToken } from "query/interceptors";
@@ -45,7 +46,7 @@ const silentLogin = async () => {
   return data;
 };
 
-export const useSlientLoginQuery = () => {
+export const useSilentLoginQuery = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
   return useQuery(queryKeys.auth.tokenState, silentLogin, {

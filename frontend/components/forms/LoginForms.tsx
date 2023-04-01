@@ -8,8 +8,8 @@ const LoginForms = () => {
   const { mutate: loginMutate } = useLoginMutation();
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-full ">
-      <div>로고</div>
+    <div className="flex flex-col items-center justify-center w-screen h-full gap-2">
+      <p className="text-3xl font-bold ">모두의 배드민턴 🏸</p>
       <form
         className="w-[328px] flex flex-col gap-2 "
         onSubmit={(e) => {
