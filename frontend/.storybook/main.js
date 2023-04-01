@@ -1,7 +1,6 @@
-const path = require("path");
-
 module.exports = {
   stories: ["../(components|pages)/**/*.stories.@(js|jsx|ts|tsx)"],
+  excludeStories: ["Email Send"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
