@@ -15,16 +15,14 @@ export const verifyEmailToken = async (token: string) => {
 };
 
 export const useVerifyTokenQuery = () => {
-  const {
-    query: { token },
-  } = useRouter();
+  const router = useRouter();
 
   return useQuery<Token>(
-    queryKeys.auth.emailToken(token),
-    () => verifyEmailToken(token),
+    queryKeys.auth.emailToken(router.query?.token),
+    () => verifyEmailToken(router.query?.token),
     {
       suspense: true,
-      enabled: !!token,
+      enabled: !!router.query?.token,
       retry: false,
     },
   );

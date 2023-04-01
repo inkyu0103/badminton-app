@@ -4,4 +4,4 @@ export default {
   component: Pagination,
 };
 
-export const Default = () => <Pagination />;
+export const Default = () => <Pagination totalPage={1} curPage={1} />;

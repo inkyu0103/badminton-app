@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Slider, { Settings } from "react-slick";
 import { debounce } from "utils/debounce";
 
-const MainRacketCarousel = ({ rackets }: any) => {
+const MainRacketCarousel = () => {
   const [clientWidth, setClientWidth] = useState(
     document.documentElement.clientWidth,
   );
@@ -33,10 +33,10 @@ const MainRacketCarousel = ({ rackets }: any) => {
       <p className="text-2xl font-bold">브랜드 별 라켓을 찾아보세요</p>
       <p className="text-xl font-bold">YONEX</p>
       <Slider {...sliderOptions}>
-        <Racket name="나노레이 700" />
-        <Racket name="나노레이 700" />
-        <Racket name="나노레이 700" />
-        <Racket name="나노레이 700" />
+        <Racket name="나노레이 700" racketId={1} />
+        <Racket name="나노레이 700" racketId={1} />
+        <Racket name="나노레이 700" racketId={1} />
+        <Racket name="나노레이 700" racketId={1} />
       </Slider>
     </section>
   );

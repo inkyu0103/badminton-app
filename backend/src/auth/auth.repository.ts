@@ -46,9 +46,8 @@ export class AuthRepository {
   }
 
   async createUser(user) {
-    const result = await this.prismaService.user.create({
+    return await this.prismaService.user.create({
       data: { ...user },
     });
-    return result;
   }
 }
