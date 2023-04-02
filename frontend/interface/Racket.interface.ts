@@ -5,7 +5,7 @@ export interface RacketProps {
 
 export interface RacketResponse {
   count: number;
-  rackets: Racket[];
+  rackets: IRacket[];
 }
 
 export interface RacketListViewProps {
@@ -14,11 +14,11 @@ export interface RacketListViewProps {
   curPage: number;
 }
 
-interface Racket {
+export interface IRacket {
   id: number;
   brand: string;
   name: string;
-  rating: 5;
+  rating: number;
   price: number;
   image: string | null;
   shaft: string;
