@@ -1,6 +1,7 @@
 name: javascript-ui-review
 run-name: storybook publishing & check visual changeset
 on: push
+jobs:
   javascript-ui-review:
     runs-on: ubuntu-latest
     steps:
@@ -9,5 +10,6 @@ on: push
       - name: Install dependencies
         run: cd frontend && npm ci
       - name: Publish storybook to chromatic
-        run: npm run chromatic -- --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
-        env: CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN}}
+        run: cd frontend && npm run chromatic -- --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
+        env: 
+          CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN}}
