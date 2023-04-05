@@ -15,3 +15,4 @@ jobs:
         run: cd frontend && npm run chromatic -- --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
         env: 
           CHROMATIC_PROJECT_TOKEN: ${{secrets.CHROMATIC_PROJECT_TOKEN}}
+      
