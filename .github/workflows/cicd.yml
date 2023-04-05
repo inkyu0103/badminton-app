@@ -6,9 +6,9 @@ on:
       - feat-37-ci-cd
 
 env:
-  S3_BUCKET_NAME: dev-recruit.mash-up.kr
-  CODE_DEPLOY_APPLICATION_NAME: dev-recruit-code-deploy
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: dev-recruit
+  S3_BUCKET_NAME: mobae-bucket
+  CODE_DEPLOY_APPLICATION_NAME: mobae-deploy
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: mobae-deploy
 
 jobs:
   build:
