@@ -1,0 +1,17 @@
+name: NEW_CI/CD
+
+on:
+  push:
+    branches:
+      - feat-37-ci-cd
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::564499745731:oidc-provider/token.actions.githubusercontent.com
+          aws-region: ap-northeast-2
