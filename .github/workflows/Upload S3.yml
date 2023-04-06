@@ -19,6 +19,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::564499745731:role/github_actions_role
+          aws-region: us-east-2
+
+
       - name: Checkout
         uses: actions/checkout@v3
       - uses: actions/setup-node@v3
