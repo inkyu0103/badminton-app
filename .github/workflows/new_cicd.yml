@@ -5,14 +5,14 @@ on:
     branches:
       - feat-37-ci-cd
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
-  
   deploy:
     name: Upload to Amazon S3
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v3
