@@ -6,9 +6,13 @@ on:
       - feat-37-ci-cd
 
 jobs:
-  build:
+  
+  deploy:
+    name: Upload to Amazon S3
     runs-on: ubuntu-latest
-
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v3
