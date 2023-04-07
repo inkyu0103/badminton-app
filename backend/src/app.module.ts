@@ -8,9 +8,14 @@ import { RacketsModule } from 'rackets/rackets.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import { AuthModule } from 'auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath:
+        process.env.NODE_ENV === 'PROD' ? '.env.production' : '.env.local',
+    }),
     PrismaModule,
     UsersModule,
     ReviewsModule,
