@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ReviewsRepository } from './reviews.repository';
+import { ReviewsRepository } from 'reviews/reviews.repository';
 
 @Injectable()
 export class ReviewsService {
