@@ -6,9 +6,9 @@ import {
   ParseIntPipe,
   Query,
 } from '@nestjs/common';
-import { PositivePipe } from 'src/common/pagination.pipe';
+import { PositivePipe } from 'common/pagination.pipe';
 //import { PagenationPipe } from './pagination.pipe';
-import { RacketsService } from './rackets.service';
+import { RacketsService } from 'rackets/rackets.service';
 
 @Controller('rackets')
 export class RacketsController {
@@ -16,7 +16,7 @@ export class RacketsController {
 
   @Get('/:brand')
   async getRacketList(
-    @Param('brand') brand: string = 'yonex',
+    @Param('brand') brand = 'yonex',
     @Query('page', new DefaultValuePipe(1), ParseIntPipe, PositivePipe)
     page,
   ) {

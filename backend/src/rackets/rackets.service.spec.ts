@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RacketsService } from './rackets.service';
+import { RacketsService } from 'rackets/rackets.service';
 
 describe('RacketsService', () => {
   let service: RacketsService;

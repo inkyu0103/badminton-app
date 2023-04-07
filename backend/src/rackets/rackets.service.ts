@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { RacketsRepository } from './rackets.repository';
+import { RacketsRepository } from 'rackets/rackets.repository';
 
 @Injectable()
 export class RacketsService {

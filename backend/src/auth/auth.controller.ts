@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport/dist';
 import { Response } from 'express';
-import { AuthService } from './auth.service';
-import { SendVerifyEmailDto } from './dto/sendVerifyEmailDTO';
+import { AuthService } from 'auth/auth.service';
+import { SendVerifyEmailDto } from 'auth/dto/sendVerifyEmailDTO';
 
 @Controller('auth')
 export class AuthController {
