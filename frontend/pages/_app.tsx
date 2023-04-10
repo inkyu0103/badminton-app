@@ -6,6 +6,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import CheckLogin from "components/common/CheckLogin";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ErrorBoundary } from "react-error-boundary";
+import { S3 } from "@aws-sdk/client-s3";
 
 const queryClient = new QueryClient({
   defaultOptions: {
