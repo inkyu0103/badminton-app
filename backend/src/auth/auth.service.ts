@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer/dist';
-import { AuthRepository } from './auth.repository';
+import { AuthRepository } from 'auth/auth.repository';
 import { JwtService } from '@nestjs/jwt';
-import { User } from './types/auth.interface';
-import { UsersService } from 'src/users/users.service';
+import { User } from 'auth/types/auth.interface';
+import { UsersService } from 'users/users.service';
 import * as bcrypt from 'bcrypt';
 import {
   BadRequestException,

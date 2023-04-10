@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ReviewsService } from './reviews.service';
-import { ReviewsRepository } from './reviews.repository';
-import { ReviewsController } from './reviews.controller';
+import { ReviewsService } from 'reviews/reviews.service';
+import { ReviewsRepository } from 'reviews/reviews.repository';
+import { ReviewsController } from 'reviews/reviews.controller';
 
 @Module({
   providers: [ReviewsService, ReviewsRepository],

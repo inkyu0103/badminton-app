@@ -12,15 +12,14 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport/dist';
 import { Response } from 'express';
-import { AuthService } from './auth.service';
-import { SendVerifyEmailDto } from './dto/sendVerifyEmailDTO';
+import { AuthService } from 'auth/auth.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/verify-email')
-  async sendVerifyMail(@Body() body: SendVerifyEmailDto) {
+  async sendVerifyMail(@Body() body) {
     await this.authService.sendVerifyEmail(body.email);
   }
 
