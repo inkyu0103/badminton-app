@@ -5,8 +5,6 @@ import Header from "components/common/Header";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import CheckLogin from "components/common/CheckLogin";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ErrorBoundary } from "react-error-boundary";
-import { S3 } from "@aws-sdk/client-s3";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,9 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CheckLogin>
           <>
             <Header />
-            <ErrorBoundary fallback={<div>정말 되는거니</div>}>
-              <Component {...pageProps} />
-            </ErrorBoundary>
+            <Component {...pageProps} />
           </>
         </CheckLogin>
       </RecoilRoot>
