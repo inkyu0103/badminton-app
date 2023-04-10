@@ -20,7 +20,10 @@ export class AuthService {
   ) {}
 
   createVerifyEmailToken(email: string) {
-    return this.jwtSerice.sign({ email }, { expiresIn: '1h' });
+    return this.jwtSerice.sign(
+      { email },
+      { expiresIn: '1h', secret: process.env.JWT_SECRET_KEY },
+    );
   }
 
   getEmailFromToken(emailToken: string) {
@@ -30,6 +33,7 @@ export class AuthService {
   }
 
   async sendVerifyEmail(email: string) {
+    console.log(process.env.JWT_SECRET_KEY);
     const emailToken = this.createVerifyEmailToken(email);
 
     await this.authRepository.createEmailVerifyToken(emailToken);
