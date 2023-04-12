@@ -14,7 +14,10 @@ export class CreateReviewDto {
   design: number;
 
   @IsNumber()
-  recommend: number;
+  average: number;
+
+  @IsNumber()
+  durability: number;
 
   @IsString()
   review: string;
