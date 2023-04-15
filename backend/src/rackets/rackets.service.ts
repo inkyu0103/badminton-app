@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { RacketsRepository } from 'rackets/rackets.repository';
 
 @Injectable()
@@ -10,6 +10,10 @@ export class RacketsService {
   }
 
   async getRacket(racketId: number) {
-    return this.racketsRepository.getRacket(racketId);
+    const racket = await this.racketsRepository.getRacket(racketId);
+
+    if (!racket) throw new BadRequestException('라켓이 존재하지 않습니다.');
+
+    return racket;
   }
 }

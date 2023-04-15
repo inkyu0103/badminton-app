@@ -14,7 +14,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       envFilePath:
-        process.env.NODE_ENV === 'PROD' ? '.env.production' : '.env.local',
+        process.env.NODE_ENV === 'prod' ? '.env.production' : '.env.local',
     }),
     PrismaModule,
     UsersModule,

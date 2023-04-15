@@ -15,18 +15,16 @@ export class AuthService {
   constructor(
     private readonly authRepository: AuthRepository,
     private readonly mailerService: MailerService,
-    private readonly jwtSerice: JwtService,
+    private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
   ) {}
-
+  //a
   createVerifyEmailToken(email: string) {
-    return this.jwtSerice.sign({ email }, { expiresIn: '1h' });
+    return this.jwtService.sign({ email }, { expiresIn: '1h' });
   }
-
+  //sa
   getEmailFromToken(emailToken: string) {
-    return this.jwtSerice.verify(emailToken, {
-      secret: process.env.JWT_SECRET_KEY,
-    });
+    return this.jwtService.verify(emailToken);
   }
 
   async sendVerifyEmail(email: string) {
@@ -68,8 +66,8 @@ export class AuthService {
 
   async login(user: User) {
     const payload = { email: user.email, id: user.id };
-    const access_token = this.jwtSerice.sign(payload, { expiresIn: '15m' });
-    const refresh_token = this.jwtSerice.sign(payload, { expiresIn: '14d' });
+    const access_token = this.jwtService.sign(payload, { expiresIn: '15m' });
+    const refresh_token = this.jwtService.sign(payload, { expiresIn: '14d' });
 
     return {
       access_token,
@@ -78,13 +76,13 @@ export class AuthService {
   }
 
   validateRefreshToken(refreshToken) {
-    const result = this.jwtSerice.verify(refreshToken);
+    const result = this.jwtService.verify(refreshToken);
 
     if (!result) throw new UnauthorizedException();
 
     const payload = { email: result.email, id: result.id };
 
-    const newAccessToken = this.jwtSerice.sign(payload, { expiresIn: '15m' });
+    const newAccessToken = this.jwtService.sign(payload, { expiresIn: '15m' });
 
     return newAccessToken;
   }
