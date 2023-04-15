@@ -7,3 +7,13 @@ export interface ReviewProps {
   age?: number;
   rank: string;
 }
+
+export interface ICreateReview {
+  control: number;
+  power: number;
+  weight: number;
+  design: number;
+  durability: number;
+  average: number;
+  review: string;
+}
