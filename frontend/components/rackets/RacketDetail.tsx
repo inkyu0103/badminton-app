@@ -5,7 +5,16 @@ import Review from "components/rackets/Review";
 import { ReviewProps } from "interface/Review.interface";
 import { Fragment, useState } from "react";
 import Modal from "components/common/Modal";
-import Evaluate from "components/rackets/Evaluate";
+import CreateReview from "components/rackets/CreateReview";
+import EditReview from "components/rackets/EditReview";
+
+const MODAL_TYPE = {
+  CLOSE: null,
+  CREATE: "CREATE",
+  EDIT: "EDIT",
+};
+
+const isModalOpen = (value: null | string) => value !== null;
 
 const testReivew: ReviewProps[] = [
   {
@@ -47,7 +56,7 @@ const testReivew: ReviewProps[] = [
 ];
 
 const RacketDetail = ({ racketName }: RacketDetailProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalState, setModalState] = useState<null | string>(MODAL_TYPE.CLOSE);
 
   return (
     <Fragment>
@@ -65,7 +74,9 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
             <div className="w-[328px] h-[328px] border-2 my-4 flex items-center">
               <Chart />
             </div>
-            <EvaluateButton handleClick={() => setIsModalOpen(true)} />
+            <EvaluateButton
+              handleClick={() => setModalState(MODAL_TYPE.CREATE)}
+            />
           </section>
         </div>
         <section className="mx-auto">
@@ -77,11 +88,17 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
           </div>
         </section>
       </div>
-      <Modal isOpen={isModalOpen}>
-        <Evaluate
-          handleCloseModal={() => setIsModalOpen(false)}
-          handleReviewSave={() => {}}
-        />
+      <Modal isOpen={isModalOpen(modalState)}>
+        {modalState === MODAL_TYPE.CREATE ? (
+          <CreateReview
+            handleOpenModal={() => setModalState(MODAL_TYPE.CREATE)}
+            handleCloseModal={() => setModalState(MODAL_TYPE.CLOSE)}
+          />
+        ) : (
+          <EditReview
+            handleCloseModal={() => setModalState(MODAL_TYPE.CLOSE)}
+          />
+        )}
       </Modal>
     </Fragment>
   );
