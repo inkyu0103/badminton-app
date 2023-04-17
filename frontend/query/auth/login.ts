@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import useMounted from "hooks/useMounted";
 import { useRouter } from "next/router";
 import axios from "query/axios";
 import { setBearerToken, removeBearerToken } from "query/interceptors";
 import { queryKeys } from "query/queryKeys";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { accessTokenState, LoginState } from "recoil/atoms/accessToken";
+import { userState } from "recoil/atoms/user";
 
 interface LoginFormData {
   email: string;
@@ -24,11 +24,13 @@ const login = async (loginFormData: LoginFormData) => {
 export const useLoginMutation = () => {
   const router = useRouter();
   const setAccessTokenState = useSetRecoilState(accessTokenState);
+  const setUserState = useSetRecoilState(userState);
 
   return useMutation((loginFormData: LoginFormData) => login(loginFormData), {
     onSuccess: (data) => {
-      setBearerToken(data.access_token);
-      setAccessTokenState(data.access_token);
+      setBearerToken(data.accessToken);
+      setAccessTokenState(data.accessToken);
+      setUserState(data.user);
       router.push("/");
     },
     onError: (error: AxiosError) => {
@@ -48,15 +50,18 @@ const silentLogin = async () => {
 
 export const useSilentLoginQuery = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const setUserState = useSetRecoilState(userState);
 
   return useQuery(queryKeys.auth.tokenState, silentLogin, {
     onSuccess: (data) => {
-      setAccessToken(data);
-      setBearerToken(data);
+      setAccessToken(data.accessToken);
+      setBearerToken(data.accessToken);
+      setUserState(data.user);
     },
     onError: () => {
       setAccessToken(LoginState["NO_LOGIN"]);
       removeBearerToken();
+      setUserState(null);
     },
     enabled: accessToken === LoginState["PENDING"],
     retry: false,

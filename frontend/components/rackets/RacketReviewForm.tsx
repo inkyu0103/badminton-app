@@ -18,9 +18,10 @@ const RacketReviewForm = ({
   const {
     register,
     setValue,
+    getValues,
+
     formState: { errors },
   } = useFormContext();
-
   return (
     <div className=" min-w-[328px] md:w-[562px] bg-white rounded-md p-4">
       <div className="flex justify-between">
@@ -39,6 +40,7 @@ const RacketReviewForm = ({
             <ReactStars
               count={5}
               size={30}
+              value={getValues()[factor.id]}
               onChange={(value: number) => {
                 setValue(factor.id, value);
               }}
@@ -51,7 +53,7 @@ const RacketReviewForm = ({
             className="w-full p-2 text-sm duration-300 ease-out border-2 rounded-md outline-none resize-none hover:border-slate-300 focus:border-slate-500 "
             placeholder="🏸 리뷰를 작성해주세요"
             rows={5}
-            {...register("content", {
+            {...register("review", {
               required: {
                 value: true,
                 message: "리뷰를 작성해주세요",
@@ -59,7 +61,7 @@ const RacketReviewForm = ({
             })}
           />
           <p className="text-red-600">
-            {errors["content"]?.message?.toString()}
+            {errors["review"]?.message?.toString()}
           </p>
         </section>
         <button

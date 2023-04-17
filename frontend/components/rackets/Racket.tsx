@@ -2,7 +2,7 @@ import { RacketProps } from "interface/Racket.interface";
 import Link from "next/link";
 
 const Racket = ({ name, racketId }: RacketProps) => (
-  <Link href={`/rackets/yonex/${racketId}`}>
+  <Link href={`/rackets/yonex/${racketId}?page=1`}>
     <section className="flex items-center w-full h-32 p-2 mt-1 duration-300 ease-out rounded-md cursor-pointer drop-shadow-sm hover:bg-slate-100 gap-x-2 gap md:w-[300px] md:h-[300px] md:block">
       <div className="justify-center md:flex">
         <img

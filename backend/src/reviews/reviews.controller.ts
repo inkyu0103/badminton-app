@@ -10,6 +10,7 @@ import {
   Req,
   ParseIntPipe,
   HttpCode,
+  Query,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 import { Request } from 'express';
@@ -22,9 +23,12 @@ type RequestWithPassport = Request & { user: { userId: number } };
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
-  @Get('/:racketId')
-  async getReviews(@Param('racketId', ParseIntPipe) racketId: number) {
-    return await this.reviewsService.getReviews(racketId);
+  @Get('/:racketId/all')
+  async getReviews(
+    @Param('racketId', ParseIntPipe) racketId: number,
+    @Query('page', ParseIntPipe) page: number,
+  ) {
+    return await this.reviewsService.getReviews(racketId, page);
   }
 
   @Get('/:reviewId')

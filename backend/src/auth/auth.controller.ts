@@ -32,36 +32,36 @@ export class AuthController {
   @UseGuards(AuthGuard('local'))
   @HttpCode(200)
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
-    const { access_token, refresh_token } = await this.authService.login(
+    const { accessToken, refreshToken, user } = await this.authService.login(
       req.user,
     );
 
-    res.cookie('refresh_token', refresh_token);
-    return { access_token };
+    res.cookie('refreshToken', refreshToken);
+    return { accessToken, user };
   }
 
   @Get('/validate-token')
   async validateToken(@Req() req) {
-    const { refresh_token } = req.cookies;
+    const { refreshToken } = req.cookies;
 
-    if (!refresh_token) {
+    if (!refreshToken) {
       throw new UnauthorizedException();
     }
 
-    return this.authService.validateRefreshToken(refresh_token);
+    return this.authService.validateRefreshToken(refreshToken);
   }
 
   @Post('/logout')
   logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('refresh_token');
+    res.clearCookie('refreshToken');
     return;
   }
 
   @Post('/signup')
   async signup(@Body() body, @Res({ passthrough: true }) res: Response) {
-    const { access_token, refresh_token } = await this.authService.signup(body);
+    const { accessToken, refreshToken } = await this.authService.signup(body);
 
-    res.cookie('refresh_token', refresh_token);
-    return { access_token };
+    res.cookie('refreshToken', refreshToken);
+    return { accessToken };
   }
 }

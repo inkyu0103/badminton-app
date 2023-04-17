@@ -33,8 +33,8 @@ const useSignupMutation = () => {
 
   return useMutation((user: CreateUser) => signup(user), {
     onSuccess: (data) => {
-      setBearerToken(data.access_token);
-      setAccessTokenState(data.access_token);
+      setBearerToken(data.accessToken);
+      setAccessTokenState(data.accessToken);
       router.push("/");
     },
   });

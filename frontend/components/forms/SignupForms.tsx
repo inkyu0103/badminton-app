@@ -6,8 +6,8 @@ import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
 import { useForm } from "react-hook-form";
 import useSignupMutation from "query/auth/signup";
 import { CreateUser } from "interface/User.interface";
-import genders from "constants/ranks";
-import ranks from "constants/genders";
+import ranks from "constants/ranks";
+import genders from "constants/genders";
 
 const SignupForms = () => {
   const { data } = useVerifyTokenQuery();
@@ -26,7 +26,7 @@ export const SignupFormsView = ({ email, handleSignup }) => {
     handleSubmit,
     setValue,
     getValues,
-  } = useForm({
+  } = useForm<CreateUser>({
     defaultValues: {
       email,
       password: "",
@@ -163,7 +163,9 @@ export const SignupFormsView = ({ email, handleSignup }) => {
 
       <Listbox
         value={getValues("gender")}
-        onChange={(gender) => setValue("gender", gender)}
+        onChange={(gender) => {
+          setValue("gender", gender);
+        }}
       >
         <div className="relative mt-1">
           <Listbox.Label className="text-sm">성별</Listbox.Label>
@@ -183,9 +185,9 @@ export const SignupFormsView = ({ email, handleSignup }) => {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {genders.map((gender, genderIdx) => (
+              {genders.map((gender) => (
                 <Listbox.Option
-                  key={genderIdx}
+                  key={gender.id}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
                       active ? "bg-blue-100 text-blue-900" : "text-gray-900"
