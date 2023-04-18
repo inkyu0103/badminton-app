@@ -56,9 +56,11 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
             <div className="w-[328px] h-[328px] border-2 my-4 flex items-center">
               <Chart />
             </div>
-            <EvaluateButton
-              handleClick={() => setModalState(MODAL_TYPE.CREATE)}
-            />
+            {user && (
+              <EvaluateButton
+                handleClick={() => setModalState(MODAL_TYPE.CREATE)}
+              />
+            )}
           </section>
         </div>
         <section className="mx-auto">
