@@ -5,8 +5,9 @@ const client = new PrismaClient();
 const testRacket = () =>
   [...Array(20).keys()].map(
     async (idx, _) =>
-      await client.racket.createMany({
+      await client.racket.create({
         data: {
+          id: 2,
           name: `나노레이 ${idx + 1}`,
           rating: 5,
           image: null,

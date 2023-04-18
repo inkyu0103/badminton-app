@@ -66,12 +66,15 @@ export class AuthService {
 
   async login(user: User) {
     const payload = { email: user.email, id: user.id };
-    const access_token = this.jwtService.sign(payload, { expiresIn: '15m' });
-    const refresh_token = this.jwtService.sign(payload, { expiresIn: '14d' });
+    const accessToken = this.jwtService.sign(payload, { expiresIn: '15m' });
+    const refreshToken = this.jwtService.sign(payload, { expiresIn: '14d' });
 
     return {
-      access_token,
-      refresh_token,
+      accessToken,
+      refreshToken,
+      user: {
+        ...payload,
+      },
     };
   }
 
@@ -84,7 +87,7 @@ export class AuthService {
 
     const newAccessToken = this.jwtService.sign(payload, { expiresIn: '15m' });
 
-    return newAccessToken;
+    return { accessToken: newAccessToken, user: { ...payload } };
   }
 
   async signup(user) {

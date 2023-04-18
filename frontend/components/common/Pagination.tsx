@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import deepFreeze from "utils/deepFreeze";
 
 const paginationCssConfig = deepFreeze({
@@ -30,6 +31,9 @@ const Pagination = ({
       : paginationCssConfig["background"]["able"];
 
   const isCurrentPage = (page: number): boolean => page === curPage;
+
+  const router = useRouter();
+  const defaultPath = router.asPath.replace(/\?page=[0-9]/, "");
 
   return (
     <div className="flex items-center justify-between  border-gray-200 bg-white px-4 py-3 sm:px-6 ">
@@ -70,7 +74,7 @@ const Pagination = ({
                 return (
                   <Link
                     key={idx}
-                    href={`/rackets/yonex?page=${idx + 1}`}
+                    href={`${defaultPath}?page=${idx + 1}`}
                     aria-current="page"
                     className={`relative z-10 inline-flex items-center  px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${curPageCss}`}
                   >

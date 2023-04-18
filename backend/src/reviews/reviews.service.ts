@@ -22,8 +22,8 @@ export class ReviewsService {
     return review;
   }
 
-  async getReviews(racketId: number) {
-    return await this.reviewsRepository.getReviews(racketId);
+  async getReviews(racketId: number, page: number) {
+    return await this.reviewsRepository.getReviews(racketId, page);
   }
 
   async createReview(review: IReview, racketId: number, userId: number) {
