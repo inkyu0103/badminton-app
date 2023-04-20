@@ -3,14 +3,22 @@ import SelectBox from "components/reviews/SelectBox";
 import { useFormContext } from "react-hook-form";
 
 export interface ISelectItem {
-  id: string;
   value: string;
   display: string;
 }
 
-const SelectBoxList = ({ selectList }: { selectList: ISelectItem[] }) => {
-  const [selectedBoxIdx, setSelectedBoxIdx] = useState<number>(0);
-  const { setValue } = useFormContext();
+const SelectBoxList = ({
+  selectList,
+  formId,
+}: {
+  selectList: ISelectItem[];
+  formId: "control" | "power" | "weight";
+}) => {
+  const { setValue, getValues } = useFormContext();
+
+  const [selectedBoxIdx, setSelectedBoxIdx] = useState<number>(
+    getValues()[formId],
+  );
 
   const handleSelectedBox = (
     inputId: string,
@@ -27,11 +35,10 @@ const SelectBoxList = ({ selectList }: { selectList: ISelectItem[] }) => {
         return (
           <SelectBox
             key={idx}
-            id={select.id}
             display={select.display}
             isSelected={selectedBoxIdx === idx}
             handleSelectedBox={() =>
-              handleSelectedBox(select.id, idx, select.value)
+              handleSelectedBox(formId, idx, select.value)
             }
           />
         );

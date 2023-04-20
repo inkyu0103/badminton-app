@@ -1,15 +1,9 @@
 import CloseIcon from "components/icons/CloseIcon";
+import SelectBoxList from "components/reviews/SelectBoxList";
+import { factors, selectList } from "constants/review";
 import { RacketReviewFormProps } from "interface/RacketReviewForm.interface";
 import { useFormContext } from "react-hook-form";
 import ReactStars from "react-rating-stars-component";
-
-const factors = [
-  { name: "컨트롤", id: "control" },
-  { name: "파워", id: "power" },
-  { name: "무게", id: "weight" },
-  { name: "디자인", id: "design" },
-  { name: "내구도", id: "durability" },
-];
 
 const RacketReviewForm = ({
   handleSaveReview,
@@ -17,10 +11,9 @@ const RacketReviewForm = ({
 }: RacketReviewFormProps) => {
   const {
     register,
-    setValue,
-    getValues,
-
     formState: { errors },
+    getValues,
+    setValue,
   } = useFormContext();
   return (
     <div className=" min-w-[328px] md:w-[562px] bg-white rounded-md p-4">
@@ -33,22 +26,25 @@ const RacketReviewForm = ({
           <CloseIcon />
         </button>
       </div>
-      <div className="flex flex-col items-center w-full gap-y-1">
+      <div className="flex flex-col items-center w-full gap-y-2">
+        <p className="text-lg font-bold">별점</p>
+        <ReactStars
+          count={5}
+          size={30}
+          value={getValues()["starRating"]}
+          onChange={(rate: number) => setValue("starRating", rate)}
+        />
         {factors.map((factor) => (
-          <section key={factor.id} className="text-center">
+          <section key={factor.id} className="w-full">
             <p className="font-bold">{factor.name}</p>
-            <ReactStars
-              count={5}
-              size={30}
-              value={getValues()[factor.id]}
-              onChange={(value: number) => {
-                setValue(factor.id, value);
-              }}
+            <SelectBoxList
+              selectList={selectList[factor.id]}
+              formId={factor.id}
             />
           </section>
         ))}
         <section className="w-full">
-          <p className="font-bold text-center">간단한 리뷰</p>
+          <p className="font-bold">간단한 리뷰</p>
           <textarea
             className="w-full p-2 text-sm duration-300 ease-out border-2 rounded-md outline-none resize-none hover:border-slate-300 focus:border-slate-500 "
             placeholder="🏸 리뷰를 작성해주세요"
@@ -57,6 +53,10 @@ const RacketReviewForm = ({
               required: {
                 value: true,
                 message: "리뷰를 작성해주세요",
+              },
+              minLength: {
+                value: 10,
+                message: "10자 이상의 리뷰를 작성해주세요",
               },
             })}
           />

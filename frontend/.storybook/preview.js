@@ -27,3 +27,19 @@ export const decorators = [
     );
   },
 ];
+
+export const preview = {
+  parameters: {
+    viewport: {
+      viewports: {
+        mobile: {
+          name: "mobile",
+          styles: {
+            width: "360px",
+            height: "740px",
+          },
+        },
+      },
+    },
+  },
+};

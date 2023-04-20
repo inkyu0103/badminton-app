@@ -1,9 +1,7 @@
-import { useFormContext } from "react-hook-form";
 import deepFreeze from "utils/deepFreeze";
 
 export interface ISelectBoxProps {
   display: string;
-  id: string;
   isSelected?: boolean;
   handleSelectedBox: () => void;
 }
@@ -21,11 +19,9 @@ const selectBoxCssConfig = deepFreeze({
 
 const SelectBox = ({
   display,
-  id,
   isSelected,
   handleSelectedBox,
 }: ISelectBoxProps) => {
-  const { register } = useFormContext();
   const selectedCss = isSelected
     ? selectBoxCssConfig["color"]["selected"] +
       " " +
@@ -39,20 +35,7 @@ const SelectBox = ({
       onClick={handleSelectedBox}
       className={`flex items-center justify-center w-full h-8 transition-all hover:cursor-pointer hover:bg-indigo-600 ${selectedCss}`}
     >
-      <label className="hover:cursor-pointer" htmlFor={id}>
-        {display}
-      </label>
-      <input
-        className="hidden"
-        type="radio"
-        id={id}
-        {...register(id, {
-          required: {
-            value: true,
-            message: "해당 항목을 입력해주세요",
-          },
-        })}
-      />
+      {display}
     </div>
   );
 };
