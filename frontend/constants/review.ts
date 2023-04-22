@@ -1,3 +1,5 @@
+import { ISelectList } from "interface/SelectBox.interface";
+
 export const REVIEW_VALUE_INDEX = {
   control: {
     EASY: 0,
@@ -9,7 +11,7 @@ export const REVIEW_VALUE_INDEX = {
   },
   weight: {
     LIGHT: 0,
-    MEIDUM: 1,
+    MEDIUM: 1,
     HEAVY: 2,
   },
 } as const;
@@ -20,7 +22,7 @@ export const factors = [
   { name: "무게", id: "weight" },
 ] as const;
 
-export const selectList = {
+export const selectList: ISelectList = {
   control: [
     { value: "EASY", display: "다루기 쉬워요" },
     { value: "HARD", display: "다루기 어려워요" },

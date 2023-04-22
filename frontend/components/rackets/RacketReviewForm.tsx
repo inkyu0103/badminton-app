@@ -3,7 +3,7 @@ import SelectBoxList from "components/reviews/SelectBoxList";
 import { factors, selectList } from "constants/review";
 import { RacketReviewFormProps } from "interface/RacketReviewForm.interface";
 import { useFormContext } from "react-hook-form";
-import ReactStars from "react-rating-stars-component";
+import { Rating } from "react-simple-star-rating";
 
 const RacketReviewForm = ({
   handleSaveReview,
@@ -28,12 +28,14 @@ const RacketReviewForm = ({
       </div>
       <div className="flex flex-col items-center w-full gap-y-2">
         <p className="text-lg font-bold">별점</p>
-        <ReactStars
-          count={5}
+        <Rating
           size={30}
-          value={getValues()["starRating"]}
-          onChange={(rate: number) => setValue("starRating", rate)}
+          initialValue={getValues()["starRating"]}
+          onClick={(rate: number) => setValue("starRating", rate)}
+          emptyStyle={{ display: "flex" }}
+          fillStyle={{ display: "-webkit-inline-box" }}
         />
+
         {factors.map((factor) => (
           <section key={factor.id} className="w-full">
             <p className="font-bold">{factor.name}</p>

@@ -43,10 +43,8 @@ model RacketReview {
   control    Int
   power      Int
   weight     Int
-  design     Int
-  durability Int
+  starRating Int
   review     String
-  average    Float
   racketId   Int      @map("racket_id")
   userId     Int      @map("uesr_id")
   racket     Racket   @relation(fields: [racketId], references: [id])

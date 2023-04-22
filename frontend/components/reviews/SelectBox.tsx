@@ -1,10 +1,5 @@
+import { ISelectBoxProps } from "interface/SelectBox.interface";
 import deepFreeze from "utils/deepFreeze";
-
-export interface ISelectBoxProps {
-  display: string;
-  isSelected?: boolean;
-  handleSelectedBox: () => void;
-}
 
 const selectBoxCssConfig = deepFreeze({
   background: {

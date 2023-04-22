@@ -13,9 +13,9 @@ export interface ReviewProps {
 }
 
 export interface IReviewForm {
-  control: control_value;
-  power: power_value;
-  weight: weight_value;
+  control: controlValue;
+  power: powerValue;
+  weight: weightValue;
   starRating: number;
   review: string;
 }
@@ -24,12 +24,13 @@ export type ICreateOrEditReview = IReviewForm;
 
 export interface IReviewResponse {
   id: number;
-  control: control_value;
-  power: power_value;
-  weight: weight_value;
+  control: controlValue;
+  power: powerValue;
+  weight: weightValue;
   review: string;
   createdAt: Date;
   user: ReviewEmbedUser;
+  starRating: number;
 }
 
 export interface IReviewListResponse {
@@ -37,13 +38,13 @@ export interface IReviewListResponse {
   reviewList: IReviewResponse[];
 }
 
-type control_value =
+type controlValue =
   | (typeof REVIEW_VALUE_INDEX)["control"]["EASY"]
   | (typeof REVIEW_VALUE_INDEX)["control"]["HARD"];
-type power_value =
+type powerValue =
   | (typeof REVIEW_VALUE_INDEX)["power"]["EASY"]
   | (typeof REVIEW_VALUE_INDEX)["power"]["HARD"];
-type weight_value =
+type weightValue =
   | (typeof REVIEW_VALUE_INDEX)["weight"]["LIGHT"]
-  | (typeof REVIEW_VALUE_INDEX)["weight"]["MEIDUM"]
+  | (typeof REVIEW_VALUE_INDEX)["weight"]["MEDIUM"]
   | (typeof REVIEW_VALUE_INDEX)["weight"]["HEAVY"];

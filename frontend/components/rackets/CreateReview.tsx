@@ -22,7 +22,6 @@ const CreateReview = ({
 
   const handleSaveReview = () => {
     methods.handleSubmit((data) => {
-      console.log(data);
       if (window.confirm("리뷰를 저장하시겠습니까?")) {
         createReview(
           {

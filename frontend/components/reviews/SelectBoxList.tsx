@@ -1,18 +1,15 @@
 import { useState } from "react";
 import SelectBox from "components/reviews/SelectBox";
 import { useFormContext } from "react-hook-form";
-
-export interface ISelectItem {
-  value: string;
-  display: string;
-}
+import { REVIEW_VALUE_INDEX } from "constants/review";
+import { ISelectListValue, formIdType } from "interface/SelectBox.interface";
 
 const SelectBoxList = ({
   selectList,
   formId,
 }: {
-  selectList: ISelectItem[];
-  formId: "control" | "power" | "weight";
+  selectList: ISelectListValue<formIdType>;
+  formId: formIdType;
 }) => {
   const { setValue, getValues } = useFormContext();
 
@@ -21,9 +18,9 @@ const SelectBoxList = ({
   );
 
   const handleSelectedBox = (
-    inputId: string,
+    inputId: formIdType,
     selectIdx: number,
-    value: string,
+    value: number,
   ) => {
     setSelectedBoxIdx(selectIdx);
     setValue(inputId, value);
@@ -38,7 +35,11 @@ const SelectBoxList = ({
             display={select.display}
             isSelected={selectedBoxIdx === idx}
             handleSelectedBox={() =>
-              handleSelectedBox(formId, idx, select.value)
+              handleSelectedBox(
+                formId,
+                idx,
+                REVIEW_VALUE_INDEX[formId][select.value],
+              )
             }
           />
         );
