@@ -1,24 +1,35 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsIn, IsString, MinLength } from 'class-validator';
+import {
+  controlValue,
+  powerValue,
+  starRatingValue,
+  weightValue,
+} from 'reviews/review.interface';
 
 export class EditReviewDto {
-  @IsNumber()
-  control?: number;
+  @IsIn([0, 1], {
+    message: '올바른 control 값을 입력해주세요',
+  })
+  control?: controlValue;
 
-  @IsNumber()
-  power?: number;
+  @IsIn([0, 1], {
+    message: '올바른 power 값을 입력해주세요',
+  })
+  power?: powerValue;
 
-  @IsNumber()
-  weight?: number;
+  @IsIn([0, 1, 2], {
+    message: '올바른 weight 값을 입력해주세요',
+  })
+  weight?: weightValue;
 
-  @IsNumber()
-  design?: number;
-
-  @IsNumber()
-  durability?: number;
-
-  @IsNumber()
-  average?: number;
+  @IsIn([0, 1, 2, 3, 4, 5], {
+    message: '올바른 별점을 입력해주세요',
+  })
+  starRating?: starRatingValue;
 
   @IsString()
+  @MinLength(10, {
+    message: '리뷰는 10자 이상 입력해주세요',
+  })
   review?: string;
 }

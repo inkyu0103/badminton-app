@@ -6,6 +6,7 @@ import {
 } from "interface/Review.interface";
 import { useRouter } from "next/router";
 import axios from "query/axios";
+import { IMutationConfig } from "query/query.interface";
 import { queryKeys } from "query/queryKeys";
 
 const getRacketReviewList = async (racketId: number, page: number) => {
@@ -17,7 +18,7 @@ const getRacketReviewList = async (racketId: number, page: number) => {
   return data;
 };
 
-const getRacketReview = async (reviewId: number) => {
+const getRacketReview = async (reviewId: number | null) => {
   const { data } = await axios.get(`/reviews/${reviewId}`);
   return data;
 };
@@ -68,13 +69,12 @@ export const useReviewList = () => {
   );
 };
 
-export const useRacketReview = (reviewId: number) => {
+export const useRacketReview = (reviewId: number | null) => {
   return useQuery<IReviewResponse>(
     queryKeys.reviews.single(reviewId),
     () => getRacketReview(reviewId),
-
     {
-      enabled: !isNaN(reviewId),
+      enabled: reviewId !== null,
       suspense: true,
     },
   );
@@ -97,7 +97,10 @@ export const useCreateRacketReviewMutation = () => {
   );
 };
 
-export const useEditRacketReviewMutation = (reviewId: number) => {
+export const useEditRacketReviewMutation = (
+  reviewId: number,
+  mutationConfig: IMutationConfig,
+) => {
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -105,7 +108,8 @@ export const useEditRacketReviewMutation = (reviewId: number) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(queryKeys.reviews.all);
-        alert("리뷰가 수정되었습니다");
+        mutationConfig.onSuccess();
+        alert("리뷰가 수정되었습니다.");
       },
     },
   );
@@ -116,7 +120,7 @@ export const useDeleteRacketReviewMutation = () => {
 
   return useMutation((reviewId: number) => deleteRacketReview(reviewId), {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKeys.reviews.all);
+      queryClient.invalidateQueries();
       alert("리뷰가 삭제되었습니다");
     },
   });

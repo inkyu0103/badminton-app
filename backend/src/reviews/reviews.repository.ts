@@ -56,7 +56,7 @@ export class ReviewsRepository {
     });
   }
 
-  async editReview(reviewId: number, review: any) {
+  async editReview(reviewId: number, review: Partial<IReview>) {
     return this.prismaService.racketReview.update({
       where: {
         id: reviewId,

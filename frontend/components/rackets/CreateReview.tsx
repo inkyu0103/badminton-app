@@ -1,25 +1,22 @@
 import RacketReviewForm from "components/rackets/RacketReviewForm";
+import { REVIEW_VALUE_INDEX } from "constants/review";
 import { ICreateOrEditReview } from "interface/Review.interface";
 import { useCreateRacketReviewMutation } from "query/reviews/reviews";
 import { FormProvider, useForm } from "react-hook-form";
 
-const getAverage = (data: ICreateOrEditReview) => {
-  return Math.floor(
-    (data.control + data.power + data.weight + data.design + data.durability) /
-      5,
-  );
-};
-
-const CreateReview = ({ handleCloseModal }) => {
+const CreateReview = ({
+  handleCloseModal,
+}: {
+  handleCloseModal: () => void;
+}) => {
   const { mutate: createReview } = useCreateRacketReviewMutation();
 
   const methods = useForm<ICreateOrEditReview>({
     defaultValues: {
-      control: 0,
-      power: 0,
-      weight: 0,
-      design: 0,
-      durability: 0,
+      control: REVIEW_VALUE_INDEX["control"]["EASY"],
+      power: REVIEW_VALUE_INDEX["power"]["EASY"],
+      weight: REVIEW_VALUE_INDEX["weight"]["LIGHT"],
+      starRating: 0,
     },
   });
 
@@ -29,7 +26,6 @@ const CreateReview = ({ handleCloseModal }) => {
         createReview(
           {
             ...data,
-            average: getAverage(data),
           },
           {
             onSuccess: handleCloseModal,

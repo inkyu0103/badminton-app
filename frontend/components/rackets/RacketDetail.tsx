@@ -15,8 +15,6 @@ import { userState } from "recoil/atoms/user";
 import { formatDistanceToNow } from "date-fns";
 import { birthdayToAge } from "utils/birthdayToage";
 import { ko } from "date-fns/locale";
-import SSRSuspense from "components/common/SSRSuspense";
-import Spinner from "components/common/Spinner";
 import Pagination from "components/common/Pagination";
 import { useRouter } from "next/router";
 
@@ -77,7 +75,7 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
                   })}
                   rank={review.user.rank}
                   age={birthdayToAge(new Date(review.user.birthday))}
-                  value={review.average}
+                  value={review.starRating}
                   handleDeleteReview={() => {
                     deleteRacketReview(review.id);
                   }}
@@ -103,18 +101,16 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
         </div>
       </div>
       <Modal isOpen={isModalOpen(modalState)}>
-        <SSRSuspense fallback={<Spinner />}>
-          {modalState === MODAL_TYPE.CREATE ? (
-            <CreateReview
-              handleCloseModal={() => setModalState(MODAL_TYPE.CLOSE)}
-            />
-          ) : (
-            <EditReview
-              reviewId={reviewId}
-              handleCloseModal={() => setModalState(MODAL_TYPE.CLOSE)}
-            />
-          )}
-        </SSRSuspense>
+        {modalState === MODAL_TYPE.CREATE ? (
+          <CreateReview
+            handleCloseModal={() => setModalState(MODAL_TYPE.CLOSE)}
+          />
+        ) : (
+          <EditReview
+            reviewId={reviewId}
+            handleCloseModal={() => setModalState(MODAL_TYPE.CLOSE)}
+          />
+        )}
       </Modal>
     </Fragment>
   );
