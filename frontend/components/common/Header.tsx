@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useLogoutMutation } from "query/auth/logout";
 import { useRecoilValue } from "recoil";
-import { accessTokenState } from "recoil/atoms/accessToken";
+import { LoginState, accessTokenState } from "recoil/atoms/accessToken";
 
 const Header = () => {
   const loginUser = useRecoilValue(accessTokenState);
   const { mutate: handleLogout } = useLogoutMutation();
 
-  const isLogin = loginUser !== "NO_LOGIN" && loginUser !== "PENDING";
+  const isLogin = loginUser !== LoginState.NO_LOGIN && loginUser !== LoginState.PENDING;
 
   return <HeaderView handleLogout={handleLogout} loginUser={isLogin} />;
 };

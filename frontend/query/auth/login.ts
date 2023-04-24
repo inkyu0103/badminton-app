@@ -31,7 +31,7 @@ export const useLoginMutation = () => {
       setBearerToken(data.accessToken);
       setAccessTokenState(data.accessToken);
       setUserState(data.user);
-      router.push("/");
+      router.push(sessionStorage.getItem("prevPath") || "/");
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 500) {
