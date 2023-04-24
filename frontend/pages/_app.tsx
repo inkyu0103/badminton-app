@@ -5,6 +5,7 @@ import Header from "components/common/Header";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import CheckLogin from "components/common/CheckLogin";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import usePrevRoute from "hooks/usePrevRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,7 +15,9 @@ const queryClient = new QueryClient({
   },
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  usePrevRoute();
+
   return (
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
@@ -28,6 +31,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
-}
+};
 
 export default MyApp;
