@@ -1,6 +1,7 @@
 import EvaluateButton from "components/common/EvaluateButton";
 import { RacketDetailProps } from "interface/RacketDetail.interface";
-import Chart from "components/rackets/Chart";
+import { Rating } from "react-simple-star-rating";
+
 import Review from "components/rackets/Review";
 import { Fragment, useState } from "react";
 import Modal from "components/common/Modal";
@@ -17,12 +18,33 @@ import { birthdayToAge } from "utils/birthdayToage";
 import { ko } from "date-fns/locale";
 import Pagination from "components/common/Pagination";
 import { useRouter } from "next/router";
+import HalfPieChart from "components/charts/HalfPieChart";
+import SimpleBarChart from "components/charts/SimpleBarChart";
 
 const MODAL_TYPE = Object.freeze({
   CLOSE: null,
   CREATE: "CREATE",
   EDIT: "EDIT",
 });
+
+const data01 = [
+  { name: "남성", value: 10, filled: "#6366F1" },
+  { name: "여성", value: 4, filled: "#F43F5E" },
+];
+
+const data02 = [
+  { name: "S조", value: 10, filled: "#FF8042" },
+  { name: "A조", value: 4, filled: "#FFBB28" },
+  { name: "B조", value: 4, filled: "#00C49F" },
+  { name: "C조", value: 4, filled: "#0088FE" },
+  { name: "D조", value: 4, filled: "#F43F5E" },
+];
+
+const data03 = [
+  { name: "컨트롤이 좋아요", value: 83, filled: "#FFBB28" },
+  { name: "파워가 좋아요", value: 10, filled: "#00C49F" },
+  { name: "무게가 가벼워요", value: 32, filled: "#F43F5E" },
+];
 
 const isModalOpen = (value: null | string) => value !== null;
 
@@ -38,6 +60,16 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
 
   const curPage = Number.parseInt(router.query.page as string) || 1;
 
+  /**
+   * {user && (
+              <EvaluateButton
+                handleClick={() => setModalState(MODAL_TYPE.CREATE)}
+              />
+            )}
+
+
+
+   */
   return (
     <Fragment>
       <div className="px-4 max-w-[1200px] mx-auto mb-9">
@@ -51,16 +83,29 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
             />
           </section>
           <section className="w-[328px] mx-auto md:w-1/2 md:flex md:flex-col md:items-center  ">
-            <div className="w-[328px] h-[328px] border-2 my-4 flex items-center">
-              <Chart />
-            </div>
-            {user && (
-              <EvaluateButton
-                handleClick={() => setModalState(MODAL_TYPE.CREATE)}
+            <div className="w-[328px] h-[328px]  my-4 flex flex-col items-center justify-center gap-y-4">
+              <p className="text-2xl font-bold">평균 별점</p>
+              <Rating
+                initialValue={4.4}
+                readonly
+                allowFraction
+                emptyStyle={{ display: "flex" }}
+                fillStyle={{ display: "-webkit-inline-box" }}
               />
-            )}
+              <p className="text-3xl font-bold">4.4</p>
+            </div>
           </section>
         </div>
+
+        <section className="">
+          <p className="my-4 text-2xl font-bold">라켓 데이터</p>
+          <div className="md:flex md:justify-between">
+            <HalfPieChart data={data01} title="남녀 성별 비율" />
+            <HalfPieChart data={data02} title="사용 급수 비율" />
+            <SimpleBarChart data={data03} title="라켓 기능 평가" />
+          </div>
+        </section>
+
         <section className="mx-auto">
           <p className="my-4 text-2xl font-bold">리뷰</p>
           <div className="flex flex-col gap-y-2">
@@ -100,6 +145,7 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
           />
         </div>
       </div>
+
       <Modal isOpen={isModalOpen(modalState)}>
         {modalState === MODAL_TYPE.CREATE ? (
           <CreateReview
