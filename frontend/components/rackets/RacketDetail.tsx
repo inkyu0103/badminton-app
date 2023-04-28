@@ -41,7 +41,7 @@ const data02 = [
 ];
 
 const data03 = [
-  { name: "컨트롤이 좋아요", value: 83, filled: "#FFBB28" },
+  { name: "컨트롤이 좋아요", value: 9, filled: "#FFBB28" },
   { name: "파워가 좋아요", value: 10, filled: "#00C49F" },
   { name: "무게가 가벼워요", value: 32, filled: "#F43F5E" },
 ];
@@ -60,16 +60,6 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
 
   const curPage = Number.parseInt(router.query.page as string) || 1;
 
-  /**
-   * {user && (
-              <EvaluateButton
-                handleClick={() => setModalState(MODAL_TYPE.CREATE)}
-              />
-            )}
-
-
-
-   */
   return (
     <Fragment>
       <div className="px-4 max-w-[1200px] mx-auto mb-9">
@@ -94,6 +84,11 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
               />
               <p className="text-3xl font-bold">4.4</p>
             </div>
+            {user && (
+              <EvaluateButton
+                handleClick={() => setModalState(MODAL_TYPE.CREATE)}
+              />
+            )}
           </section>
         </div>
 
