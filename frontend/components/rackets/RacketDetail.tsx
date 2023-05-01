@@ -20,6 +20,7 @@ import Pagination from "components/common/Pagination";
 import { useRouter } from "next/router";
 import HalfPieChart from "components/charts/HalfPieChart";
 import SimpleBarChart from "components/charts/SimpleBarChart";
+import { useReviewStatistics } from "query/reviews/statistics";
 
 const MODAL_TYPE = Object.freeze({
   CLOSE: null,
@@ -41,15 +42,16 @@ const data02 = [
 ];
 
 const data03 = [
-  { name: "컨트롤이 좋아요", value: 9, filled: "#FFBB28" },
-  { name: "파워가 좋아요", value: 10, filled: "#00C49F" },
-  { name: "무게가 가벼워요", value: 32, filled: "#F43F5E" },
+  { name: "컨트롤", value: 9, filled: "#FFBB28" },
+  { name: "파워", value: 10, filled: "#00C49F" },
+  { name: "무게", value: 32, filled: "#F43F5E" },
 ];
 
 const isModalOpen = (value: null | string) => value !== null;
 
 const RacketDetail = ({ racketName }: RacketDetailProps) => {
   const { data } = useReviewList();
+  const { data: reviewStatistics } = useReviewStatistics();
 
   const user = useRecoilValue(userState);
   const [modalState, setModalState] = useState<null | string>(MODAL_TYPE.CLOSE);
@@ -84,7 +86,7 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
               />
               <p className="text-3xl font-bold">4.4</p>
             </div>
-            {user && (
+            {true && (
               <EvaluateButton
                 handleClick={() => setModalState(MODAL_TYPE.CREATE)}
               />
@@ -95,9 +97,18 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
         <section className="">
           <p className="my-4 text-2xl font-bold">라켓 데이터</p>
           <div className="md:flex md:justify-between">
-            <HalfPieChart data={data01} title="남녀 성별 비율" />
-            <HalfPieChart data={data02} title="사용 급수 비율" />
-            <SimpleBarChart data={data03} title="라켓 기능 평가" />
+            <HalfPieChart
+              data={reviewStatistics?.gender}
+              title="남녀 성별 비율"
+            />
+            <HalfPieChart
+              data={reviewStatistics?.rank}
+              title="사용 급수 비율"
+            />
+            <SimpleBarChart
+              data={reviewStatistics?.criteria}
+              title="라켓 선택 이유"
+            />
           </div>
         </section>
 

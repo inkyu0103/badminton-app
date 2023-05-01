@@ -1,7 +1,13 @@
-import { Bar, BarChart, Cell, Legend, ResponsiveContainer } from "recharts";
+import {
+  Bar,
+  BarChart,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 
 const SimpleBarChart = ({ data, title }) => {
-  console.log(data);
   return (
     <div>
       <p className="mb-2 text-xl font-bold">{title}</p>

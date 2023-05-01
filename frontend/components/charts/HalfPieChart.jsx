@@ -1,4 +1,4 @@
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 const HalfPieChart = ({ data, title, isAnimated = true }) => {
   return (
@@ -7,6 +7,7 @@ const HalfPieChart = ({ data, title, isAnimated = true }) => {
       <div className="w-[328px] h-[328px]  border-2">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
+            <Tooltip/>
             <Legend />
             <Pie
               animationBegin={isAnimated}

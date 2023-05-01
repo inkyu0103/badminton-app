@@ -19,4 +19,9 @@ export const queryKeys = Object.freeze({
     ],
     single: (reviewId: number | undefined) => ["reviews", "single", reviewId],
   },
+
+  statistics: {
+    all: ["statistics"],
+    single: (racketId: number) => [...queryKeys.statistics.all, racketId],
+  },
 });
