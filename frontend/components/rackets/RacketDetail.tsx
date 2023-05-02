@@ -28,25 +28,6 @@ const MODAL_TYPE = Object.freeze({
   EDIT: "EDIT",
 });
 
-const data01 = [
-  { name: "남성", value: 10, filled: "#6366F1" },
-  { name: "여성", value: 4, filled: "#F43F5E" },
-];
-
-const data02 = [
-  { name: "S조", value: 10, filled: "#FF8042" },
-  { name: "A조", value: 4, filled: "#FFBB28" },
-  { name: "B조", value: 4, filled: "#00C49F" },
-  { name: "C조", value: 4, filled: "#0088FE" },
-  { name: "D조", value: 4, filled: "#F43F5E" },
-];
-
-const data03 = [
-  { name: "컨트롤", value: 9, filled: "#FFBB28" },
-  { name: "파워", value: 10, filled: "#00C49F" },
-  { name: "무게", value: 32, filled: "#F43F5E" },
-];
-
 const isModalOpen = (value: null | string) => value !== null;
 
 const RacketDetail = ({ racketName }: RacketDetailProps) => {
@@ -98,11 +79,11 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
           <p className="my-4 text-2xl font-bold">라켓 데이터</p>
           <div className="md:flex md:justify-between">
             <HalfPieChart
-              data={reviewStatistics?.gender}
+              data={reviewStatistics?.genders}
               title="남녀 성별 비율"
             />
             <HalfPieChart
-              data={reviewStatistics?.rank}
+              data={reviewStatistics?.ranks}
               title="사용 급수 비율"
             />
             <SimpleBarChart

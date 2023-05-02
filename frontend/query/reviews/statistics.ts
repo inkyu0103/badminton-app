@@ -1,5 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { IReviewStatisticsResponse } from "interface/Statistics.interface";
+import { AxiosError } from "axios";
+import {
+  IReviewStatisticsResponse,
+  IStatistics,
+} from "interface/Statistics.interface";
 import { useRouter } from "next/router";
 import axios from "query/axios";
 import { queryKeys } from "query/queryKeys";
@@ -49,33 +53,42 @@ const getReviewStatistics = async (racketId: number) => {
 
 export const useReviewStatistics = () => {
   const router = useRouter();
-  const racketId = Number.parseInt(router.query.racketId);
+  const racketId = Number.parseInt(router.query.racketId as string);
 
-  return useQuery<IReviewStatisticsResponse>(
+  return useQuery<IReviewStatisticsResponse, AxiosError, IStatistics>(
     queryKeys.statistics.single(racketId),
     () => getReviewStatistics(racketId),
     {
-      enabled: !!racketId,
+      suspense: true,
+      enabled: Number.isNaN(racketId) === false,
       select: (data) => {
         const { criteria, genders, ranks } = data;
 
-        const transformedCriteria = Object.entries(criteria).map(
-          ([key, value]) => ({
-            name: statisticsPropertyMapper.criteria[key],
-            value,
-            filled: colorMaper.criteria[key],
-          }),
-        );
+        const criteriaEntries = Object.entries(criteria) as Array<
+          [keyof typeof criteria, (typeof criteria)[keyof typeof criteria]]
+        >;
 
-        const transformedGender = Object.entries(genders).map(
-          ([key, value]) => ({
-            name: statisticsPropertyMapper.genders[key],
-            value,
-            filled: colorMaper.gender[key],
-          }),
-        );
+        const gendersEntries = Object.entries(genders) as Array<
+          [keyof typeof genders, (typeof genders)[keyof typeof genders]]
+        >;
 
-        const transformedRank = Object.entries(ranks).map(([key, value]) => ({
+        const ranksEntries = Object.entries(ranks) as Array<
+          [keyof typeof ranks, (typeof ranks)[keyof typeof ranks]]
+        >;
+
+        const transformedCriteria = criteriaEntries.map(([key, value]) => ({
+          name: statisticsPropertyMapper.criteria[key],
+          value,
+          filled: colorMaper.criteria[key],
+        }));
+
+        const transformedGenders = gendersEntries.map(([key, value]) => ({
+          name: statisticsPropertyMapper.genders[key],
+          value,
+          filled: colorMaper.gender[key],
+        }));
+
+        const transformedRanks = ranksEntries.map(([key, value]) => ({
           name: statisticsPropertyMapper.ranks[key],
           value,
           filled: colorMaper.rank[key],
@@ -83,8 +96,8 @@ export const useReviewStatistics = () => {
 
         return {
           criteria: transformedCriteria,
-          gender: transformedGender,
-          rank: transformedRank,
+          genders: transformedGenders,
+          ranks: transformedRanks,
         };
       },
     },

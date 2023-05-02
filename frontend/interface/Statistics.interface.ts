@@ -28,7 +28,7 @@ export interface ISelectedStatistics {
 }
 
 export interface IStatistics {
-  name: string;
-  value: number;
-  filled: string;
+  criteria: ISelectedStatistics[];
+  genders: ISelectedStatistics[];
+  ranks: ISelectedStatistics[];
 }
