@@ -18,7 +18,7 @@ const getRacketReviewList = async (racketId: number, page: number) => {
   return data;
 };
 
-const getRacketReview = async (reviewId: number | null) => {
+const getRacketReview = async (reviewId: number | undefined) => {
   const { data } = await axios.get(`/reviews/${reviewId}`);
   return data;
 };
@@ -34,17 +34,30 @@ const createRacketReview = async (
 };
 
 const editRacketReview = async (
+  racketId: number,
   reviewId: number,
   reviewForm: ICreateOrEditReview,
 ) => {
-  const { data } = await axios.patch(`/reviews/${reviewId}`, {
-    ...reviewForm,
-  });
+  const { data } = await axios.patch(
+    `/reviews/${reviewId}`,
+    {
+      ...reviewForm,
+    },
+    {
+      params: {
+        racketId,
+      },
+    },
+  );
   return data;
 };
 
-const deleteRacketReview = async (reviewId: number) => {
-  const { data } = await axios.delete(`/reviews/${reviewId}`);
+const deleteRacketReview = async (racketId: number, reviewId: number) => {
+  const { data } = await axios.delete(`/reviews/${reviewId}`, {
+    params: {
+      racketId,
+    },
+  });
   return data;
 };
 
@@ -69,12 +82,12 @@ export const useReviewList = () => {
   );
 };
 
-export const useRacketReview = (reviewId: number | null) => {
+export const useRacketReview = (reviewId: number | undefined) => {
   return useQuery<IReviewResponse>(
     queryKeys.reviews.single(reviewId),
     () => getRacketReview(reviewId),
     {
-      enabled: reviewId !== null,
+      enabled: reviewId !== undefined,
       suspense: true,
     },
   );
@@ -90,7 +103,7 @@ export const useCreateRacketReviewMutation = () => {
       createRacketReview(racketId, reviewForm),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryKeys.reviews.all);
+        queryClient.invalidateQueries();
         alert("리뷰가 생성되었습니다");
       },
     },
@@ -102,12 +115,15 @@ export const useEditRacketReviewMutation = (
   mutationConfig: IMutationConfig,
 ) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
+  const racketId = Number(router.query.racketId);
 
   return useMutation(
-    (reviewForm: ICreateOrEditReview) => editRacketReview(reviewId, reviewForm),
+    (reviewForm: ICreateOrEditReview) =>
+      editRacketReview(racketId, reviewId, reviewForm),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryKeys.reviews.all);
+        queryClient.invalidateQueries();
         mutationConfig.onSuccess();
         alert("리뷰가 수정되었습니다.");
       },
@@ -117,11 +133,16 @@ export const useEditRacketReviewMutation = (
 
 export const useDeleteRacketReviewMutation = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
+  const racketId = Number(router.query.racketId);
 
-  return useMutation((reviewId: number) => deleteRacketReview(reviewId), {
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-      alert("리뷰가 삭제되었습니다");
+  return useMutation(
+    (reviewId: number) => deleteRacketReview(racketId, reviewId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries();
+        alert("리뷰가 삭제되었습니다");
+      },
     },
-  });
+  );
 };

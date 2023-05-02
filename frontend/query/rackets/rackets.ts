@@ -24,3 +24,22 @@ export const useRacketListQuery = () => {
     { suspense: true, staleTime: 5 * 60 * 1000 },
   );
 };
+
+const getRacket = async (racketId: number): Promise<any> => {
+  const { data } = await axios.get(`/rackets/${racketId}/detail`);
+  return data;
+};
+
+export const useRacketQuery = () => {
+  const router = useRouter();
+  const racketId = Number.parseInt(router.query.racketId as string);
+
+  return useQuery(
+    queryKeys.rackets.single(racketId),
+    () => getRacket(racketId),
+    {
+      suspense: true,
+      enabled: Number.isNaN(racketId) === false,
+    },
+  );
+};

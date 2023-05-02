@@ -52,11 +52,17 @@ export class ReviewsController {
   @Patch('/:reviewId')
   async editReview(
     @Param('reviewId', ParseIntPipe) reviewId: number,
+    @Query('racketId', ParseIntPipe) racketId: number,
     @Body() body: EditReviewDto,
     @Req() req: RequestWithPassport,
   ) {
     const { userId } = req.user;
-    return await this.reviewsService.editReview(reviewId, body, userId);
+    return await this.reviewsService.editReview(
+      racketId,
+      reviewId,
+      body,
+      userId,
+    );
   }
 
   @HttpCode(204)
@@ -64,9 +70,10 @@ export class ReviewsController {
   @UseGuards(JwtAuthGuard)
   async deleteReview(
     @Param('reviewId', ParseIntPipe) reviewId: number,
+    @Query('racketId', ParseIntPipe) racketId: number,
     @Req() req: RequestWithPassport,
   ) {
     const { userId } = req.user;
-    await this.reviewsService.deleteReview(reviewId, userId);
+    await this.reviewsService.deleteReview(racketId, reviewId, userId);
   }
 }

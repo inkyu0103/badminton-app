@@ -35,6 +35,7 @@ export class ReviewsService {
   }
 
   async editReview(
+    racketId: number,
     reviewId: number,
     updatedReview: Partial<IReview>,
     userId: number,
@@ -44,16 +45,20 @@ export class ReviewsService {
     if (review.userId !== userId)
       throw new ForbiddenException('리뷰를 수정할 권한이 없습니다.');
 
-    return await this.reviewsRepository.editReview(reviewId, updatedReview);
+    return await this.reviewsRepository.editReview(
+      racketId,
+      reviewId,
+      updatedReview,
+    );
   }
 
-  async deleteReview(reviewId: number, userId: number) {
+  async deleteReview(racketId: number, reviewId: number, userId: number) {
     const review = await this.getOneReview(reviewId);
 
     if (review.userId !== userId) {
       throw new ForbiddenException('리뷰를 삭제할 권한이 없습니다.');
     }
 
-    return await this.reviewsRepository.deleteReview(reviewId);
+    return await this.reviewsRepository.deleteReview(racketId, reviewId);
   }
 }

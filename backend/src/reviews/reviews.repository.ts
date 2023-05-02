@@ -6,6 +6,18 @@ import { IReview } from 'reviews/review.interface';
 export class ReviewsRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
+  async getAverageScore(racketId: number) {
+    const averageScore = await this.prismaService.racketReview.aggregate({
+      _avg: {
+        starRating: true,
+      },
+      where: {
+        racketId,
+      },
+    });
+    return Number(averageScore._avg.starRating.toFixed(1));
+  }
+
   async getReviews(racketId: number, page: number) {
     const count = await this.prismaService.racketReview.count({
       where: {
@@ -47,17 +59,34 @@ export class ReviewsRepository {
   }
 
   async createReview(review: IReview, racketId: number, userId: number) {
-    return this.prismaService.racketReview.create({
+    const result = await this.prismaService.racketReview.create({
       data: {
         ...review,
         racketId,
         userId,
       },
     });
+
+    const score = await this.getAverageScore(racketId);
+
+    await this.prismaService.racket.update({
+      where: {
+        id: racketId,
+      },
+      data: {
+        score,
+      },
+    });
+
+    return result;
   }
 
-  async editReview(reviewId: number, review: Partial<IReview>) {
-    return this.prismaService.racketReview.update({
+  async editReview(
+    racketId: number,
+    reviewId: number,
+    review: Partial<IReview>,
+  ) {
+    const result = await this.prismaService.racketReview.update({
       where: {
         id: reviewId,
       },
@@ -65,13 +94,39 @@ export class ReviewsRepository {
         ...review,
       },
     });
+
+    const score = await this.getAverageScore(racketId);
+
+    await this.prismaService.racket.update({
+      where: {
+        id: racketId,
+      },
+      data: {
+        score,
+      },
+    });
+
+    return result;
   }
 
-  async deleteReview(reviewId: number) {
-    return this.prismaService.racketReview.delete({
+  async deleteReview(racketId: number, reviewId: number) {
+    const result = await this.prismaService.racketReview.delete({
       where: {
         id: reviewId,
       },
     });
+
+    const score = await this.getAverageScore(racketId);
+
+    await this.prismaService.racket.update({
+      where: {
+        id: racketId,
+      },
+      data: {
+        score,
+      },
+    });
+
+    return result;
   }
 }
