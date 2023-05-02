@@ -22,4 +22,9 @@ export class RacketsController {
   ) {
     return this.racketsService.getRacketList(brand, page);
   }
+
+  @Get('/:racketId/detail')
+  async getRacket(@Param('racketId', ParseIntPipe) racketId: number) {
+    return this.racketsService.getRacket(racketId);
+  }
 }

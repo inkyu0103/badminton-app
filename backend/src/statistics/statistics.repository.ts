@@ -48,7 +48,7 @@ export class StatisticsRepository {
     return this.prismaService.racketReview.count({
       where: {
         racketId,
-        control: 1,
+        control: 0,
       },
     });
   }
@@ -57,7 +57,7 @@ export class StatisticsRepository {
     return this.prismaService.racketReview.count({
       where: {
         racketId,
-        power: 1,
+        power: 0,
       },
     });
   }
@@ -66,7 +66,7 @@ export class StatisticsRepository {
     return this.prismaService.racketReview.count({
       where: {
         racketId,
-        weight: 1 || 2,
+        weight: 0 || 1,
       },
     });
   }

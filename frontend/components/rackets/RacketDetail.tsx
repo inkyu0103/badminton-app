@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import HalfPieChart from "components/charts/HalfPieChart";
 import SimpleBarChart from "components/charts/SimpleBarChart";
 import { useReviewStatistics } from "query/reviews/statistics";
+import { useRacketQuery } from "query/rackets/rackets";
 
 const MODAL_TYPE = Object.freeze({
   CLOSE: null,
@@ -30,14 +31,17 @@ const MODAL_TYPE = Object.freeze({
 
 const isModalOpen = (value: null | string) => value !== null;
 
-const RacketDetail = ({ racketName }: RacketDetailProps) => {
-  const { data } = useReviewList();
+const RacketDetail = () => {
+  const { data: racket } = useRacketQuery();
+  const { data: reviewList } = useReviewList();
   const { data: reviewStatistics } = useReviewStatistics();
 
   const user = useRecoilValue(userState);
   const [modalState, setModalState] = useState<null | string>(MODAL_TYPE.CLOSE);
   const [reviewId, setReviewId] = useState<null | number>(null);
   const router = useRouter();
+
+  console.log(racket);
 
   const { mutate: deleteRacketReview } = useDeleteRacketReviewMutation();
 
@@ -46,7 +50,7 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
   return (
     <Fragment>
       <div className="px-4 max-w-[1200px] mx-auto mb-9">
-        <h1 className="my-10 text-3xl font-bold">{racketName}</h1>
+        <h1 className="my-10 text-3xl font-bold">{racket.name}</h1>
         <div className="justify-between mx-auto md:flex ">
           <section className="my-4 md:w-1/2">
             <img
@@ -59,13 +63,13 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
             <div className="w-[328px] h-[328px]  my-4 flex flex-col items-center justify-center gap-y-4">
               <p className="text-2xl font-bold">평균 별점</p>
               <Rating
-                initialValue={4.4}
+                initialValue={racket.score}
                 readonly
                 allowFraction
                 emptyStyle={{ display: "flex" }}
                 fillStyle={{ display: "-webkit-inline-box" }}
               />
-              <p className="text-3xl font-bold">4.4</p>
+              <p className="text-3xl font-bold">{racket.score}</p>
             </div>
             {true && (
               <EvaluateButton
@@ -96,8 +100,8 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
         <section className="mx-auto">
           <p className="my-4 text-2xl font-bold">리뷰</p>
           <div className="flex flex-col gap-y-2">
-            {data?.reviewList?.length ? (
-              data?.reviewList?.map((review) => (
+            {reviewList?.reviewList?.length ? (
+              reviewList?.reviewList?.map((review) => (
                 <Review
                   key={review.id}
                   review={review.review}
@@ -125,12 +129,14 @@ const RacketDetail = ({ racketName }: RacketDetailProps) => {
             )}
           </div>
         </section>
-        <div className="sm:flex sm:justify-center sm:mt-4">
-          <Pagination
-            curPage={curPage}
-            totalPage={Math.ceil(data?.count / 7)}
-          />
-        </div>
+        {reviewList?.count > 7 ? (
+          <div className="sm:flex sm:justify-center sm:mt-4">
+            <Pagination
+              curPage={curPage}
+              totalPage={Math.ceil(reviewList?.count / 7)}
+            />
+          </div>
+        ) : null}
       </div>
 
       <Modal isOpen={isModalOpen(modalState)}>
