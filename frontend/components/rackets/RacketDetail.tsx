@@ -1,5 +1,4 @@
 import EvaluateButton from "components/common/EvaluateButton";
-import { RacketDetailProps } from "interface/RacketDetail.interface";
 import { Rating } from "react-simple-star-rating";
 
 import Review from "components/rackets/Review";
@@ -79,7 +78,7 @@ const RacketDetail = () => {
           </section>
         </div>
 
-        <section className="">
+        <section className="mx-auto max-md:flex max-md:flex-col max-md:items-center">
           <p className="my-4 text-2xl font-bold">라켓 데이터</p>
           <div className="md:flex md:justify-between">
             <HalfPieChart

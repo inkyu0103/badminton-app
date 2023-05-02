@@ -59,13 +59,26 @@ export class ReviewsRepository {
   }
 
   async createReview(review: IReview, racketId: number, userId: number) {
-    return this.prismaService.racketReview.create({
+    const result = await this.prismaService.racketReview.create({
       data: {
         ...review,
         racketId,
         userId,
       },
     });
+
+    const score = await this.getAverageScore(racketId);
+
+    await this.prismaService.racket.update({
+      where: {
+        id: racketId,
+      },
+      data: {
+        score,
+      },
+    });
+
+    return result;
   }
 
   async editReview(
@@ -97,7 +110,7 @@ export class ReviewsRepository {
   }
 
   async deleteReview(racketId: number, reviewId: number) {
-    const result = this.prismaService.racketReview.delete({
+    const result = await this.prismaService.racketReview.delete({
       where: {
         id: reviewId,
       },

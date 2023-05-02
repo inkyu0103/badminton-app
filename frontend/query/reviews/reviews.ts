@@ -103,7 +103,7 @@ export const useCreateRacketReviewMutation = () => {
       createRacketReview(racketId, reviewForm),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryKeys.reviews.all);
+        queryClient.invalidateQueries();
         alert("리뷰가 생성되었습니다");
       },
     },
