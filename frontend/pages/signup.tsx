@@ -3,6 +3,7 @@ import Spinner from "components/common/Spinner";
 import dynamic from "next/dynamic";
 import { ErrorBoundary } from "react-error-boundary";
 import BadRequest from "components/common/BadRequest";
+import { OnlyPublicRoute } from "utils/conditionalRoutes";
 
 const SignupForms = dynamic(() => import("components/forms/SignupForms"), {
   loading: () => <Spinner />,
@@ -14,4 +15,4 @@ const Signup = () => (
     <SignupForms />
   </ErrorBoundary>
 );
-export default Signup;
+export default OnlyPublicRoute(Signup);
