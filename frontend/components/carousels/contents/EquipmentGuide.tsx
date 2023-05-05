@@ -1,5 +1,5 @@
 const EquipmentGuide = () => (
-  <div className=" min-w-[328px] min-h-[328px] max-w-[1200px] max-h-[490px] relative rounded-lg md:flex md:items-center justify-evenly shadow-md ">
+  <div className=" min-w-mb min-h-mb max-w-[1200px] max-h-[490px] relative rounded-lg md:flex md:items-center justify-evenly shadow-md ">
     <p className="absolute text-3xl font-bold top-4 left-4 md:text-6xl md:static">
       초보자
       <br />

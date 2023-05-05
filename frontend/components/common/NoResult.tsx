@@ -1,5 +1,5 @@
 const NoResult = () => (
-  <div className="w-[328px] md:w-96 h-screen flex flex-col justify-center items-center  mx-auto ">
+  <div className="flex flex-col items-center justify-center h-screen mx-auto w-mb md:w-96 ">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -72,7 +72,7 @@ const NoResult = () => (
       <circle cx="54" cy="672.5" r="31" fill="#6c63ff" />
       <circle cx="54" cy="624.5" r="22" fill="#6c63ff" />
     </svg>
-    <p className="text-2xl font-semibold mt-4">앗, 검색 결과가 없습니다</p>
+    <p className="mt-4 text-2xl font-semibold">앗, 검색 결과가 없습니다</p>
   </div>
 );
 export default NoResult;

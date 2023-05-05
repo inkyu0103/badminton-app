@@ -11,7 +11,7 @@ const HalfPieChart = ({ data, title }) => {
   return (
     <div>
       <p className="mb-2 text-xl font-bold">{title}</p>
-      <div className="w-[328px] h-[328px]  border-2">
+      <div className="border-2 w-mb h-mb">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Tooltip />

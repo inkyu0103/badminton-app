@@ -55,11 +55,11 @@ const RacketDetail = () => {
             <img
               alt="racket"
               src="https://m.woosungsports.com/web/product/big/412_5ff22e3f894ac8106c2773bec3fbe12c.jpg"
-              className="w-[328px] mx-auto border-2 "
+              className="mx-auto border-2 w-mb "
             />
           </section>
-          <section className="w-[328px] mx-auto md:w-1/2 md:flex md:flex-col md:items-center  ">
-            <div className="w-[328px] h-[328px]  my-4 flex flex-col items-center justify-center gap-y-4">
+          <section className="mx-auto w-mb md:w-1/2 md:flex md:flex-col md:items-center ">
+            <div className="flex flex-col items-center justify-center my-4 w-mb h-mb gap-y-4">
               <p className="text-2xl font-bold">평균 별점</p>
               <Rating
                 initialValue={racket.score}

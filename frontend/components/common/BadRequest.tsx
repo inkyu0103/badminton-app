@@ -1,5 +1,5 @@
 const BadRequest = () => (
-  <div className="w-[328px] md:w-96 h-screen flex flex-col justify-center items-center  mx-auto ">
+  <div className="flex flex-col items-center justify-center h-screen mx-auto w-mb md:w-96 ">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -87,7 +87,7 @@ const BadRequest = () => (
         fill="#3f3d56"
       />
     </svg>
-    <p className="text-2xl font-semibold mt-4">잘못된 접근입니다.</p>
+    <p className="mt-4 text-2xl font-semibold">잘못된 접근입니다.</p>
   </div>
 );
 export default BadRequest;

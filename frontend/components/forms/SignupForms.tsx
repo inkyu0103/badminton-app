@@ -39,7 +39,7 @@ export const SignupFormsView = ({ email, handleSignup }) => {
 
   return (
     <form
-      className="h-screen flex flex-col gap-y-2 mx-auto w-[328px] justify-center"
+      className="flex flex-col justify-center h-screen mx-auto gap-y-2 w-mb"
       onSubmit={handleSubmit((user) => handleSignup(user))}
     >
       <p className="text-2xl font-semibold text-center">회원가입</p>
@@ -218,7 +218,7 @@ export const SignupFormsView = ({ email, handleSignup }) => {
         </div>
       </Listbox>
 
-      <button className="w-full h-9 bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-500 font-semibold">
+      <button className="w-full font-semibold duration-300 ease-out bg-blue-300 rounded-md h-9 hover:cursor-pointer hover:text-white max-w-mb hover:bg-blue-500">
         회원가입
       </button>
     </form>
