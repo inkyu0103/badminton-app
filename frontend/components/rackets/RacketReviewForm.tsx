@@ -16,7 +16,7 @@ const RacketReviewForm = ({
     setValue,
   } = useFormContext();
   return (
-    <div className=" min-w-[328px] md:w-[562px] bg-white rounded-md p-4">
+    <div className=" min-w-mb md:w-[562px] bg-white rounded-md p-4">
       <div className="flex justify-between">
         <p className="text-xl font-bold">라켓 평가</p>
         <button
@@ -68,7 +68,7 @@ const RacketReviewForm = ({
         </section>
         <button
           onClick={handleSaveReview}
-          className="w-full h-8 bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-500 font-semibold"
+          className="w-full h-8 font-semibold duration-300 ease-out bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-mb hover:bg-blue-500"
         >
           리뷰 저장하기
         </button>

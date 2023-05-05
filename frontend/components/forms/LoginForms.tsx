@@ -11,7 +11,7 @@ const LoginForms = () => {
     <div className="flex flex-col items-center justify-center w-screen h-full gap-2">
       <p className="text-3xl font-bold ">모두의 배드민턴 🏸</p>
       <form
-        className="w-[328px] flex flex-col gap-2 "
+        className="flex flex-col gap-2 w-mb "
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit((data) =>
@@ -32,13 +32,13 @@ const LoginForms = () => {
         />
         <button
           type="submit"
-          className="w-full h-8 bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-500"
+          className="w-full h-8 duration-300 ease-out bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-mb hover:bg-blue-500"
         >
           로그인
         </button>
 
         <Link
-          className="flex justify-center items-center w-full h-8 bg-blue-100 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-300"
+          className="flex items-center justify-center w-full h-8 duration-300 ease-out bg-blue-100 rounded-md hover:cursor-pointer hover:text-white max-w-mb hover:bg-blue-300"
           href="/emailVerify"
         >
           회원가입

@@ -27,7 +27,7 @@ export const EmailVerfyFormsView = ({ handleSubmitEmail, isLoading }) => {
     <div className="flex flex-col items-center justify-center gap-y-5">
       <h1 className="text-xl font-semibold">회원가입</h1>
       <form
-        className="w-[328px] flex flex-col gap-2 "
+        className="flex flex-col gap-2 w-mb "
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmitEmail(email);
@@ -40,7 +40,7 @@ export const EmailVerfyFormsView = ({ handleSubmitEmail, isLoading }) => {
           required
         />
         <button
-          className="w-full h-8 bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-[328px] duration-300 ease-out hover:bg-blue-500 font-medium disabled:pointer-events-none disabled:bg-slate-300 "
+          className="w-full h-8 font-medium duration-300 ease-out bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-mb hover:bg-blue-500 disabled:pointer-events-none disabled:bg-slate-300 "
           disabled={isLoading}
         >
           인증 메일 전송

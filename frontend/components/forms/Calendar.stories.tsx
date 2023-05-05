@@ -5,7 +5,7 @@ export default {
 };
 
 export const Default = () => (
-  <div className="w-[328px]">
+  <div className="w-mb">
     <Calendar />
   </div>
 );

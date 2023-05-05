@@ -8,7 +8,7 @@ export const Default = (args: {
   selectList: ISelectItem[];
   formId: string;
 }) => (
-  <div className="flex w-[328px]">
+  <div className="flex w-mb">
     <SelectBoxList {...args} />
   </div>
 );
