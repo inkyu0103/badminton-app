@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { RacketProps } from "interface/Racket.interface";
 import Link from "next/link";
 

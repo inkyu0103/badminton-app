@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import EvaluateButton from "components/common/EvaluateButton";
 import { Rating } from "react-simple-star-rating";
 
@@ -39,8 +40,6 @@ const RacketDetail = () => {
   const [modalState, setModalState] = useState<null | string>(MODAL_TYPE.CLOSE);
   const [reviewId, setReviewId] = useState<null | number>(null);
   const router = useRouter();
-
-  console.log(racket);
 
   const { mutate: deleteRacketReview } = useDeleteRacketReviewMutation();
 

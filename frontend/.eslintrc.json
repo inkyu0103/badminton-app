@@ -9,6 +9,7 @@
         "rootDir": "frontend",
         "prefix": ""
       }
-    ]
+    ],
+    "no-console": "error"
   }
 }
