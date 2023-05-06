@@ -10,7 +10,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "chromatic",
-    "test": "jest --watch",
+    "test": "jest",
     "prepare": "cd.. && husky install frontend/.husky"
   },
   "dependencies": {
