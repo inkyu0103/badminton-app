@@ -11,8 +11,8 @@
     "build-storybook": "build-storybook",
     "chromatic": "chromatic",
     "test": "jest",
-    "prepare": "cd.. && husky install frontend/.husky",
-    "lint-staged": "lint-staged -c ./lintstagedrc.js"
+    "prepare": "cd .. && husky install frontend/.husky",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.11",

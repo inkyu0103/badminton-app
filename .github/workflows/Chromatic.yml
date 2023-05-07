@@ -10,7 +10,7 @@ jobs:
         with:
           fetch-depth: 3
       - name: Install dependencies
-        run: cd frontend && npm ci
+        run: cd frontend && HUSKY=0 npm ci 
       - name: Publish storybook to chromatic
         run: cd frontend && npm run chromatic -- --project-token=${CHROMATIC_PROJECT_TOKEN} --exit-zero-on-changes
         env: 
