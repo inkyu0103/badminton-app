@@ -35,15 +35,15 @@ const RacketList = () => {
   const { data } = useRacketListQuery();
   const {
     query: { brand, page: curPage = "1" },
-  }: any = useRouter();
+  } = useRouter();
 
   if (!data.rackets.length) return <NoResult />;
 
   return (
     <RacketListView
-      brand={brand}
+      brand={brand as string}
       data={data}
-      curPage={Number.parseInt(curPage)}
+      curPage={Number.parseInt(curPage as string)}
     />
   );
 };

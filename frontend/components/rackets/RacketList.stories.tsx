@@ -4,7 +4,7 @@ export default {
   component: RacketListView,
 };
 
-export const Default = (args: any) => <RacketListView {...args} />;
+export const Default = (args) => <RacketListView {...args} />;
 
 Default.args = {
   curPage: 1,
