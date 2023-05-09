@@ -13,13 +13,11 @@ const MainRacketCarousel = dynamic(
   },
 );
 
-const Home: NextPage = () => {
-  return (
-    <div className="flex flex-col gap-y-5 border-red-900 max-w-[1200px] h-screen mx-auto p-4 ">
-      <MainGreetingCarousel />
-      <MainRacketCarousel />
-    </div>
-  );
-};
+const Home: NextPage = () => (
+  <div className="flex flex-col gap-y-5 border-red-900 max-w-[1200px] h-screen mx-auto p-4 ">
+    <MainGreetingCarousel />
+    <MainRacketCarousel />
+  </div>
+);
 
 export default Home;

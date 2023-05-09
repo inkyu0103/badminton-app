@@ -28,22 +28,20 @@ const SelectBoxList = ({
 
   return (
     <div className="flex flex-1 w-full">
-      {selectList.map((select, idx) => {
-        return (
-          <SelectBox
-            key={idx}
-            display={select.display}
-            isSelected={selectedBoxIdx === idx}
-            handleSelectedBox={() =>
-              handleSelectedBox(
-                formId,
-                idx,
-                REVIEW_VALUE_INDEX[formId][select.value],
-              )
-            }
-          />
-        );
-      })}
+      {selectList.map((select, idx) => (
+        <SelectBox
+          key={idx}
+          display={select.display}
+          isSelected={selectedBoxIdx === idx}
+          handleSelectedBox={() =>
+            handleSelectedBox(
+              formId,
+              idx,
+              REVIEW_VALUE_INDEX[formId][select.value],
+            )
+          }
+        />
+      ))}
     </div>
   );
 };

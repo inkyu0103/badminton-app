@@ -8,10 +8,9 @@ const sendVerifyEmail = async (email: string) => {
   return data;
 };
 
-export const useSendVerifyEmailMutation = () => {
-  return useMutation((email: string) => sendVerifyEmail(email), {
+export const useSendVerifyEmailMutation = () =>
+  useMutation((email: string) => sendVerifyEmail(email), {
     onError: () => {
       alert("문제가 발생하였습니다.");
     },
   });
-};

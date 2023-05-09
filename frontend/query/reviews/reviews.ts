@@ -82,8 +82,8 @@ export const useReviewList = () => {
   );
 };
 
-export const useRacketReview = (reviewId: number | undefined) => {
-  return useQuery<IReviewResponse>(
+export const useRacketReview = (reviewId: number | undefined) =>
+  useQuery<IReviewResponse>(
     queryKeys.reviews.single(reviewId),
     () => getRacketReview(reviewId),
     {
@@ -91,7 +91,6 @@ export const useRacketReview = (reviewId: number | undefined) => {
       suspense: true,
     },
   );
-};
 
 export const useCreateRacketReviewMutation = () => {
   const router = useRouter();
