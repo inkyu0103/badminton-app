@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
 import Input from "components/forms/Input";
 import Link from "next/link";
 import { useLoginMutation } from "query/auth/login";
+import { useForm } from "react-hook-form";
 
 const LoginForms = () => {
   const { register, handleSubmit } = useForm();

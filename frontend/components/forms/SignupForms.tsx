@@ -1,13 +1,13 @@
-import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import Calendar from "components/forms/Calendar";
-import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
-import { useForm } from "react-hook-form";
-import useSignupMutation from "query/auth/signup";
-import { CreateUser } from "interface/User.interface";
-import ranks from "constants/ranks";
 import genders from "constants/genders";
+import ranks from "constants/ranks";
+import { CreateUser } from "interface/User.interface";
+import useSignupMutation from "query/auth/signup";
+import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
+import { Fragment } from "react";
+import { useForm } from "react-hook-form";
 
 const SignupForms = () => {
   const { data } = useVerifyTokenQuery();

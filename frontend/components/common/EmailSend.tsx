@@ -1,5 +1,6 @@
-import Lottie from "lottie-react";
 import emailSend from "assets/lottie/emailSend.json";
+import Lottie from "lottie-react";
+
 const EmailSend = () => (
   <div className=" w-[360px] ">
     <Lottie animationData={emailSend} loop={false} />

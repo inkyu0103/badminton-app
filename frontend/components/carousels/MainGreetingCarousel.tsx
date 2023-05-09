@@ -1,5 +1,5 @@
-import Slider from "react-slick";
 import EquipmentGuide from "components/carousels/contents/EquipmentGuide";
+import Slider from "react-slick";
 
 const MainGreetingCarousel = () => (
   <section>

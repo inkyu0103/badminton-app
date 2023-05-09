@@ -18,7 +18,8 @@
     "typeRoots": ["./@types", "./node_modules/@types"],
     "noUnusedLocals": true,
     "noImplicitAny": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "noEmitOnError": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "frontend"],
   "exclude": ["node_modules"]

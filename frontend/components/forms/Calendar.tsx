@@ -1,8 +1,9 @@
+import "react-datepicker/dist/react-datepicker.css";
+
+import ko from "date-fns/locale/ko";
 import { CalendarProps } from "interface/Calendar.interface";
 import { forwardRef } from "react";
 import DatePicker from "react-datepicker";
-import ko from "date-fns/locale/ko";
-import "react-datepicker/dist/react-datepicker.css";
 
 const Calendar = ({ value, handleChangeDate }: CalendarProps) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
