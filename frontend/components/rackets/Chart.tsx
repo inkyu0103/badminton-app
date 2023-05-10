@@ -1,4 +1,4 @@
-import { RadarChart, Radar, Legend, PolarAngleAxis, PolarGrid } from "recharts";
+import { Legend, PolarAngleAxis, PolarGrid,Radar, RadarChart } from "recharts";
 
 const data = [
   {

@@ -1,6 +1,5 @@
-import SSRSuspense from "components/common/SSRSuspense";
 import Spinner from "components/common/Spinner";
-///import RacketDetail from "components/rackets/RacketDetail";
+import SSRSuspense from "components/common/SSRSuspense";
 import dynamic from "next/dynamic";
 
 const RacketDetail = dynamic(() => import("components/rackets/RacketDetail"), {
@@ -11,7 +10,7 @@ const RacketDetail = dynamic(() => import("components/rackets/RacketDetail"), {
 const Test = () => (
   <div>
     <SSRSuspense fallback={<Spinner />}>
-      <RacketDetail racketName="Yonex Nanoray 700" />
+      <RacketDetail />
     </SSRSuspense>
   </div>
 );

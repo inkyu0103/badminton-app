@@ -1,8 +1,8 @@
-import { useState } from "react";
 import SelectBox from "components/reviews/SelectBox";
-import { useFormContext } from "react-hook-form";
 import { REVIEW_VALUE_INDEX } from "constants/review";
-import { ISelectListValue, formIdType } from "interface/SelectBox.interface";
+import { formIdType,ISelectListValue } from "interface/SelectBox.interface";
+import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 const SelectBoxList = ({
   selectList,

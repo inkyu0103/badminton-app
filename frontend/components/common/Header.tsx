@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useLogoutMutation } from "query/auth/logout";
 import { useRecoilValue } from "recoil";
-import { LoginState, accessTokenState } from "recoil/atoms/accessToken";
+import { accessTokenState,LoginState } from "recoil/atoms/accessToken";
 
 const Header = () => {
   const loginUser = useRecoilValue(accessTokenState);

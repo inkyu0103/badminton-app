@@ -1,26 +1,26 @@
+/* eslint-disable @next/next/no-img-element */
+import HalfPieChart from "components/charts/HalfPieChart";
+import SimpleBarChart from "components/charts/SimpleBarChart";
 import EvaluateButton from "components/common/EvaluateButton";
-import { Rating } from "react-simple-star-rating";
-
-import Review from "components/rackets/Review";
-import { Fragment, useState } from "react";
 import Modal from "components/common/Modal";
+import Pagination from "components/common/Pagination";
 import CreateReview from "components/rackets/CreateReview";
 import EditReview from "components/rackets/EditReview";
+import Review from "components/rackets/Review";
+import { formatDistanceToNow } from "date-fns";
+import { ko } from "date-fns/locale";
+import { useRouter } from "next/router";
+import { useRacketQuery } from "query/rackets/rackets";
 import {
   useDeleteRacketReviewMutation,
   useReviewList,
 } from "query/reviews/reviews";
+import { useReviewStatistics } from "query/reviews/statistics";
+import { Fragment, useState } from "react";
+import { Rating } from "react-simple-star-rating";
 import { useRecoilValue } from "recoil";
 import { userState } from "recoil/atoms/user";
-import { formatDistanceToNow } from "date-fns";
 import { birthdayToAge } from "utils/birthdayToage";
-import { ko } from "date-fns/locale";
-import Pagination from "components/common/Pagination";
-import { useRouter } from "next/router";
-import HalfPieChart from "components/charts/HalfPieChart";
-import SimpleBarChart from "components/charts/SimpleBarChart";
-import { useReviewStatistics } from "query/reviews/statistics";
-import { useRacketQuery } from "query/rackets/rackets";
 
 const MODAL_TYPE = Object.freeze({
   CLOSE: null,
@@ -39,8 +39,6 @@ const RacketDetail = () => {
   const [modalState, setModalState] = useState<null | string>(MODAL_TYPE.CLOSE);
   const [reviewId, setReviewId] = useState<null | number>(null);
   const router = useRouter();
-
-  console.log(racket);
 
   const { mutate: deleteRacketReview } = useDeleteRacketReviewMutation();
 

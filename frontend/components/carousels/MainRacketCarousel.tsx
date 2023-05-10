@@ -5,6 +5,14 @@ import { useEffect, useState } from "react";
 import Slider, { Settings } from "react-slick";
 import { debounce } from "utils/debounce";
 
+export interface MainRacketCarouselProps {
+  clientWidth: number;
+  rackets: {
+    count: number;
+    rackets: IRacket[];
+  };
+}
+
 const MainRacketCarousel = () => {
   const { data } = useRacketListQuery();
 
@@ -28,10 +36,7 @@ export default MainRacketCarousel;
 const MainRacketCarouselView = ({
   clientWidth,
   rackets,
-}: {
-  clientWidth: number;
-  rackets: IRacket[];
-}) => {
+}: MainRacketCarouselProps) => {
   const sliderOptions: Settings = {
     arrows: false,
     slidesToShow: 3,

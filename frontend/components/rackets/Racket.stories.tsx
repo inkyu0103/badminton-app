@@ -1,6 +1,6 @@
 
-import { RacketProps } from "interface/Racket.interface";
 import Racket from "components/rackets/Racket";
+import { RacketProps } from "interface/Racket.interface";
 
 export default {
   component: Racket,

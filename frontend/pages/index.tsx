@@ -1,9 +1,10 @@
-import type { NextPage } from "next";
-import MainGreetingCarousel from "components/carousels/MainGreetingCarousel";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import dynamic from "next/dynamic";
+
+import MainGreetingCarousel from "components/carousels/MainGreetingCarousel";
 import Spinner from "components/common/Spinner";
+import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 
 const MainRacketCarousel = dynamic(
   () => import("components/carousels/MainRacketCarousel"),

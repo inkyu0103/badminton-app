@@ -1,8 +1,8 @@
-import React from "react";
+import BadRequest from "components/common/BadRequest";
 import Spinner from "components/common/Spinner";
 import dynamic from "next/dynamic";
+import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import BadRequest from "components/common/BadRequest";
 import { OnlyPublicRoute } from "utils/conditionalRoutes";
 
 const SignupForms = dynamic(() => import("components/forms/SignupForms"), {
