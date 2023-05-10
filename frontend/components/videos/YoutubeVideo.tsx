@@ -17,7 +17,7 @@ const YoutubeVideo = ({ snippet, id }: IYoutubeSearchItem): JSX.Element => {
           />
         </div>
         <div className="pl-1">
-          <p className="font-semibold">{snippet.title}</p>
+          <p className="font-semibold truncate">{snippet.title}</p>
           <p className="text-sm">{snippet.channelTitle}</p>
         </div>
       </a>
