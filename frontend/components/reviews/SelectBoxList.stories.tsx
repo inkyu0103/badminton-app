@@ -1,12 +1,13 @@
-import SelectBoxList, { ISelectItem } from "components/reviews/SelectBoxList";
+import SelectBoxList from "components/reviews/SelectBoxList";
+import { formIdType, ISelectListValue } from "interface/SelectBox.interface";
 
 export default {
   component: SelectBoxList,
 };
 
 export const Default = (args: {
-  selectList: ISelectItem[];
-  formId: string;
+  selectList: ISelectListValue<formIdType>;
+  formId: formIdType;
 }) => (
   <div className="flex w-mb">
     <SelectBoxList {...args} />

@@ -22,5 +22,5 @@
     "noEmitOnError": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "frontend"],
-  "exclude": ["node_modules", "**/**/*.stories.tsx", "**/**/*.test.tsx"]
+  "exclude": ["node_modules"]
 }
