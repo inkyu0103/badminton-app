@@ -1,12 +1,11 @@
 import YoutubeVideo from "components/videos/YoutubeVideo";
+import useClientWidth from "hooks/useClientWidth";
 import { IYoutubeSearchItem } from "interface/Youtube.interface";
 import { useBadmintonVideos } from "query/videos/videos";
-import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { debounce } from "utils/debounce";
 
 const setSlideToShow = (clientWidth: number) => {
-  if (clientWidth < 656) {
+  if (clientWidth <= 656) {
     return 1;
   } else if (clientWidth < 992) {
     return 2;
@@ -28,18 +27,7 @@ export const YoutubeVideoListView = ({
 }: {
   videoList: IYoutubeSearchItem[] | undefined;
 }) => {
-  const [clientWidth, setClientWidth] = useState(
-    document.documentElement.clientWidth,
-  );
-
-  const handleResize = () =>
-    setClientWidth(document.documentElement.clientWidth);
-
-  useEffect(() => {
-    addEventListener("resize", debounce(handleResize));
-
-    return removeEventListener("resize", () => {});
-  }, []);
+  const clientWidth = useClientWidth();
 
   const sliderOptions = {
     arrows: false,
@@ -47,10 +35,10 @@ export const YoutubeVideoListView = ({
     autoplay: true,
     autoplaySpeed: 2000,
   };
+
   return (
     <section>
       <p className="text-2xl font-bold">배드민턴 Youtube List</p>
-
       <Slider {...sliderOptions}>
         {videoList?.map((video) => (
           <YoutubeVideo key={video.id.videoId} {...video} />

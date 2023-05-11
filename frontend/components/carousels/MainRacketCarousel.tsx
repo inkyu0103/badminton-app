@@ -1,9 +1,8 @@
 import Racket from "components/rackets/Racket";
+import useClientWidth from "hooks/useClientWidth";
 import { IRacket } from "interface/Racket.interface";
 import { useRacketListQuery } from "query/rackets/rackets";
-import { useEffect, useState } from "react";
 import Slider, { Settings } from "react-slick";
-import { debounce } from "utils/debounce";
 
 export interface MainRacketCarouselProps {
   clientWidth: number;
@@ -15,19 +14,7 @@ export interface MainRacketCarouselProps {
 
 const MainRacketCarousel = () => {
   const { data } = useRacketListQuery();
-
-  const [clientWidth, setClientWidth] = useState(
-    document.documentElement.clientWidth,
-  );
-
-  const handleResize = () =>
-    setClientWidth(document.documentElement.clientWidth);
-
-  useEffect(() => {
-    addEventListener("resize", debounce(handleResize));
-
-    return removeEventListener("resize", () => {});
-  }, []);
+  const clientWidth = useClientWidth();
 
   return <MainRacketCarouselView clientWidth={clientWidth} rackets={data} />;
 };
