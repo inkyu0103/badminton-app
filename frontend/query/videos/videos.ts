@@ -13,7 +13,7 @@ const getBadmintonVideos = async () => {
       params: {
         part: "snippet",
         q: "배드민턴",
-        key: "AIzaSyC0nw1p8vBU-azAAwe6-XohDGxrMCjUDng",
+        key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
         maxResults: 10,
       },
     },
