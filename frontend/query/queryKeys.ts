@@ -6,7 +6,7 @@ export const queryKeys = Object.freeze({
   },
   rackets: {
     all: ["rackets"],
-    list: (brand: any, page: any) => ["rackets", "list", brand, { page }],
+    list: (brand: string, page: number) => ["rackets", "list", brand, { page }],
     single: (racketId: number) => [
       ...queryKeys.rackets.all,
       "single",
@@ -28,5 +28,9 @@ export const queryKeys = Object.freeze({
   statistics: {
     all: ["statistics"],
     single: (racketId: number) => [...queryKeys.statistics.all, racketId],
+  },
+
+  videos: {
+    all: ["videos"],
   },
 });
