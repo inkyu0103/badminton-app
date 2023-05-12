@@ -5,7 +5,7 @@ const videoBaseUrl = "https://www.youtube.com/watch?v=";
 
 const YoutubeVideo = ({ snippet, id }: IYoutubeSearchItem): JSX.Element => {
   return (
-    <div className="mx-auto overflow-hidden transition-all border-2 rounded-lg w-80 hover:bg-slate-100">
+    <div className="mr-4 overflow-hidden transition-all border-2 rounded-lg md:mx-0 w-80 hover:bg-slate-100">
       <a href={videoBaseUrl + id.videoId} target="_blank" rel="noreferrer">
         <div className="flex justify-center">
           <img

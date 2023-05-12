@@ -1,6 +1,7 @@
 export interface RacketProps {
   name: string;
   racketId: number;
+  score: number;
 }
 
 export interface RacketResponse {
