@@ -7,7 +7,7 @@ const testRacket = () =>
     async (idx, _) =>
       await client.racket.create({
         data: {
-          id: 2,
+          id: idx + 10,
           name: `나노레이 ${idx + 1}`,
           rating: 5,
           image: null,
