@@ -31,6 +31,8 @@ const MainRacketCarouselView = ({
     verticalSwiping: clientWidth < 768,
     autoplay: true,
     autoplaySpeed: 2000,
+    variableWidth: clientWidth >= 768,
+    adaptiveHeight: clientWidth >= 768,
   };
 
   return (
@@ -39,7 +41,12 @@ const MainRacketCarouselView = ({
       <p className="text-xl font-bold">YONEX</p>
       <Slider {...sliderOptions}>
         {rackets.rackets.map((racket) => (
-          <Racket key={racket.id} name={racket.name} racketId={racket.id} />
+          <Racket
+            key={racket.id}
+            name={racket.name}
+            racketId={racket.id}
+            score={racket.score}
+          />
         ))}
       </Slider>
     </section>
