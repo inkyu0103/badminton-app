@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { IYoutubeSearchItem } from "interface/Youtube.interface";
 import React from "react";
 
@@ -5,7 +6,7 @@ const videoBaseUrl = "https://www.youtube.com/watch?v=";
 
 const YoutubeVideo = ({ snippet, id }: IYoutubeSearchItem): JSX.Element => {
   return (
-    <div className="mr-4 overflow-hidden transition-all border-2 rounded-lg md:mx-0 w-80 hover:bg-slate-100">
+    <div className="mr-2 overflow-hidden transition-all border-2 rounded-lg md:mx-0 w-80 hover:bg-slate-100">
       <a href={videoBaseUrl + id.videoId} target="_blank" rel="noreferrer">
         <div className="flex justify-center">
           <img

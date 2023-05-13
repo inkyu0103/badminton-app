@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { useLogoutMutation } from "query/auth/logout";
 import { useRecoilValue } from "recoil";
-import { accessTokenState,LoginState } from "recoil/atoms/accessToken";
+import { accessTokenState, LoginState } from "recoil/atoms/accessToken";
 
 const Header = () => {
   const loginUser = useRecoilValue(accessTokenState);
   const { mutate: handleLogout } = useLogoutMutation();
 
-  const isLogin = loginUser !== LoginState.NO_LOGIN && loginUser !== LoginState.PENDING;
+  const isLogin =
+    loginUser !== LoginState.NO_LOGIN && loginUser !== LoginState.PENDING;
 
   return <HeaderView handleLogout={handleLogout} loginUser={isLogin} />;
 };
@@ -19,7 +20,7 @@ interface HeaderViewProps {
 }
 
 export const HeaderView = ({ handleLogout, loginUser }: HeaderViewProps) => (
-  <header className="flex items-center justify-end h-12 px-4 bg-black w-vw gap-x-2">
+  <header className="flex items-center justify-end px-4 py-3 bg-black w-vw gap-x-2">
     {loginUser ? (
       <>
         <Link href="/rackets/yonex?page=1" className="text-white">

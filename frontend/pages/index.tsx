@@ -24,7 +24,7 @@ const YoutubeVideoList = dynamic(
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col gap-y-5 border-red-900 max-w-[1200px] h-screen mx-auto p-4 ">
+    <div className="w-full flex-1 flex flex-col gap-y-5  max-w-[1200px]  mx-auto p-4 ">
       <MainGreetingCarousel />
       <MainRacketCarousel />
       <YoutubeVideoList />
