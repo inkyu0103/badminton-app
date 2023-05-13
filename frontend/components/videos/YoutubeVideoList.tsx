@@ -1,7 +1,7 @@
 import YoutubeVideo from "components/videos/YoutubeVideo";
 import { IYoutubeSearchItem } from "interface/Youtube.interface";
 import { useBadmintonVideos } from "query/videos/videos";
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 
 const YoutubeVideoList = () => {
   const { data: videoList } = useBadmintonVideos();
@@ -16,17 +16,18 @@ export const YoutubeVideoListView = ({
 }: {
   videoList: IYoutubeSearchItem[] | undefined;
 }) => {
-  const sliderOptions = {
+  const sliderOptions: Settings = {
     arrows: false,
     autoplay: true,
     autoplaySpeed: 2000,
     variableWidth: true,
+    adaptiveHeight: true,
   };
 
   return (
     <section>
       <p className="text-2xl font-bold">배드민턴 Youtube List</p>
-      <Slider {...sliderOptions}>
+      <Slider {...sliderOptions} adaptiveHeight>
         {videoList?.map((video) => (
           <YoutubeVideo key={video.id.videoId} {...video} />
         ))}
