@@ -2,10 +2,13 @@ interface User {
   id: number;
   email: string;
   password: string;
-  rank: string;
+  rank: Rank;
   gender: "MALE" | "FEMALE";
   birthday: Date;
 }
+
+export type Rank = "S" | "A" | "B" | "C" | "D";
+
 export interface CreateUser extends Omit<User, "gender"> {
   passwordConfirm: string;
   gender: "남성" | "여성";

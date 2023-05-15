@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import HalfPieChart from "components/charts/HalfPieChart";
-import SimpleBarChart from "components/charts/SimpleBarChart";
 import EvaluateButton from "components/common/EvaluateButton";
 import Modal from "components/common/Modal";
 import Pagination from "components/common/Pagination";
 import CreateReview from "components/rackets/CreateReview";
 import EditReview from "components/rackets/EditReview";
+import RacketStatistics from "components/rackets/RacketStatistics";
 import Review from "components/rackets/Review";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -15,7 +14,6 @@ import {
   useDeleteRacketReviewMutation,
   useReviewList,
 } from "query/reviews/reviews";
-import { useReviewStatistics } from "query/reviews/statistics";
 import { Fragment, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import { useRecoilValue } from "recoil";
@@ -31,14 +29,14 @@ const MODAL_TYPE = Object.freeze({
 const isModalOpen = (value: null | string) => value !== null;
 
 const RacketDetail = () => {
-  const { data: racket } = useRacketQuery();
-  const { data: reviewList } = useReviewList();
-  const { data: reviewStatistics } = useReviewStatistics();
-
-  const user = useRecoilValue(userState);
   const [modalState, setModalState] = useState<null | string>(MODAL_TYPE.CLOSE);
   const [reviewId, setReviewId] = useState<null | number>(null);
+
+  const user = useRecoilValue(userState);
   const router = useRouter();
+
+  const { data: racket } = useRacketQuery();
+  const { data: reviewList } = useReviewList();
 
   const { mutate: deleteRacketReview } = useDeleteRacketReviewMutation();
 
@@ -76,23 +74,7 @@ const RacketDetail = () => {
           </section>
         </div>
 
-        <section className="mx-auto max-md:flex max-md:flex-col max-md:items-center">
-          <p className="my-4 text-2xl font-bold">라켓 데이터</p>
-          <div className="md:flex md:justify-between">
-            <HalfPieChart
-              data={reviewStatistics?.genders}
-              title="남녀 성별 비율"
-            />
-            <HalfPieChart
-              data={reviewStatistics?.ranks}
-              title="사용 급수 비율"
-            />
-            <SimpleBarChart
-              data={reviewStatistics?.criteria}
-              title="라켓 선택 이유"
-            />
-          </div>
-        </section>
+        <RacketStatistics />
 
         <section className="mx-auto">
           <p className="my-4 text-2xl font-bold">리뷰</p>

@@ -1,3 +1,5 @@
+import { StatisticsRank } from "interface/Statistics.interface";
+
 export const queryKeys = Object.freeze({
   auth: {
     all: ["auth"],
@@ -27,7 +29,11 @@ export const queryKeys = Object.freeze({
 
   statistics: {
     all: ["statistics"],
-    single: (racketId: number) => [...queryKeys.statistics.all, racketId],
+    single: (racketId: number, rank: StatisticsRank) => [
+      ...queryKeys.statistics.all,
+      racketId,
+      rank,
+    ],
   },
 
   videos: {

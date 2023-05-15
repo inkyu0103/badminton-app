@@ -8,7 +8,7 @@ const RacketDetail = dynamic(() => import("components/rackets/RacketDetail"), {
 });
 
 const Test = () => (
-  <div>
+  <div className="flex-1">
     <SSRSuspense fallback={<Spinner />}>
       <RacketDetail />
     </SSRSuspense>
