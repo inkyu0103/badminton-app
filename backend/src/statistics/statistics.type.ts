@@ -1,1 +1,1 @@
-export type StatisticsRank = undefined | 'S' | 'A' | 'B' | 'C' | 'D';
+export type StatisticsRank = 'ALL' | 'S' | 'A' | 'B' | 'C' | 'D';

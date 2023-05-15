@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { StatisticsService } from 'statistics/statistics.service';
 import { StatisticsRank } from 'statistics/statistics.type';
 
@@ -9,7 +9,7 @@ export class StatisticsController {
   @Get('/:racketId')
   async getStatisticsByRacketId(
     @Param('racketId', ParseIntPipe) racketId: number,
-    @Param('rank') rank: StatisticsRank,
+    @Query('rank') rank: StatisticsRank,
   ) {
     return this.statisticsService.getStatisticsByRacketIdAndRank(
       racketId,

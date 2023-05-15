@@ -20,6 +20,7 @@ export interface IReviewStatisticsResponse {
 type gender = "남성" | "여성";
 type rank = "S조" | "A조" | "B조" | "C조" | "D조";
 type criteria = "컨트롤" | "파워" | "무게";
+export type StatisticsRank = "ALL" | "S" | "A" | "B" | "C" | "D";
 
 export interface ISelectedStatistics {
   name: gender | rank | criteria;
@@ -31,4 +32,9 @@ export interface IStatistics {
   criteria: ISelectedStatistics[];
   genders: ISelectedStatistics[];
   ranks: ISelectedStatistics[];
+}
+
+export interface IRacketStatisticsProps {
+  reviewStatistics: undefined | IStatistics;
+  handleChangeRank: (value: StatisticsRank) => void;
 }

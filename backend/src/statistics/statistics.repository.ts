@@ -15,7 +15,7 @@ export class StatisticsRepository {
       },
 
       where: {
-        rank,
+        rank: rank === 'ALL' ? { in: ['S', 'A', 'B', 'C', 'D'] } : rank,
         Review: {
           some: {
             racketId,
@@ -49,10 +49,9 @@ export class StatisticsRepository {
   async getRacketControl(racketId: number, rank: StatisticsRank) {
     return this.prismaService.racketReview.count({
       where: {
-        racketId,
         control: 0,
         user: {
-          rank,
+          rank: rank === 'ALL' ? { in: ['S', 'A', 'B', 'C', 'D'] } : rank,
         },
       },
     });
@@ -64,7 +63,7 @@ export class StatisticsRepository {
         racketId,
         power: 0,
         user: {
-          rank,
+          rank: rank === 'ALL' ? { in: ['S', 'A', 'B', 'C', 'D'] } : rank,
         },
       },
     });
@@ -77,7 +76,7 @@ export class StatisticsRepository {
         // change constans or enum
         weight: 0 || 1,
         user: {
-          rank,
+          rank: rank === 'ALL' ? { in: ['S', 'A', 'B', 'C', 'D'] } : rank,
         },
       },
     });

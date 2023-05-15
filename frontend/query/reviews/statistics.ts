@@ -3,8 +3,8 @@ import { AxiosError } from "axios";
 import {
   IReviewStatisticsResponse,
   IStatistics,
+  StatisticsRank,
 } from "interface/Statistics.interface";
-import { Rank } from "interface/User.interface";
 import { useRouter } from "next/router";
 import axios from "query/axios";
 import { queryKeys } from "query/queryKeys";
@@ -47,18 +47,22 @@ const colorMaper = {
   },
 };
 
-const getReviewStatistics = async (racketId: number) => {
-  const { data } = await axios(`/statistics/${racketId}`);
+const getReviewStatistics = async (racketId: number, rank: StatisticsRank) => {
+  const { data } = await axios(`/statistics/${racketId}`, {
+    params: {
+      rank,
+    },
+  });
   return data;
 };
 
-export const useReviewStatistics = (rank: undefined | Rank) => {
-  const router = useRouter(rank);
+export const useReviewStatistics = (rank: StatisticsRank) => {
+  const router = useRouter();
   const racketId = Number.parseInt(router.query.racketId as string);
 
   return useQuery<IReviewStatisticsResponse, AxiosError, IStatistics>(
-    queryKeys.statistics.single(racketId),
-    () => getReviewStatistics(racketId),
+    queryKeys.statistics.single(racketId, rank),
+    () => getReviewStatistics(racketId, rank),
     {
       suspense: true,
       enabled: Number.isNaN(racketId) === false,

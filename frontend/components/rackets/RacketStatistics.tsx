@@ -1,13 +1,14 @@
 import HalfPieChart from "components/charts/HalfPieChart";
 import SimpleBarChart from "components/charts/SimpleBarChart";
-import { Rank } from "interface/User.interface";
+import {
+  IRacketStatisticsProps,
+  StatisticsRank,
+} from "interface/Statistics.interface";
 import { useReviewStatistics } from "query/reviews/statistics";
 import React, { useState } from "react";
 
-type StatisticsRank = undefined | Rank;
-
 const RacketStatistics = () => {
-  const [rank, setRank] = useState<StatisticsRank>(undefined);
+  const [rank, setRank] = useState<StatisticsRank>("ALL");
   const { data: reviewStatistics } = useReviewStatistics(rank);
 
   const handleChangeRank = (value: StatisticsRank) => {
@@ -26,7 +27,7 @@ export default RacketStatistics;
 export const RacketStatisticsView = ({
   reviewStatistics,
   handleChangeRank,
-}) => {
+}: IRacketStatisticsProps) => {
   return (
     <section className="mx-auto max-md:flex max-md:flex-col max-md:items-center">
       <div className="flex items-center gap-2">
@@ -35,7 +36,7 @@ export const RacketStatisticsView = ({
           className="text-xl font-bold"
           onChange={(e) => handleChangeRank(e.target.value as StatisticsRank)}
         >
-          <option value={undefined}>전체</option>
+          <option value="ALL">전체</option>
           <option value="S">S조</option>
           <option value="A">A조</option>
           <option value="B">B조</option>
