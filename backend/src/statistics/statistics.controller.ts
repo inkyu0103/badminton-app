@@ -1,5 +1,6 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { StatisticsService } from 'statistics/statistics.service';
+import { StatisticsRank } from 'statistics/statistics.type';
 
 @Controller('statistics')
 export class StatisticsController {
@@ -8,7 +9,11 @@ export class StatisticsController {
   @Get('/:racketId')
   async getStatisticsByRacketId(
     @Param('racketId', ParseIntPipe) racketId: number,
+    @Param('rank') rank: StatisticsRank,
   ) {
-    return this.statisticsService.getStatisticsByRacketId(racketId);
+    return this.statisticsService.getStatisticsByRacketIdAndRank(
+      racketId,
+      rank,
+    );
   }
 }
