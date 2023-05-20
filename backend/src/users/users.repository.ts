@@ -29,9 +29,11 @@ export class UsersRepository {
         birthday: new Date(user.birthday),
         gender: user.gender,
         rank: user.rank,
+        nickname: user.nickname,
       },
       select: {
         email: true,
+        nickname: true,
         gender: true,
         rank: true,
         password: false,
@@ -43,6 +45,14 @@ export class UsersRepository {
     return await this.prismaService.user.findUnique({
       where: {
         email,
+      },
+    });
+  }
+
+  async getUserWithNickname(nickname: string): Promise<User | null> {
+    return await this.prismaService.user.findUnique({
+      where: {
+        nickname,
       },
     });
   }
