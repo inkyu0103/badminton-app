@@ -6,9 +6,9 @@ import { UsersService } from 'users/users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get('/duplicate-nickname')
-  async isDuplicateNickname(@Query('nickname') nickname: string) {
-    return await this.usersService.isDuplicateNickname(nickname);
+  @Get('/usable-nickname')
+  async isUsableNickname(@Query('nickname') nickname: string) {
+    return await this.usersService.isUsableNickname(nickname);
   }
 
   @Post()

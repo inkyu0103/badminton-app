@@ -13,13 +13,13 @@ export class UsersService {
     return await this.usersRepository.getUserWithEmail(email);
   }
 
-  async isDuplicateNickname(nickname: string) {
+  async isUsableNickname(nickname: string) {
     const user = await this.usersRepository.getUserWithNickname(nickname);
 
     if (user) {
       throw new ConflictException('this nickname is already taken');
     }
 
-    return;
+    return true;
   }
 }

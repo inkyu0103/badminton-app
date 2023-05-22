@@ -4,6 +4,7 @@ import Calendar from "components/forms/Calendar";
 import genders from "constants/genders";
 import ranks from "constants/ranks";
 import { CreateUser } from "interface/User.interface";
+import isUsableNickname from "query/auth/isUsableNickname";
 import useSignupMutation from "query/auth/signup";
 import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
 import { Fragment } from "react";
@@ -12,13 +13,28 @@ import { useForm } from "react-hook-form";
 const SignupForms = () => {
   const { data } = useVerifyTokenQuery();
   const { mutate: signupUser } = useSignupMutation();
-  const handleSignup = (user: CreateUser) => signupUser(user);
 
-  return <SignupFormsView email={data?.email} handleSignup={handleSignup} />;
+  const handleSignup = (user: CreateUser) => signupUser(user);
+  const handleValidateNickname = (nickname: string) =>
+    isUsableNickname(nickname);
+
+  return (
+    <>
+      <SignupFormsView
+        email={data?.email}
+        handleSignup={handleSignup}
+        handleValidateNickname={handleValidateNickname}
+      />
+    </>
+  );
 };
 export default SignupForms;
 
-export const SignupFormsView = ({ email, handleSignup }) => {
+export const SignupFormsView = ({
+  email,
+  handleSignup,
+  handleValidateNickname,
+}) => {
   const {
     register,
     watch,
@@ -29,6 +45,7 @@ export const SignupFormsView = ({ email, handleSignup }) => {
   } = useForm<CreateUser>({
     defaultValues: {
       email,
+      nickname: "",
       password: "",
       passwordConfirm: "",
       birthday: new Date(),
@@ -49,6 +66,18 @@ export const SignupFormsView = ({ email, handleSignup }) => {
           className="w-full py-2 text-sm rounded-md shadow-md outline-none indent-2 disabled:text-slate-500 disabled:bg-slate-200"
           disabled
           {...register("email")}
+        />
+      </label>
+
+      <label className="text-sm">
+        별명
+        <input
+          className="w-full py-2 text-sm rounded-md shadow-md outline-none indent-2 "
+          {...register("nickname", {
+            validate: {
+              isUsableNickname: (nickname) => handleValidateNickname(nickname),
+            },
+          })}
         />
       </label>
 
