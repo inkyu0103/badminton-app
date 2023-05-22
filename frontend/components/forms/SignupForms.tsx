@@ -10,6 +10,12 @@ import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 
+interface SignupFormViewProps {
+  email: string | undefined;
+  handleSignup: (user: CreateUser) => void;
+  handleValidateNickname: (nickname: string) => Promise<boolean>;
+}
+
 const SignupForms = () => {
   const { data } = useVerifyTokenQuery();
   const { mutate: signupUser } = useSignupMutation();
@@ -34,7 +40,7 @@ export const SignupFormsView = ({
   email,
   handleSignup,
   handleValidateNickname,
-}) => {
+}: SignupFormViewProps) => {
   const {
     register,
     watch,
@@ -73,12 +79,22 @@ export const SignupFormsView = ({
         별명
         <input
           className="w-full py-2 text-sm rounded-md shadow-md outline-none indent-2 "
+          placeholder="사용하실 별명을 입력해주세요"
           {...register("nickname", {
+            required: {
+              value: true,
+              message: "별명을 입력해주세요",
+            },
             validate: {
-              isUsableNickname: (nickname) => handleValidateNickname(nickname),
+              isUsableNickname: async (nickname) =>
+                (await handleValidateNickname(nickname)) ||
+                "이미 사용중인 별명입니다.",
             },
           })}
         />
+        <p className="mt-1 text-red-600">
+          {errors["nickname"]?.message?.toString()}
+        </p>
       </label>
 
       <label className="text-sm">

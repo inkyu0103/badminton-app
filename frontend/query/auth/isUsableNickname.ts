@@ -5,7 +5,12 @@ const isUsableNickname = async (nickname: string) => {
     params: {
       nickname,
     },
+  }).catch(({ response }) => {
+    if (response.status === 409) {
+      return false;
+    }
   });
+
   return data;
 };
 
