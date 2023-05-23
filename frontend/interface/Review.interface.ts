@@ -1,5 +1,5 @@
-import { ReviewEmbedUser } from "interface/User.interface";
 import { REVIEW_VALUE_INDEX } from "constants/review";
+import { ReviewEmbedUser } from "interface/User.interface";
 
 export interface ReviewProps {
   createdAt: string;
@@ -8,6 +8,7 @@ export interface ReviewProps {
   age: string;
   rank: string;
   isMyReview: boolean;
+  nickname: string;
   handleDeleteReview: () => void;
   handleEditReview: () => void;
 }

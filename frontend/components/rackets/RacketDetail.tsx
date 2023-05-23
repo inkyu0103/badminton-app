@@ -88,6 +88,7 @@ const RacketDetail = () => {
                   createdAt={formatDistanceToNow(new Date(review.createdAt), {
                     locale: ko,
                   })}
+                  nickname={review.user.nickname}
                   rank={review.user.rank}
                   age={birthdayToAge(new Date(review.user.birthday))}
                   value={review.starRating}
