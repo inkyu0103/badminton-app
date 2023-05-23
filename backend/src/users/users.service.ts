@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { UsersRepository } from 'users/users.repository';
 
 @Injectable()
@@ -11,5 +11,15 @@ export class UsersService {
 
   async getUser(email: string) {
     return await this.usersRepository.getUserWithEmail(email);
+  }
+
+  async isUsableNickname(nickname: string) {
+    const user = await this.usersRepository.getUserWithNickname(nickname);
+
+    if (user) {
+      throw new ConflictException('this nickname is already taken');
+    }
+
+    return true;
   }
 }

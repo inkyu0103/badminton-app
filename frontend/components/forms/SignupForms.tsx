@@ -4,21 +4,46 @@ import Calendar from "components/forms/Calendar";
 import genders from "constants/genders";
 import ranks from "constants/ranks";
 import { CreateUser } from "interface/User.interface";
+import isUsableNickname from "query/auth/isUsableNickname";
 import useSignupMutation from "query/auth/signup";
 import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
+import { extractDebounce } from "utils/extractDebounce";
+
+interface SignupFormViewProps {
+  email: string | undefined;
+  handleSignup: (user: CreateUser) => void;
+  handleValidateNickname: (...args: unknown[]) => Promise<unknown>;
+}
 
 const SignupForms = () => {
   const { data } = useVerifyTokenQuery();
   const { mutate: signupUser } = useSignupMutation();
-  const handleSignup = (user: CreateUser) => signupUser(user);
 
-  return <SignupFormsView email={data?.email} handleSignup={handleSignup} />;
+  const handleSignup = (user: CreateUser) => signupUser(user);
+  const handleValidateNickname = extractDebounce(
+    (nickname: string) => isUsableNickname(nickname),
+    200,
+  );
+
+  return (
+    <>
+      <SignupFormsView
+        email={data?.email}
+        handleSignup={handleSignup}
+        handleValidateNickname={handleValidateNickname}
+      />
+    </>
+  );
 };
 export default SignupForms;
 
-export const SignupFormsView = ({ email, handleSignup }) => {
+export const SignupFormsView = ({
+  email,
+  handleSignup,
+  handleValidateNickname,
+}: SignupFormViewProps) => {
   const {
     register,
     watch,
@@ -29,6 +54,7 @@ export const SignupFormsView = ({ email, handleSignup }) => {
   } = useForm<CreateUser>({
     defaultValues: {
       email,
+      nickname: "",
       password: "",
       passwordConfirm: "",
       birthday: new Date(),
@@ -50,6 +76,28 @@ export const SignupFormsView = ({ email, handleSignup }) => {
           disabled
           {...register("email")}
         />
+      </label>
+
+      <label className="text-sm">
+        별명
+        <input
+          className="w-full py-2 text-sm rounded-md shadow-md outline-none indent-2 "
+          placeholder="사용하실 별명을 입력해주세요"
+          {...register("nickname", {
+            required: {
+              value: true,
+              message: "별명을 입력해주세요",
+            },
+            validate: {
+              isUsableNickname: async (nickname) =>
+                (await handleValidateNickname(nickname)) ||
+                "이미 사용중인 별명입니다.",
+            },
+          })}
+        />
+        <p className="mt-1 text-red-600">
+          {errors["nickname"]?.message?.toString()}
+        </p>
       </label>
 
       <label className="text-sm">

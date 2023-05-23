@@ -9,6 +9,7 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement()) @map("USER_ID")
+  nickname  String   @unique
   email     String   @unique
   password  String
   rank      Rank     @default(E)
@@ -19,7 +20,7 @@ model User {
 
   Review RacketReview[]
 
-  @@map("USER")
+  @@map("user")
 }
 
 model Racket {
@@ -35,7 +36,7 @@ model Racket {
   brand   Brand          @relation(references: [id], fields: [brandId])
   Review  RacketReview[]
 
-  @@map("RACKET")
+  @@map("racket")
 }
 
 model RacketReview {
@@ -52,7 +53,7 @@ model RacketReview {
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt() @map("updated_at")
 
-  @@map("RACKET_REVIEW")
+  @@map("racket_review")
 }
 
 model Brand {
@@ -60,7 +61,7 @@ model Brand {
   name   String   @unique
   Racket Racket[]
 
-  @@map("BRAND")
+  @@map("brand")
 }
 
 model Verification {
@@ -68,7 +69,7 @@ model Verification {
   token     String    @unique
   createdAt DateTime? @default(now()) @map("created_at")
 
-  @@map("VERIFICATION")
+  @@map("verification")
 }
 
 enum Rank {
