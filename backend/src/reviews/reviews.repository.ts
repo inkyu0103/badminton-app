@@ -37,6 +37,7 @@ export class ReviewsRepository {
             createdAt: false,
             updatedAt: false,
             password: false,
+            nickname: true,
           },
         },
       },

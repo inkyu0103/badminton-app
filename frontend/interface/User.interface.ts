@@ -21,7 +21,7 @@ export interface FormattedCreateUser extends Omit<User, "birthday"> {
 
 export type ReviewEmbedUser = Pick<
   User,
-  "email" | "rank" | "birthday" | "gender" | "id"
+  "email" | "rank" | "birthday" | "gender" | "id" | "nickname"
 >;
 
 export type LoggedinUser = Pick<User, "id" | "email">;

@@ -8,6 +8,7 @@ const Review = ({
   age,
   rank,
   isMyReview,
+  nickname,
   handleDeleteReview,
   handleEditReview,
 }: ReviewProps) => (
@@ -46,7 +47,7 @@ const Review = ({
       </div>
     </div>
 
-    <p className="text-xs">{`(${age} ${rank}조) `}</p>
+    <p className="text-xs">{`${nickname} (${age} ${rank}조) `}</p>
     <p className="text-sm truncate">{review}</p>
   </article>
 );
