@@ -9,11 +9,12 @@ import useSignupMutation from "query/auth/signup";
 import { useVerifyTokenQuery } from "query/auth/verifyEmailToken";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
+import { extractDebounce } from "utils/extractDebounce";
 
 interface SignupFormViewProps {
   email: string | undefined;
   handleSignup: (user: CreateUser) => void;
-  handleValidateNickname: (nickname: string) => Promise<boolean>;
+  handleValidateNickname: (...args: unknown[]) => Promise<unknown>;
 }
 
 const SignupForms = () => {
@@ -21,8 +22,10 @@ const SignupForms = () => {
   const { mutate: signupUser } = useSignupMutation();
 
   const handleSignup = (user: CreateUser) => signupUser(user);
-  const handleValidateNickname = (nickname: string) =>
-    isUsableNickname(nickname);
+  const handleValidateNickname = extractDebounce(
+    (nickname: string) => isUsableNickname(nickname),
+    200,
+  );
 
   return (
     <>

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import axios from "query/axios";
-import { setBearerToken, removeBearerToken } from "query/interceptors";
+import { removeBearerToken, setBearerToken } from "query/interceptors";
 import { queryKeys } from "query/queryKeys";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { accessTokenState, LoginState } from "recoil/atoms/accessToken";
