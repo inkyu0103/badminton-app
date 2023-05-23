@@ -18,8 +18,8 @@ export const useVerifyTokenQuery = () => {
   const router = useRouter();
 
   return useQuery<Token>(
-    queryKeys.auth.emailToken(router.query?.token),
-    () => verifyEmailToken(router.query?.token),
+    queryKeys.auth.emailToken(router.query?.token as string),
+    () => verifyEmailToken(router.query?.token as string),
     {
       suspense: true,
       enabled: !!router.query?.token,

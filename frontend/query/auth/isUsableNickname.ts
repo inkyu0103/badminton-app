@@ -1,6 +1,6 @@
 import axios from "query/axios";
 
-const isUsableNickname = async (nickname: string) => {
+const isUsableNickname = async (nickname: string): Promise<boolean> => {
   const { data } = await axios("users/usable-nickname", {
     params: {
       nickname,

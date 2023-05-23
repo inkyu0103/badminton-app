@@ -1,10 +1,11 @@
-export const debounce = (func: any) => {
+/* eslint-disable */
+export const debounce = (func: any, time = 200) => {
   let timer: ReturnType<typeof setTimeout>;
 
-  return () => {
+  return (...args: unknown[]) => {
     if (timer) {
       clearTimeout(timer);
     }
-    timer = setTimeout(func, 200);
+    timer = setTimeout(() => func(...args), time);
   };
 };
