@@ -7,4 +7,5 @@
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   }
+  // "setupFilesAfterEnv": ["./setupTest.ts"]
 }
