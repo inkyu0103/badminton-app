@@ -26,7 +26,6 @@ model User {
 model Racket {
   id      Int            @id @default(autoincrement())
   name    String         @unique
-  rating  Float
   price   Int
   image   String?
   shaft   Shaft
