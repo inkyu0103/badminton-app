@@ -9,7 +9,6 @@ const testRacket = () =>
         data: {
           id: idx + 10,
           name: `나노레이 ${idx + 1}`,
-          rating: 5,
           image: null,
           price: 10000,
           shaft: 'FLEXIBLE',
