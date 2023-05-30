@@ -14,6 +14,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "cross-env NODE_ENV=prod node dist/main ",
     "seed:dev": "dotenv -e .env.local npx ts-node ./prisma/seed.ts",
+    "seed:staging":"dotenv -e .env.staging npx ts-node ./prisma/seed.ts",
     "lint": "eslint ./src --fix",
     "test": "jest",
     "test:watch": "jest --watch",
