@@ -62,6 +62,7 @@ export class AuthController {
     const { accessToken, refreshToken } = await this.authService.signup(body);
 
     res.cookie('refreshToken', refreshToken);
+    console.log('asdf');
     return { accessToken };
   }
 }
