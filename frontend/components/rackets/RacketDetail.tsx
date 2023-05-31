@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import EvaluateButton from "components/common/EvaluateButton";
 import Modal from "components/common/Modal";
 import Pagination from "components/common/Pagination";
@@ -8,6 +7,7 @@ import RacketStatistics from "components/rackets/RacketStatistics";
 import Review from "components/rackets/Review";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRacketQuery } from "query/rackets/rackets";
 import {
@@ -48,10 +48,12 @@ const RacketDetail = () => {
         <h1 className="my-10 text-3xl font-bold">{racket.name}</h1>
         <div className="justify-between mx-auto md:flex ">
           <section className="my-4 md:w-1/2">
-            <img
+            <Image
+              width={328}
+              height={328}
               alt="racket"
-              src="https://m.woosungsports.com/web/product/big/412_5ff22e3f894ac8106c2773bec3fbe12c.jpg"
-              className="mx-auto border-2 w-mb "
+              src="https://staging-mobae-image.s3.ap-northeast-2.amazonaws.com/racket.jpg"
+              className="mx-auto border-2 w-mb"
             />
           </section>
           <section className="mx-auto w-mb md:w-1/2 md:flex md:flex-col md:items-center ">
@@ -66,7 +68,7 @@ const RacketDetail = () => {
               />
               <p className="text-3xl font-bold">{racket.score}</p>
             </div>
-            {true && (
+            {user && (
               <EvaluateButton
                 handleClick={() => setModalState(MODAL_TYPE.CREATE)}
               />
@@ -87,6 +89,7 @@ const RacketDetail = () => {
                   isMyReview={review.user.id === user?.id}
                   createdAt={formatDistanceToNow(new Date(review.createdAt), {
                     locale: ko,
+                    addSuffix: true,
                   })}
                   nickname={review.user.nickname}
                   rank={review.user.rank}
@@ -109,7 +112,7 @@ const RacketDetail = () => {
             )}
           </div>
         </section>
-        {reviewList?.count > 7 ? (
+        {reviewList && reviewList?.count > 7 ? (
           <div className="sm:flex sm:justify-center sm:mt-4">
             <Pagination
               curPage={curPage}

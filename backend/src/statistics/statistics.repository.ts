@@ -49,6 +49,7 @@ export class StatisticsRepository {
   async getRacketControl(racketId: number, rank: StatisticsRank) {
     return this.prismaService.racketReview.count({
       where: {
+        racketId,
         control: 0,
         user: {
           rank: rank === 'ALL' ? { in: ['S', 'A', 'B', 'C', 'D'] } : rank,
