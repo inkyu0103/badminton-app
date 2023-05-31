@@ -1,8 +1,8 @@
-import { Legend, PolarAngleAxis, PolarGrid,Radar, RadarChart } from "recharts";
+import { Legend, PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
 
 const data = [
   {
-    subject: "컨트롤",
+    subject: "컨트롤s",
     A: 3,
     B: 4,
     fullMark: 5,
