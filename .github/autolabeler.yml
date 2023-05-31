@@ -1,0 +1,3 @@
+frontend: ["/frontend/*"]
+backend: ["/backend/*"]
+documentation: ["/README.md", "/backend/README.md", "/frontend/README.md"]
