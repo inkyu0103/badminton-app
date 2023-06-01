@@ -1,0 +1,35 @@
+name: Test flow
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!production'
+
+      
+jobs:
+  frontend-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 3
+
+
+      - name: 변경된 파일 확인
+        id: changed_files
+        run: |
+            echo "::set-output name=frontend_changed::$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- frontend/)"
+            echo "::set-output name=backend_changed::$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- backend/)"
+
+      - name: frontend test
+        if: ${{ steps.changed_files.outputs.frontend_changed == 'true' }}
+        run: |
+          cd frontend && npm ci && npm run test
+      
+      - name: backend test
+        if: ${{ steps.changed_files.outputs.frontend_changed == 'true' }}
+        run: |
+          cd backend && npm ci && npm run test
+      
