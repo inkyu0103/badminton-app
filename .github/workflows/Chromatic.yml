@@ -1,6 +1,12 @@
 name: javascript-ui-review
+
 run-name: storybook publishing & check visual changeset
-on: push
+on:
+  push:
+    branches:
+      - '*'
+      - '!production'
+
 jobs:
   javascript-ui-review:
     runs-on: ubuntu-latest

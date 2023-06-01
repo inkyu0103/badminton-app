@@ -31,12 +31,6 @@ jobs:
               echo BE_DIFF=true >> $GITHUB_ENV
             fi
 
-      - name: github 확인
-        run: |
-          echo ${{env.FE_DIFF}}
-          echo ${{env.BE_DIFF}}
-
-
       - name: frontend test
         if: ${{env.FE_DIFF == 'true'}}
         run: |
@@ -45,5 +39,5 @@ jobs:
       - name: backend test
         if: ${{ env.BE_DIFF == 'true' }}
         run: |
-          echo fe diff!
+          echo be diff!
       
