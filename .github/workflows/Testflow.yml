@@ -27,7 +27,7 @@ jobs:
             fi
 
 
-            if [ -n "$BE_DIFF" ]; then
+            if [ -n $BE_DIFF ]; then
               echo BE_DIFF=true >> $GITHUB_ENV
             fi
 
