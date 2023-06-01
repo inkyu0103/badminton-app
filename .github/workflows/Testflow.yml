@@ -20,16 +20,18 @@ jobs:
       - name: 변경된 파일 확인
         id: changed_files
         run: |
-            echo "::set-output name=frontend_changed::$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- frontend/)"
-            echo "::set-output name=backend_changed::$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- backend/)"
+            echo "is_frontend_changed=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- frontend/)" >> "$GITHUB_ENV"
+            echo "is_backend_changed=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- backend/)" >> "$GITHUB_ENV"
+            echo ${{env}}
+            
 
       - name: frontend test
-        if: ${{ steps.changed_files.outputs.frontend_changed == 'true' }}
+        if: ${{ env.is_frontend_changed == 'true' }}
         run: |
           cd frontend && npm ci && npm run test
       
       - name: backend test
-        if: ${{ steps.changed_files.outputs.frontend_changed == 'true' }}
+        if: ${{ env.is_backend_changed == 'true' }}
         run: |
           cd backend && npm ci && npm run test
       
