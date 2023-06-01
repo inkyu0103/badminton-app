@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const EquipmentGuide = () => (
+<<<<<<< HEAD
   <Link href="/begginer">
     <div className=" min-w-mb min-h-mb max-w-[1200px] max-h-[490px] relative rounded-lg md:flex md:items-center justify-evenly shadow-md ">
       <p className="absolute text-3xl font-bold top-4 left-4 md:text-6xl md:static">
@@ -10,6 +11,16 @@ const EquipmentGuide = () => (
         <br />
         가이드
       </p>
+=======
+  <div className=" min-w-mb min-h-mb max-w-[1200px] max-h-[490px] relative rounded-lg md:flex md:items-center justify-evenly shadow-md ">
+    <p className="absolute text-3xl font-bold top-4 left-4 md:text-6xl md:static">
+      초보자 어떻게 하냐
+      <br />
+      <span className="text-[#6C63FF]">장비</span>선택
+      <br />
+      가이드
+    </p>
+>>>>>>> chore: test 2
 
       <div className="flex items-center justify-end px-4">
         <svg

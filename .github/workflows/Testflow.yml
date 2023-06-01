@@ -22,7 +22,7 @@ jobs:
         run: |
             echo "is_frontend_changed=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- frontend/)" >> "$GITHUB_ENV"
             echo "is_backend_changed=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- backend/)" >> "$GITHUB_ENV"
-            echo ${{env}}
+            echo ${{env.is_frontend_changed}}
             
 
       - name: frontend test
