@@ -17,7 +17,6 @@ jobs:
           fetch-depth: 3
 
       - name: 변경된 파일 확인
-        id: changed_files
         run: |
             FE_DIFF=$(git diff --name-only -- frontend)
             BE_DIFF=$(git diff --name-only -- backend)
