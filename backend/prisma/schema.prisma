@@ -29,11 +29,12 @@ model Racket {
   price   Int
   image   String?
   shaft   Shaft
-  weight  RacketWeight
+  weight  RacketWeight[]
   score   Float          @default(0)
   brandId Int
   brand   Brand          @relation(references: [id], fields: [brandId])
   Review  RacketReview[]
+  balance Balance
 
   @@map("racket")
 }
@@ -91,7 +92,7 @@ enum RacketWeight {
   W5U
 }
 
-enum Balence {
+enum Balance {
   HEAD_HEAVY
   EVEN
   HEAD_LIGHT

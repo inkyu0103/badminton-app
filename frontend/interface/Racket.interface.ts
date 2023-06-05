@@ -17,12 +17,13 @@ export interface RacketListViewProps {
 
 export interface IRacket {
   id: number;
-  brand: string;
+  brandId: number;
   name: string;
   rating: number;
   price: number;
   image: string | null;
-  shaft: string;
-  weight: string;
+  shaft: ("FLEXIBLE" | "MEDIUM" | "STIFF")[];
+  weight: ("W3U" | "W4U" | "W5U")[];
+  balance: ("HEAD_HEAVY" | "HEAD_LIGHT" | "EVEN")[];
   score: number;
 }
