@@ -22,8 +22,12 @@ export interface IRacket {
   rating: number;
   price: number;
   image: string | null;
-  shaft: ("FLEXIBLE" | "MEDIUM" | "STIFF")[];
-  weight: ("W3U" | "W4U" | "W5U")[];
-  balance: ("HEAD_HEAVY" | "HEAD_LIGHT" | "EVEN")[];
+  shaft: Tshaft;
+  weight: Tweight[];
+  balance: Tbalance;
   score: number;
 }
+
+export type Tshaft = "FLEXIBLE" | "MEDIUM" | "STIFF";
+export type Tweight = "W3U" | "W4U" | "W5U";
+export type Tbalance = "HEAD_HEAVY" | "HEAD_LIGHT" | "EVEN";
