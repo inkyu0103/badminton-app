@@ -5,14 +5,20 @@ const client = new PrismaClient();
 
 const testRanks = ['S', 'A', 'B', 'C', 'D', 'E'] as const;
 
+const getRandomElement = (array: any[]) => {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+};
+
 const testRackets: Racket[] = new Array(20).fill(0).map((_, idx) => ({
   id: idx + 10,
   name: `나노레이 ${idx + 1}`,
   image: null,
   price: 10000,
   shaft: 'FLEXIBLE',
-  weight: 'W3U',
+  weight: ['W3U', 'W4U'],
   score: 0,
+  balance: getRandomElement(['HEAD_HEAVY', 'HEAD_LIGHT', 'EVEN']),
   brandId: 1,
 }));
 

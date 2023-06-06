@@ -1,5 +1,4 @@
 import Spinner from "components/common/Spinner";
-import SSRSuspense from "components/common/SSRSuspense";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
@@ -8,15 +7,13 @@ const RacketDetail = dynamic(() => import("components/rackets/RacketDetail"), {
   ssr: false,
 });
 
-const Test = () => (
+const RacketDetailPage = () => (
   <div className="flex-1">
     <Head>
       <title>라켓 상세보기</title>
     </Head>
-    <SSRSuspense fallback={<Spinner />}>
-      <RacketDetail />
-    </SSRSuspense>
+    <RacketDetail />
   </div>
 );
 
-export default Test;
+export default RacketDetailPage;

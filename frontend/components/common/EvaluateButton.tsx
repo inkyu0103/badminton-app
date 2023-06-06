@@ -2,8 +2,8 @@ import { EvaluateButtonProps } from "interface/EvaluateButton.interface";
 
 const EvaluateButton = ({ handleClick }: EvaluateButtonProps) => (
   <button
+    className={`text-xl  border-2 rounded-md p-1 hover:bg-slate-100 duration-300`}
     onClick={handleClick}
-    className="w-full h-8 duration-300 ease-out bg-blue-300 rounded-md hover:cursor-pointer hover:text-white max-w-mb hover:bg-blue-500"
   >
     평가하기
   </button>
