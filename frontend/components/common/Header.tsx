@@ -26,7 +26,7 @@ export const HeaderView = ({ handleLogout, loginUser }: HeaderViewProps) => (
         <Link href="/rackets/yonex?page=1" className="text-white">
           Rackets
         </Link>
-        <Link href="/emailVerify" className="text-white">
+        <Link href="/profile" className="text-white">
           프로필
         </Link>
         <button className="text-white" onClick={handleLogout}>

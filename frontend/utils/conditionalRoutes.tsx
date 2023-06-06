@@ -18,18 +18,3 @@ export const OnlyPublicRoute = (Component: NextPage) => {
 
   return PublicRoute;
 };
-
-export const PrivateRoute = (Component: NextPage) => {
-  const PrivateRoute = () => {
-    const router = useRouter();
-    const user = useRecoilValue(userState);
-
-    if (user) {
-      return <Component />;
-    }
-
-    router.push("/login");
-    return null;
-  };
-  return PrivateRoute;
-};
