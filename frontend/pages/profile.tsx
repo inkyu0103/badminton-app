@@ -1,25 +1,21 @@
-import Profile from "components/users/Profile";
-import { NextPage } from "next";
+import ProfileSkeleton from "components/users/ProfileSkeleton";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { userState } from "recoil/atoms/user";
 
-const ProfilePage: NextPage = () => {
+const Profile = dynamic(() => import("components/users/Profile"), {
+  loading: () => <ProfileSkeleton />,
+  ssr: false,
+});
+
+const ProfilePage = () => {
   const user = useRecoilValue(userState);
-  const router = useRouter();
 
   if (user) {
     return <Profile />;
   }
 
-  router.push("/login");
-  return null;
+  return <div className="h-full" />;
 };
 
-const CSRProfilePage = dynamic(() => Promise.resolve(ProfilePage), {
-  ssr: false,
-  loading: () => <div></div>,
-});
-
-export default CSRProfilePage;
+export default ProfilePage;
