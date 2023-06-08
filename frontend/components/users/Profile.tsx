@@ -1,9 +1,39 @@
+import { EnGender, Rank } from "interface/User.interface";
+import { useRecoilValue } from "recoil";
+import { userState } from "recoil/atoms/user";
+import { birthdayToAge } from "utils/birthdayToage";
+import enToKrGender from "utils/genderMapper";
+
+interface ProfileViewProps {
+  nickname?: string;
+  rank?: Rank;
+  gender?: EnGender;
+  birthday?: Date;
+  email?: string;
+}
+
 const Profile = () => {
-  return <ProfileView />;
+  const user = useRecoilValue(userState);
+
+  return (
+    <ProfileView
+      nickname={user?.nickname}
+      rank={user?.rank}
+      gender={user?.gender}
+      birthday={user?.birthday}
+      email={user?.email}
+    />
+  );
 };
 export default Profile;
 
-export const ProfileView = () => {
+export const ProfileView = ({
+  nickname,
+  rank,
+  gender,
+  birthday,
+  email,
+}: ProfileViewProps) => {
   return (
     <div>
       <div className=" p-4 max-w-[1200px] mx-auto ">
@@ -16,9 +46,11 @@ export const ProfileView = () => {
               id="file-upload"
             />
           </label>
-          <p className="text-xl font-semibold">김모배</p>
-          <p className="text-base font-semibold">20대 남 A조</p>
-          <p>testUser1@test.com</p>
+          <p className="text-xl font-semibold">{nickname}</p>
+          <p className="text-base font-semibold">
+            {birthdayToAge(new Date(birthday))} {enToKrGender(gender)} {rank}조
+          </p>
+          <p>{email}</p>
         </div>
 
         <div className="flex flex-col gap-y-4">

@@ -65,7 +65,15 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const payload = { email: user.email, id: user.id };
+    const payload = {
+      email: user.email,
+      id: user.id,
+      nickname: user.nickname,
+      rank: user.rank,
+      gender: user.gender,
+      birthday: user.birthday,
+    };
+
     const accessToken = this.jwtService.sign(payload, { expiresIn: '15m' });
     const refreshToken = this.jwtService.sign(payload, { expiresIn: '14d' });
 
@@ -83,7 +91,14 @@ export class AuthService {
 
     if (!result) throw new UnauthorizedException();
 
-    const payload = { email: result.email, id: result.id };
+    const payload = {
+      email: result.email,
+      id: result.id,
+      nickname: result.nickname,
+      rank: result.rank,
+      gender: result.gender,
+      birthday: result.birthday,
+    };
 
     const newAccessToken = this.jwtService.sign(payload, { expiresIn: '15m' });
 

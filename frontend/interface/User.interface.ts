@@ -4,10 +4,11 @@ interface User {
   email: string;
   password: string;
   rank: Rank;
-  gender: "MALE" | "FEMALE";
+  gender: EnGender;
   birthday: Date;
 }
 
+export type EnGender = "MALE" | "FEMALE";
 export type Rank = "S" | "A" | "B" | "C" | "D";
 
 export interface CreateUser extends Omit<User, "gender"> {
@@ -24,4 +25,7 @@ export type ReviewEmbedUser = Pick<
   "email" | "rank" | "birthday" | "gender" | "id" | "nickname"
 >;
 
-export type LoggedinUser = Pick<User, "id" | "email">;
+export type LoggedinUser = Pick<
+  User,
+  "email" | "rank" | "birthday" | "gender" | "id" | "nickname"
+>;
