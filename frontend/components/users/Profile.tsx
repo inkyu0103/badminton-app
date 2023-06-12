@@ -1,4 +1,5 @@
 import { EnGender, Rank } from "interface/User.interface";
+import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { userState } from "recoil/atoms/user";
 import { birthdayToAge } from "utils/birthdayToage";
@@ -14,16 +15,22 @@ interface ProfileViewProps {
 
 const Profile = () => {
   const user = useRecoilValue(userState);
+  const router = useRouter();
 
-  return (
-    <ProfileView
-      nickname={user?.nickname}
-      rank={user?.rank}
-      gender={user?.gender}
-      birthday={user?.birthday}
-      email={user?.email}
-    />
-  );
+  if (user) {
+    return (
+      <ProfileView
+        nickname={user?.nickname}
+        rank={user?.rank}
+        gender={user?.gender}
+        birthday={user?.birthday}
+        email={user?.email}
+      />
+    );
+  }
+
+  router.push("/login");
+  return <div className="flex-1" />;
 };
 export default Profile;
 
@@ -35,7 +42,7 @@ export const ProfileView = ({
   email,
 }: ProfileViewProps) => {
   return (
-    <div>
+    <div className="flex-1">
       <div className=" p-4 max-w-[1200px] mx-auto ">
         <div className="flex flex-col items-center gap-y-1">
           <label className="block bg-blue-300 rounded-full w-28 h-28 hover:cursor-pointer">

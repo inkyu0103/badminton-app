@@ -4,8 +4,7 @@ import "styles/slick.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import CheckLogin from "components/common/CheckLogin";
-import Footer from "components/common/Footer";
-import Header from "components/common/Header";
+import Layout from "components/common/Layout";
 import usePrevRoute from "hooks/usePrevRoute";
 import type { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
@@ -25,11 +24,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <CheckLogin>
-          <div className="flex flex-col h-full min-h-full">
-            <Header />
+          <Layout>
             <Component {...pageProps} />
-            <Footer />
-          </div>
+          </Layout>
         </CheckLogin>
       </RecoilRoot>
       <ReactQueryDevtools initialIsOpen={false} />

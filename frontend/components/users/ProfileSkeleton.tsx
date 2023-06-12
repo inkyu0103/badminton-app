@@ -1,5 +1,5 @@
 const ProfileSkeleton = () => (
-  <div>
+  <div className="flex-1">
     <div className=" p-4 max-w-[1200px] mx-auto ">
       <div className="mx-auto ">
         <div className="flex flex-col items-center animate-pulse gap-y-1">
