@@ -1,7 +1,7 @@
-import { ReturnChildrenProps } from "interface/Common.interface";
+import { StrictPropsWithChildren } from "interface/Common.interface";
 import { useSilentLoginQuery } from "query/auth/login";
 
-const CheckLogin = ({ children }: ReturnChildrenProps) => {
+const CheckLogin = ({ children }: StrictPropsWithChildren) => {
   useSilentLoginQuery();
   return children;
 };

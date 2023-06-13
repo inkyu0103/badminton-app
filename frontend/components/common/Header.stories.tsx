@@ -1,4 +1,5 @@
-import { HeaderView } from "components/common/Header";
+import { HeaderView, HeaderViewProps } from "components/common/Header";
+import { LoginState } from "recoil/atoms/loginState";
 
 export default {
   component: HeaderView,
@@ -7,18 +8,20 @@ export default {
   },
 };
 
-export const Default = (args) => (
-  <div className="p-0">
+export const Default = (args: HeaderViewProps) => (
+  <div className="flex flex-col p-0 gap-y-4">
+    <HeaderView {...args} />
+    <HeaderView {...args} />
     <HeaderView {...args} />
   </div>
 );
 
 Default.args = {
   handleLogout: () => {},
-  loginUser: true,
+  loginUser: LoginState.LOGGED_IN,
 };
 
 Default.argTypes = {
   handleLogout: { table: { disable: true } },
-  loginUser: { control: "boolean" },
+  loginUser: { table: { disable: true } },
 };

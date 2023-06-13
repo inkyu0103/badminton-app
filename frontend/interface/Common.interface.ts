@@ -1,3 +1,5 @@
-export interface ReturnChildrenProps {
-  children: JSX.Element;
-}
+import { ReactNode } from "react";
+
+export type StrictPropsWithChildren<P = unknown> = P & {
+  children: ReactNode;
+};

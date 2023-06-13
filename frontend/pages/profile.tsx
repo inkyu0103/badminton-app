@@ -1,4 +1,5 @@
 import ProfileSkeleton from "components/users/ProfileSkeleton";
+import { GetServerSidePropsContext } from "next";
 import dynamic from "next/dynamic";
 
 const Profile = dynamic(() => import("components/users/Profile"), {
@@ -6,8 +7,21 @@ const Profile = dynamic(() => import("components/users/Profile"), {
   ssr: false,
 });
 
-const ProfilePage = () => {
-  return <Profile />;
-};
+const ProfilePage = () => <Profile />;
 
 export default ProfilePage;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req } = context;
+
+  if (!req.headers.cookie) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: {} };
+}

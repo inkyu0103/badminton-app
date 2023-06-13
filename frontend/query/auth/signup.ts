@@ -4,17 +4,14 @@ import { useRouter } from "next/router";
 import axios from "query/axios";
 import { setBearerToken } from "query/interceptors";
 import { useSetRecoilState } from "recoil";
-import { accessTokenState } from "recoil/atoms/accessToken";
+import { loginStateAtom } from "recoil/atoms/loginState";
 
 const genderMapper = Object.freeze({
   남성: "MALE",
   여성: "FEMALE",
 });
 
-const userFormatter = ({
-  passwordConfirm,
-  ...args
-}: CreateUser): FormattedCreateUser => ({
+const userFormatter = ({ ...args }: CreateUser): FormattedCreateUser => ({
   ...args,
   gender: genderMapper[args.gender],
   birthday: args.birthday.toISOString(),
@@ -29,7 +26,7 @@ const signup = async (user: CreateUser) => {
 
 const useSignupMutation = () => {
   const router = useRouter();
-  const setAccessTokenState = useSetRecoilState(accessTokenState);
+  const setAccessTokenState = useSetRecoilState(loginStateAtom);
 
   return useMutation((user: CreateUser) => signup(user), {
     onSuccess: (data) => {

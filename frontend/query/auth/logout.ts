@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import axios from "query/axios";
 import { removeBearerToken } from "query/interceptors";
 import { useSetRecoilState } from "recoil";
-import { accessTokenState, LoginState } from "recoil/atoms/accessToken";
+import { LoginState, loginStateAtom } from "recoil/atoms/loginState";
 import { userState } from "recoil/atoms/user";
 
 const logout = async () => {
@@ -13,13 +13,13 @@ const logout = async () => {
 
 export const useLogoutMutation = () => {
   const router = useRouter();
-  const setAccessTokenState = useSetRecoilState(accessTokenState);
+  const setAccessTokenState = useSetRecoilState(loginStateAtom);
   const setUserState = useSetRecoilState(userState);
 
   return useMutation(() => logout(), {
     onSuccess: () => {
       removeBearerToken();
-      setAccessTokenState(LoginState["NO_LOGIN"]);
+      setAccessTokenState(LoginState.NO_LOGIN);
       setUserState(null);
       router.push("/");
     },
