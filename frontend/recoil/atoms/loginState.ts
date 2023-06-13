@@ -3,9 +3,10 @@ import { atom } from "recoil";
 export enum LoginState {
   PENDING = "PENDING",
   NO_LOGIN = "NO_LOGIN",
+  LOGGED_IN = "LOGGED_IN",
 }
 
-export const accessTokenState = atom<string>({
-  key: "accessTokenState",
+export const loginStateAtom = atom<LoginState>({
+  key: "loginStateAtom",
   default: LoginState["PENDING"],
 });

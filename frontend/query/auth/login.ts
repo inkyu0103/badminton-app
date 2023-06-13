@@ -5,7 +5,7 @@ import axios from "query/axios";
 import { removeBearerToken, setBearerToken } from "query/interceptors";
 import { queryKeys } from "query/queryKeys";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { accessTokenState, LoginState } from "recoil/atoms/accessToken";
+import { LoginState, loginStateAtom } from "recoil/atoms/loginState";
 import { userState } from "recoil/atoms/user";
 
 interface LoginFormData {
@@ -23,13 +23,13 @@ const login = async (loginFormData: LoginFormData) => {
 
 export const useLoginMutation = () => {
   const router = useRouter();
-  const setAccessTokenState = useSetRecoilState(accessTokenState);
+  const setAccessTokenState = useSetRecoilState(loginStateAtom);
   const setUserState = useSetRecoilState(userState);
 
   return useMutation((loginFormData: LoginFormData) => login(loginFormData), {
     onSuccess: (data) => {
       setBearerToken(data.accessToken);
-      setAccessTokenState(data.accessToken);
+      setAccessTokenState(LoginState.LOGGED_IN);
       setUserState(data.user);
       router.push(sessionStorage.getItem("prevPath") || "/");
     },
@@ -49,7 +49,7 @@ const silentLogin = async () => {
 };
 
 export const useSilentLoginQuery = () => {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(loginStateAtom);
   const setUserState = useSetRecoilState(userState);
 
   return useQuery(queryKeys.auth.tokenState, silentLogin, {
@@ -59,11 +59,11 @@ export const useSilentLoginQuery = () => {
       setUserState(data.user);
     },
     onError: () => {
-      setAccessToken(LoginState["NO_LOGIN"]);
+      setAccessToken(LoginState.NO_LOGIN);
       removeBearerToken();
       setUserState(null);
     },
-    enabled: accessToken === LoginState["PENDING"],
+    enabled: accessToken === LoginState.PENDING,
     retry: false,
   });
 };
