@@ -36,19 +36,30 @@ export class AuthController {
       req.user,
     );
 
-    res.cookie('refreshToken', refreshToken);
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: true,
+    });
+
     return { accessToken, user };
   }
 
   @Get('/validate-token')
-  async validateToken(@Req() req) {
+  async validateToken(@Req() req, @Res() res: Response) {
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException({ message: 'There is no refresh token' });
     }
-
-    return this.authService.validateRefreshToken(refreshToken);
+    try {
+      const result = this.authService.validateRefreshToken(refreshToken);
+      res.send(result);
+    } catch (e) {
+      if (e.name === 'TokenExpiredError') {
+        res.clearCookie('refreshToken');
+        throw new UnauthorizedException({ message: 'Token is Expired' });
+      }
+    }
   }
 
   @Post('/logout')

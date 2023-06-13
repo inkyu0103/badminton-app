@@ -89,8 +89,6 @@ export class AuthService {
   validateRefreshToken(refreshToken) {
     const result = this.jwtService.verify(refreshToken);
 
-    if (!result) throw new UnauthorizedException();
-
     const payload = {
       email: result.email,
       id: result.id,
