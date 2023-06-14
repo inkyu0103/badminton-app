@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { MailerService } from '@nestjs-modules/mailer/dist';
+import { MailerService } from '@nestjs-modules/mailer';
 import { AuthRepository } from 'auth/auth.repository';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'auth/types/auth.interface';
