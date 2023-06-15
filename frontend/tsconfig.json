@@ -21,6 +21,12 @@
     "noUnusedParameters": true,
     "noEmitOnError": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "frontend"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "frontend",
+    "next-sitemap.config.tjs"
+  ],
   "exclude": ["node_modules"]
 }
