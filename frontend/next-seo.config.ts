@@ -12,6 +12,7 @@ const config: DefaultSeoProps = {
     url: process.env.NEXT_PUBLIC_URL,
     siteName: "모두의 배드민턴",
     title: "모두의 배드민턴",
+    description: "모든 사람이 배드민턴을 즐기는 그 날을 위해",
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_URL}/api/og`,
