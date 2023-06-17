@@ -12,7 +12,7 @@ const Racket = ({ name, racketId, score }: RacketProps) => (
           quality={80}
           width={280}
           height={280}
-          className="rounded-md h-36 md:w-[280px] md:h-[280px]"
+          className="rounded-md w-36 h-36 md:w-[280px] md:h-[280px]"
           alt="racket"
           src="https://staging-mobae-image.s3.ap-northeast-2.amazonaws.com/racket.png"
         />

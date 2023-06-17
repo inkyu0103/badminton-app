@@ -41,7 +41,7 @@ const RacketSpec = ({ score, weight, balance, shaft }: RacketSpecProps) => {
           width={328}
           height={328}
           alt="racket"
-          src="https://staging-mobae-image.s3.ap-northeast-2.amazonaws.com/racket.jpg"
+          src="https://staging-mobae-image.s3.ap-northeast-2.amazonaws.com/racket.png"
           className="mx-auto "
         />
       </div>
