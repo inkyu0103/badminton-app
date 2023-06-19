@@ -17,7 +17,7 @@ export default Header;
 
 export interface HeaderViewProps {
   handleLogout: () => void;
-  isLogin: boolean;
+  isLogin?: boolean;
 }
 
 export const HeaderView = ({ handleLogout, isLogin }: HeaderViewProps) => {

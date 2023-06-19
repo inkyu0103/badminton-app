@@ -47,7 +47,6 @@ export class AuthController {
   @Get('/validate-token')
   async validateToken(@Req() req, @Res() res: Response) {
     const { refreshToken } = req.cookies;
-    console.log(refreshToken);
 
     if (!refreshToken) {
       throw new UnauthorizedException({ message: 'There is no refresh token' });
@@ -72,9 +71,11 @@ export class AuthController {
 
   @Post('/signup')
   async signup(@Body() body, @Res({ passthrough: true }) res: Response) {
-    const { accessToken, refreshToken } = await this.authService.signup(body);
+    const { accessToken, refreshToken, user } = await this.authService.signup(
+      body,
+    );
 
     res.cookie('refreshToken', refreshToken);
-    return { accessToken };
+    return { accessToken, user };
   }
 }
