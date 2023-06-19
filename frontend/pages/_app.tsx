@@ -17,7 +17,9 @@ import { queryKeys } from "query/queryKeys";
 import { useState } from "react";
 import { RecoilRoot } from "recoil";
 
-const MyApp = ({ Component, pageProps, props }: AppProps) => {
+type MyAppProps = AppProps & { props: { dehydratedState: unknown } };
+
+const MyApp = ({ Component, pageProps, props }: MyAppProps) => {
   const [queryClient] = useState(() => new QueryClient());
   usePrevRoute();
 
