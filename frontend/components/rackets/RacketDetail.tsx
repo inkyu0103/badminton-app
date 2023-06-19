@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import EvaluateButton from "components/common/EvaluateButton";
 import Modal from "components/common/Modal";
 import Pagination from "components/common/Pagination";
@@ -9,15 +10,16 @@ import Review from "components/rackets/Review";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
 import { Tbalance, Tshaft, Tweight } from "interface/Racket.interface";
+import { ILoginResponse } from "interface/User.interface";
+import { isNil } from "lodash";
 import { useRouter } from "next/router";
+import { queryKeys } from "query/queryKeys";
 import { useRacketQuery } from "query/rackets/rackets";
 import {
   useDeleteRacketReviewMutation,
   useReviewList,
 } from "query/reviews/reviews";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { userState } from "recoil/atoms/user";
 import { birthdayToAge } from "utils/birthdayToage";
 
 const MODAL_TYPE = Object.freeze({
@@ -32,8 +34,12 @@ const RacketDetail = () => {
   const [modalState, setModalState] = useState<null | string>(MODAL_TYPE.CLOSE);
   const [reviewId, setReviewId] = useState<null | number>(null);
 
-  const user = useRecoilValue(userState);
   const router = useRouter();
+
+  const queryClient = useQueryClient();
+  const { user } = queryClient.getQueryData<ILoginResponse>(
+    queryKeys.auth.tokenState,
+  );
 
   const { data: racket } = useRacketQuery();
   const { data: reviewList } = useReviewList();
@@ -58,7 +64,7 @@ const RacketDetail = () => {
         <section className="mx-auto">
           <div className="flex items-center justify-between">
             <p className="my-4 text-2xl font-bold">리뷰</p>
-            {user && (
+            {!isNil(user) && (
               <EvaluateButton
                 handleClick={() => setModalState(MODAL_TYPE.CREATE)}
               />

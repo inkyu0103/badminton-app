@@ -1,10 +1,10 @@
 import BadRequest from "components/common/BadRequest";
 import Spinner from "components/common/Spinner";
+import { GetServerSidePropsContext } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { OnlyPublicRoute } from "utils/conditionalRoutes";
 
 const SignupForms = dynamic(() => import("components/forms/SignupForms"), {
   loading: () => <Spinner />,
@@ -19,4 +19,19 @@ const Signup = () => (
     <SignupForms />
   </ErrorBoundary>
 );
-export default OnlyPublicRoute(Signup);
+export default Signup;
+
+export const getServerSideProps = async ({
+  req,
+}: GetServerSidePropsContext) => {
+  if (req.cookies.refreshToken) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: {} };
+};
