@@ -8,6 +8,11 @@ interface User {
   birthday: Date;
 }
 
+export interface ILoginResponse {
+  accessToken: string;
+  user: User;
+}
+
 export type EnGender = "MALE" | "FEMALE";
 export type Rank = "S" | "A" | "B" | "C" | "D";
 

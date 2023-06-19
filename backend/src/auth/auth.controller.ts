@@ -47,6 +47,7 @@ export class AuthController {
   @Get('/validate-token')
   async validateToken(@Req() req, @Res() res: Response) {
     const { refreshToken } = req.cookies;
+    console.log(refreshToken);
 
     if (!refreshToken) {
       throw new UnauthorizedException({ message: 'There is no refresh token' });
@@ -65,6 +66,7 @@ export class AuthController {
   @Post('/logout')
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('refreshToken');
+    res.end();
     return;
   }
 

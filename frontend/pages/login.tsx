@@ -1,7 +1,6 @@
 import LoginForms from "components/forms/LoginForms";
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import Head from "next/head";
-import { OnlyPublicRoute } from "utils/conditionalRoutes";
 
 const Login: NextPage = () => (
   <div className="h-screen">
@@ -11,4 +10,19 @@ const Login: NextPage = () => (
     <LoginForms />
   </div>
 );
-export default OnlyPublicRoute(Login);
+export default Login;
+
+export const getServerSideProps = async ({
+  req,
+}: GetServerSidePropsContext) => {
+  if (req.cookies.refreshToken) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: {} };
+};

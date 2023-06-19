@@ -1,34 +1,27 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { StrictPropsWithChildren } from "interface/Common.interface";
+import { isNil } from "lodash";
 import Link from "next/link";
 import { useLogoutMutation } from "query/auth/logout";
-import { useRecoilValue } from "recoil";
-import { LoginState, loginStateAtom } from "recoil/atoms/loginState";
+import { queryKeys } from "query/queryKeys";
 
 const Header = () => {
-  const loginState = useRecoilValue(loginStateAtom);
+  const queryClient = useQueryClient();
+  const isLogin = !isNil(queryClient.getQueryData(queryKeys.auth.tokenState));
+
   const { mutate: handleLogout } = useLogoutMutation();
 
-  return <HeaderView handleLogout={handleLogout} loginState={loginState} />;
+  return <HeaderView handleLogout={handleLogout} isLogin={isLogin} />;
 };
 export default Header;
 
 export interface HeaderViewProps {
   handleLogout: () => void;
-  loginState: LoginState;
+  isLogin: boolean;
 }
 
-export const HeaderView = ({ handleLogout, loginState }: HeaderViewProps) => {
-  if (loginState === LoginState.PENDING) {
-    return (
-      <HeaderBackground>
-        <div className="h-6 rounded animation-pulse w-14 bg-slate-700" />
-        <div className="h-6 rounded animation-pulse w-14 bg-slate-700" />
-        <div className="h-6 rounded animation-pulse w-14 bg-slate-700" />
-      </HeaderBackground>
-    );
-  }
-
-  if (loginState === LoginState.NO_LOGIN) {
+export const HeaderView = ({ handleLogout, isLogin }: HeaderViewProps) => {
+  if (!isLogin) {
     return (
       <HeaderBackground>
         <Link href="/rackets/yonex?page=1" className="text-white">
