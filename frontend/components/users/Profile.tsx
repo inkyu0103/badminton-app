@@ -1,6 +1,5 @@
-import { useQueryClient } from "@tanstack/react-query";
+import useUser from "hooks/useUser";
 import { EnGender, Rank } from "interface/User.interface";
-import { queryKeys } from "query/queryKeys";
 import { birthdayToAge } from "utils/birthdayToage";
 import enToKrGender from "utils/genderMapper";
 
@@ -13,7 +12,7 @@ interface ProfileViewProps {
 }
 
 const Profile = () => {
-  const { user } = useQueryClient().getQueryData(queryKeys.auth.tokenState);
+  const [, user] = useUser();
 
   return (
     <ProfileView

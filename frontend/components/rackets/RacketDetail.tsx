@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import EvaluateButton from "components/common/EvaluateButton";
 import Modal from "components/common/Modal";
 import Pagination from "components/common/Pagination";
@@ -10,10 +9,8 @@ import Review from "components/rackets/Review";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
 import { Tbalance, Tshaft, Tweight } from "interface/Racket.interface";
-import { ILoginResponse } from "interface/User.interface";
 import { isNil } from "lodash";
 import { useRouter } from "next/router";
-import { queryKeys } from "query/queryKeys";
 import { useRacketQuery } from "query/rackets/rackets";
 import {
   useDeleteRacketReviewMutation,
@@ -36,10 +33,7 @@ const RacketDetail = () => {
 
   const router = useRouter();
 
-  const queryClient = useQueryClient();
-  const { user } = queryClient.getQueryData<ILoginResponse>(
-    queryKeys.auth.tokenState,
-  );
+  const [, user] = useUser();
 
   const { data: racket } = useRacketQuery();
   const { data: reviewList } = useReviewList();

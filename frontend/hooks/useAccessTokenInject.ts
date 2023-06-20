@@ -3,7 +3,7 @@ import { ILoginResponse } from "interface/User.interface";
 import { setBearerToken } from "query/interceptors";
 import { queryKeys } from "query/queryKeys";
 
-const useAccessTokenInject = () => {
+const AccessTokenInject = () => {
   const queryClient = useQueryClient();
 
   const data = queryClient.getQueryData<ILoginResponse | null>(
@@ -13,5 +13,6 @@ const useAccessTokenInject = () => {
   if (data?.accessToken) {
     setBearerToken(data.accessToken);
   }
+  return null;
 };
-export default useAccessTokenInject;
+export default AccessTokenInject;

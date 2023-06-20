@@ -1,13 +1,10 @@
-import { useQueryClient } from "@tanstack/react-query";
+import useUser from "hooks/useUser";
 import { StrictPropsWithChildren } from "interface/Common.interface";
-import { isNil } from "lodash";
 import Link from "next/link";
 import { useLogoutMutation } from "query/auth/logout";
-import { queryKeys } from "query/queryKeys";
 
 const Header = () => {
-  const queryClient = useQueryClient();
-  const isLogin = !isNil(queryClient.getQueryData(queryKeys.auth.tokenState));
+  const [isLogin] = useUser();
 
   const { mutate: handleLogout } = useLogoutMutation();
 
