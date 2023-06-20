@@ -1,10 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import axios from "query/axios";
 import { removeBearerToken } from "query/interceptors";
-import { useSetRecoilState } from "recoil";
-import { LoginState, loginStateAtom } from "recoil/atoms/loginState";
-import { userState } from "recoil/atoms/user";
+import { queryKeys } from "query/queryKeys";
 
 const logout = async () => {
   const { data } = await axios.post("/auth/logout");
@@ -13,14 +11,15 @@ const logout = async () => {
 
 export const useLogoutMutation = () => {
   const router = useRouter();
-  const setAccessTokenState = useSetRecoilState(loginStateAtom);
-  const setUserState = useSetRecoilState(userState);
+  const queryClient = useQueryClient();
 
   return useMutation(() => logout(), {
     onSuccess: () => {
       removeBearerToken();
-      setAccessTokenState(LoginState.NO_LOGIN);
-      setUserState(null);
+      queryClient.removeQueries({
+        queryKey: queryKeys.auth.tokenState,
+        exact: true,
+      });
       router.push("/");
     },
     onError: () => {},

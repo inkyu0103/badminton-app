@@ -1,12 +1,10 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { ILoginResponse } from "interface/User.interface";
 import { useRouter } from "next/router";
 import axios from "query/axios";
-import { removeBearerToken, setBearerToken } from "query/interceptors";
+import { setBearerToken } from "query/interceptors";
 import { queryKeys } from "query/queryKeys";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { LoginState, loginStateAtom } from "recoil/atoms/loginState";
-import { userState } from "recoil/atoms/user";
 
 interface LoginFormData {
   email: string;
@@ -23,14 +21,12 @@ const login = async (loginFormData: LoginFormData) => {
 
 export const useLoginMutation = () => {
   const router = useRouter();
-  const setAccessTokenState = useSetRecoilState(loginStateAtom);
-  const setUserState = useSetRecoilState(userState);
+  const queryClient = useQueryClient();
 
   return useMutation((loginFormData: LoginFormData) => login(loginFormData), {
     onSuccess: (data) => {
       setBearerToken(data.accessToken);
-      setAccessTokenState(LoginState.LOGGED_IN);
-      setUserState(data.user);
+      queryClient.setQueryData(queryKeys.auth.tokenState, data);
       router.push(sessionStorage.getItem("prevPath") || "/");
     },
     onError: (error: AxiosError) => {
@@ -43,27 +39,23 @@ export const useLoginMutation = () => {
   });
 };
 
-const silentLogin = async () => {
-  const { data } = await axios.get("/auth/validate-token");
-  return data;
-};
+export const silentLogin = async (
+  cookie: string | undefined,
+): Promise<null | ILoginResponse> => {
+  if (cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
 
-export const useSilentLoginQuery = () => {
-  const [accessToken, setAccessToken] = useRecoilState(loginStateAtom);
-  const setUserState = useSetRecoilState(userState);
-
-  return useQuery(queryKeys.auth.tokenState, silentLogin, {
-    onSuccess: (data) => {
-      setAccessToken(data.accessToken);
-      setBearerToken(data.accessToken);
-      setUserState(data.user);
-    },
-    onError: () => {
-      setAccessToken(LoginState.NO_LOGIN);
-      removeBearerToken();
-      setUserState(null);
-    },
-    enabled: accessToken === LoginState.PENDING,
-    retry: false,
-  });
+  try {
+    const { data } = await axios.get("/auth/validate-token", {
+      withCredentials: true,
+    });
+    return data;
+  } catch (e: unknown) {
+    if (e instanceof AxiosError && e.response?.status === 401) {
+      /* eslint-disable no-console */
+      console.error("Token is not validated");
+    }
+    return null;
+  }
 };

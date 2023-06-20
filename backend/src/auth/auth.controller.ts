@@ -65,14 +65,17 @@ export class AuthController {
   @Post('/logout')
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('refreshToken');
+    res.end();
     return;
   }
 
   @Post('/signup')
   async signup(@Body() body, @Res({ passthrough: true }) res: Response) {
-    const { accessToken, refreshToken } = await this.authService.signup(body);
+    const { accessToken, refreshToken, user } = await this.authService.signup(
+      body,
+    );
 
     res.cookie('refreshToken', refreshToken);
-    return { accessToken };
+    return { accessToken, user };
   }
 }
