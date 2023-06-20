@@ -52,7 +52,7 @@ export const silentLogin = async (
     });
     return data;
   } catch (e: unknown) {
-    if (e.response.status === 401) {
+    if (e instanceof AxiosError && e.response?.status === 401) {
       /* eslint-disable no-console */
       console.error("Token is not validated");
     }
