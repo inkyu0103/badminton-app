@@ -5,7 +5,6 @@ import MainGreetingCarousel from "components/carousels/MainGreetingCarousel";
 import Spinner from "components/common/Spinner";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
-import Head from "next/head";
 
 const MainRacketCarousel = dynamic(
   () => import("components/carousels/MainRacketCarousel"),
@@ -26,9 +25,6 @@ const YoutubeVideoList = dynamic(
 const Home: NextPage = () => {
   return (
     <div className="w-full flex-1 flex flex-col gap-y-5  max-w-[1200px]  mx-auto p-4 ">
-      <Head>
-        <title>모두의 배드민턴</title>
-      </Head>
       <MainGreetingCarousel />
       <MainRacketCarousel />
       <YoutubeVideoList />

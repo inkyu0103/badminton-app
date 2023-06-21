@@ -12,6 +12,8 @@ import Layout from "components/common/Layout";
 import AccessTokenInject from "hooks/useAccessTokenInject";
 import usePrevRoute from "hooks/usePrevRoute";
 import { AppContext, AppProps } from "next/app";
+import { DefaultSeo } from "next-seo";
+import SEO from "next-seo.config";
 import { silentLogin } from "query/auth/login";
 import { queryKeys } from "query/queryKeys";
 import { useState } from "react";
@@ -29,6 +31,7 @@ const MyApp = ({ Component, pageProps, props }: MyAppProps) => {
         <AccessTokenInject />
         <RecoilRoot>
           <Layout>
+            <DefaultSeo {...SEO} />
             <Component {...pageProps} />
           </Layout>
         </RecoilRoot>

@@ -1,12 +1,14 @@
 import LoginForms from "components/forms/LoginForms";
+import seoConfig from "constants/seoConfig";
 import { GetServerSidePropsContext, NextPage } from "next";
-import Head from "next/head";
+import { NextSeo } from "next-seo";
 
 const Login: NextPage = () => (
   <div className="h-screen">
-    <Head>
-      <title>로그인</title>
-    </Head>
+    <NextSeo
+      title={seoConfig.login.title}
+      description={seoConfig.login.description}
+    />
     <LoginForms />
   </div>
 );
