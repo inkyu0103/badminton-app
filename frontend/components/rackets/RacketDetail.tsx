@@ -8,6 +8,7 @@ import RacketStatistics from "components/rackets/RacketStatistics";
 import Review from "components/rackets/Review";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
+import useUser from "hooks/useUser";
 import { Tbalance, Tshaft, Tweight } from "interface/Racket.interface";
 import { isNil } from "lodash";
 import { useRouter } from "next/router";
