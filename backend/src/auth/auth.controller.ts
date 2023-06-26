@@ -39,6 +39,7 @@ export class AuthController {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: true,
+      domain: 'vercel.app',
     });
 
     return { accessToken, user };
@@ -46,6 +47,7 @@ export class AuthController {
 
   @Get('/validate-token')
   async validateToken(@Req() req, @Res() res: Response) {
+    console.log(req);
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
@@ -75,7 +77,11 @@ export class AuthController {
       body,
     );
 
-    res.cookie('refreshToken', refreshToken);
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: true,
+      domain: 'vercel.app',
+    });
     return { accessToken, user };
   }
 }
