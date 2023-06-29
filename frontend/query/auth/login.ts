@@ -42,13 +42,14 @@ export const useLoginMutation = () => {
 export const silentLogin = async (
   cookie: string | undefined,
 ): Promise<null | ILoginResponse> => {
-  if (cookie) {
-    axios.defaults.headers.Cookie = cookie;
-  }
+  axios.defaults.headers.Cookie = cookie ?? "";
 
   try {
     const { data } = await axios.get("/auth/validate-token", {
       withCredentials: true,
+      headers: {
+        Cookie: cookie,
+      },
     });
     return data;
   } catch (e: unknown) {

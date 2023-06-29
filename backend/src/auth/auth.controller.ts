@@ -40,6 +40,7 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'strict',
+      domain: process.env.NEXT_DOMAIN_URL || 'localhost',
     });
 
     return { accessToken, user };
@@ -64,11 +65,13 @@ export class AuthController {
   }
 
   @Post('/logout')
+  @HttpCode(200)
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('refreshToken', {
       httpOnly: true,
       secure: true,
       sameSite: 'strict',
+      domain: process.env.NEXT_DOMAIN_URL || 'localhost',
     });
     res.end();
     return;
@@ -84,6 +87,7 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'strict',
+      domain: process.env.NEXT_DOMAIN_URL || 'localhost',
     });
     return { accessToken, user };
   }
