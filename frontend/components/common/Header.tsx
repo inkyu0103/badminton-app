@@ -51,7 +51,7 @@ export const HeaderView = ({ handleLogout, isLogin }: HeaderViewProps) => {
 
 const HeaderBackground = ({ children }: StrictPropsWithChildren) => (
   <header className="flex items-center justify-between px-4 py-3 bg-black w-vw ">
-    <Link href={process.env.NEXT_PUBLIC_URL as string}>
+    <Link href={(process.env.NEXT_PUBLIC_URL as string) ?? "#"}>
       <p className="text-xl font-bold text-white">모두의 배드민턴</p>
     </Link>
     <div className="flex gap-x-2">{children}</div>
