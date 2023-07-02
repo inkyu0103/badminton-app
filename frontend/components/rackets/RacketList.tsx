@@ -51,7 +51,7 @@ const RacketList = () => {
 export default RacketList;
 
 export const RacketListView = ({
-  brand = "yonex",
+  brand = "Yonex",
   data,
   curPage,
 }: RacketListViewProps) => {
@@ -69,8 +69,8 @@ export const RacketListView = ({
   }, []);
 
   return (
-    <div className="flex flex-col  max-w-[1200px] mx-auto  ">
-      <h1 className="my-4 text-3xl font-bold">{brand}</h1>
+    <div className="flex flex-col max-w-[1200px] mx-auto p-4">
+      <h1 className="text-3xl font-bold">{brand}</h1>
       <div
         className={`md:grid  md:gap-4 md:mx-auto  ${setColNumber(clientWidth)}`}
       >
