@@ -21,13 +21,13 @@ export const HeaderView = ({ handleLogout, isLogin }: HeaderViewProps) => {
   if (!isLogin) {
     return (
       <HeaderBackground>
-        <Link href="/rackets/yonex?page=1" className="text-white">
+        <Link href="/rackets/yonex?page=1" className="font-bold text-white">
           Rackets
         </Link>
-        <Link href="/emailVerify" className="text-white">
+        <Link href="/emailVerify" className="font-bold text-white">
           회원가입
         </Link>
-        <Link href="/login" className="text-white">
+        <Link href="/login" className="font-bold text-white">
           로그인
         </Link>
       </HeaderBackground>
@@ -36,13 +36,13 @@ export const HeaderView = ({ handleLogout, isLogin }: HeaderViewProps) => {
 
   return (
     <HeaderBackground>
-      <Link href="/rackets/yonex?page=1" className="text-white">
+      <Link href="/rackets/yonex?page=1" className="font-bold text-white">
         Rackets
       </Link>
-      <Link href="/profile" className="text-white">
+      <Link href="/profile" className="font-bold text-white">
         프로필
       </Link>
-      <button className="text-white" onClick={handleLogout}>
+      <button className="font-bold text-white" onClick={handleLogout}>
         로그아웃
       </button>
     </HeaderBackground>
@@ -50,7 +50,10 @@ export const HeaderView = ({ handleLogout, isLogin }: HeaderViewProps) => {
 };
 
 const HeaderBackground = ({ children }: StrictPropsWithChildren) => (
-  <header className="flex items-center justify-end px-4 py-3 bg-black w-vw gap-x-2">
-    {children}
+  <header className="flex items-center justify-between px-4 py-3 bg-black w-vw ">
+    <Link href={(process.env.NEXT_PUBLIC_URL as string) ?? "#"}>
+      <p className="text-xl font-bold text-white">모두의 배드민턴</p>
+    </Link>
+    <div className="flex gap-x-2">{children}</div>
   </header>
 );
