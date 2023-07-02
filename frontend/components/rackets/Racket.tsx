@@ -6,13 +6,13 @@ import { Rating } from "react-simple-star-rating";
 
 const Racket = ({ name, racketId, score }: RacketProps) => (
   <Link href={`/rackets/yonex/${racketId}?page=1`}>
-    <section className="my-2 md:my-0 border overflow-hidden flex w-full h-36  items-center md:w-[280px] md:h-auto md:block   duration-300 ease-out rounded-md cursor-pointer drop-shadow-sm hover:bg-slate-100">
+    <section className="my-2  border flex w-full h-36 items-center md:w-[280px] md:h-auto md:block  duration-300 ease-out rounded-md cursor-pointer drop-shadow-sm hover:bg-slate-100">
       <div>
         <Image
           quality={80}
           width={280}
           height={280}
-          className="rounded-md h-36 md:w-[280px] md:h-[280px]"
+          className="rounded-md w-36 h-36 md:w-[280px] md:h-[280px]"
           alt="racket"
           src="https://staging-mobae-image.s3.ap-northeast-2.amazonaws.com/racket.png"
         />
