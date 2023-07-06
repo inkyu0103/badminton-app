@@ -10,6 +10,7 @@ import React, { useState } from "react";
 const RacketStatistics = () => {
   const [rank, setRank] = useState<StatisticsRank>("ALL");
   const { data: reviewStatistics } = useReviewStatistics(rank);
+  const isEmpty = reviewStatistics?.genders.length === 0;
 
   const handleChangeRank = (value: StatisticsRank) => {
     setRank(value);
@@ -17,6 +18,7 @@ const RacketStatistics = () => {
 
   return (
     <RacketStatisticsView
+      isEmpty={isEmpty}
       reviewStatistics={reviewStatistics}
       handleChangeRank={handleChangeRank}
     />
@@ -25,6 +27,7 @@ const RacketStatistics = () => {
 export default RacketStatistics;
 
 export const RacketStatisticsView = ({
+  isEmpty = false,
   reviewStatistics,
   handleChangeRank,
 }: IRacketStatisticsProps) => {
@@ -44,14 +47,26 @@ export const RacketStatisticsView = ({
           <option value="D">D조</option>
         </select>
       </div>
-      <div className="md:flex md:justify-between">
-        <HalfPieChart data={reviewStatistics?.genders} title="남녀 성별 비율" />
-        <HalfPieChart data={reviewStatistics?.ranks} title="사용 급수 비율" />
-        <SimpleBarChart
-          data={reviewStatistics?.criteria}
-          title="라켓 선택 이유"
-        />
-      </div>
+
+      {isEmpty ? (
+        <div className="flex justify-center p-4">
+          <p data-testid="empty statistics message" className="text-xl">
+            조건에 맞는 통계 결과가 없습니다.
+          </p>
+        </div>
+      ) : (
+        <div className="md:flex md:justify-between">
+          <HalfPieChart
+            data={reviewStatistics?.genders}
+            title="남녀 성별 비율"
+          />
+          <HalfPieChart data={reviewStatistics?.ranks} title="사용 급수 비율" />
+          <SimpleBarChart
+            data={reviewStatistics?.criteria}
+            title="라켓 선택 이유"
+          />
+        </div>
+      )}
     </section>
   );
 };

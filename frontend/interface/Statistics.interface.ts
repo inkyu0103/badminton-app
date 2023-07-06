@@ -35,6 +35,7 @@ export interface IStatistics {
 }
 
 export interface IRacketStatisticsProps {
+  isEmpty: boolean;
   reviewStatistics: undefined | IStatistics;
   handleChangeRank: (value: StatisticsRank) => void;
 }
