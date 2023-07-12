@@ -9,7 +9,7 @@ const paginationCssConfig = deepFreeze({
     able: "bg-white",
   },
   page: {
-    currentPage: "bg-indigo-600 text-white",
+    currentPage: "bg-blue-300 text-white",
     notCurrentPage: "bg-white text-gray-900 ring-1 ring-inset ring-gray-300",
   },
 });

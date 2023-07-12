@@ -11,7 +11,7 @@ import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { extractDebounce } from "utils/extractDebounce";
 
-interface SignupFormViewProps {
+export interface SignupFormViewProps {
   email: string | undefined;
   handleSignup: (user: CreateUser) => void;
   handleValidateNickname: (...args: unknown[]) => Promise<unknown>;
@@ -57,7 +57,7 @@ export const SignupFormsView = ({
       nickname: "",
       password: "",
       passwordConfirm: "",
-      birthday: new Date(),
+      birthday: new Date(0),
       rank: "S",
       gender: "남성",
     },
@@ -65,7 +65,7 @@ export const SignupFormsView = ({
 
   return (
     <form
-      className="flex flex-col justify-center h-screen mx-auto gap-y-2 w-mb"
+      className="flex flex-col h-full justify-center  mx-auto gap-y-2 w-mb"
       onSubmit={handleSubmit((user) => handleSignup(user))}
     >
       <p className="text-2xl font-semibold text-center">회원가입</p>

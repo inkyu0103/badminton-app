@@ -8,7 +8,11 @@ const EmailVerifyForms = () => {
   const handleSubmitEmail = (email: string) => mutate(email);
 
   if (isSuccess) {
-    return <EmailSend />;
+    return (
+      <div className="flex h-full justify-center items-center ">
+        <EmailSend />
+      </div>
+    );
   }
 
   return (
@@ -24,7 +28,7 @@ export const EmailVerfyFormsView = ({ handleSubmitEmail, isLoading }) => {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="flex flex-col items-center justify-center gap-y-5">
+    <div className="flex flex-col h-full items-center justify-center gap-y-5">
       <h1 className="text-xl font-semibold">회원가입</h1>
       <form
         className="flex flex-col gap-2 w-mb "
