@@ -4,13 +4,13 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import { NextSeo } from "next-seo";
 
 const Login: NextPage = () => (
-  <div className="h-screen">
+  <>
     <NextSeo
       title={seoConfig.login.title}
       description={seoConfig.login.description}
     />
     <LoginForms />
-  </div>
+  </>
 );
 export default Login;
 

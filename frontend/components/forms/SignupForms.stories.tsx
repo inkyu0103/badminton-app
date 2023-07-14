@@ -1,14 +1,20 @@
-import { SignupFormsView } from "components/forms/SignupForms";
+import {
+  SignupFormsView,
+  SignupFormViewProps,
+} from "components/forms/SignupForms";
 
 export default {
   component: SignupFormsView,
 };
 
-export const Default = (args) => <SignupFormsView {...args} />;
+export const Default = (args: SignupFormViewProps) => (
+  <SignupFormsView {...args} />
+);
 
 Default.args = {
   email: "mobae@test.com",
   handleSignup: () => {},
+  handleValidateNickname: () => {},
 };
 
 Default.argTypes = {
