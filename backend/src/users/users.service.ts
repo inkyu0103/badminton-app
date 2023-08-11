@@ -1,16 +1,21 @@
 import { Injectable, ConflictException } from '@nestjs/common';
+import { CreateUser } from '../auth/types/auth.interface';
 import { UsersRepository } from 'users/users.repository';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async createUser(user) {
-    return await this.usersRepository.createUser(user);
+  async createUser(createUser: CreateUser) {
+    const user = await this.getUser(createUser.email);
+
+    if (user) throw new ConflictException('이미 가입되어있는 사용자입니다.');
+
+    return this.usersRepository.createUser(createUser);
   }
 
   async getUser(email: string) {
-    return await this.usersRepository.getUserWithEmail(email);
+    return this.usersRepository.getUserWithEmail(email);
   }
 
   async isUsableNickname(nickname: string) {

@@ -15,7 +15,7 @@ export class ReviewsRepository {
         racketId,
       },
     });
-    return Number(averageScore._avg.starRating.toFixed(1));
+    return Number((averageScore._avg.starRating ?? 0).toFixed(1));
   }
 
   async getReviews(racketId: number, page: number) {

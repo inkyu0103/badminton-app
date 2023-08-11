@@ -1,7 +1,5 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
-import { LoginFormData, User } from 'auth/types/auth.interface';
 
 @Injectable()
 export class AuthRepository {
@@ -23,31 +21,5 @@ export class AuthRepository {
     });
 
     return result;
-  }
-
-  async validateUser(userInfo: LoginFormData): Promise<User | null> {
-    const result = await this.prismaService.user.findFirst({
-      where: {
-        email: userInfo.email,
-      },
-    });
-
-    if (!result) {
-      throw new UnauthorizedException();
-    }
-
-    if (!(await bcrypt.compare(userInfo.password, result.password))) {
-      throw new UnauthorizedException();
-    }
-
-    const { password, ...userWithoutPassword } = result;
-
-    return userWithoutPassword;
-  }
-
-  async createUser(user) {
-    return await this.prismaService.user.create({
-      data: { ...user },
-    });
   }
 }

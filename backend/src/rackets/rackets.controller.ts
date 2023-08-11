@@ -18,7 +18,7 @@ export class RacketsController {
   async getRacketList(
     @Param('brand') brand = 'yonex',
     @Query('page', new DefaultValuePipe(1), ParseIntPipe, PositivePipe)
-    page,
+    page: number,
   ) {
     return this.racketsService.getRacketList(brand, page);
   }

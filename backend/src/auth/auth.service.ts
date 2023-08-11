@@ -2,13 +2,12 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { AuthRepository } from 'auth/auth.repository';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'auth/types/auth.interface';
 import { UsersService } from 'users/users.service';
 import * as bcrypt from 'bcrypt';
-import {
-  BadRequestException,
-  ConflictException,
-} from '@nestjs/common/exceptions';
+import { BadRequestException } from '@nestjs/common/exceptions';
+
+import { CreatedUser } from 'auth/dto/CreatedUserResponse';
+import { CreateUser, User } from 'auth/types/auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -64,7 +63,7 @@ export class AuthService {
     return user;
   }
 
-  async login(user: User) {
+  login(user: User) {
     const payload = {
       email: user.email,
       id: user.id,
@@ -86,7 +85,7 @@ export class AuthService {
     };
   }
 
-  validateRefreshToken(refreshToken) {
+  validateRefreshToken(refreshToken: string) {
     const result = this.jwtService.verify(refreshToken);
 
     const payload = {
@@ -103,17 +102,16 @@ export class AuthService {
     return { accessToken: newAccessToken, user: { ...payload } };
   }
 
-  async signup(user) {
+  async signup(user: CreateUser) {
     const formattedUser = {
       ...user,
       password: bcrypt.hashSync(user.password, 10),
     };
 
-    if (await this.usersService.getUser(user.email))
-      throw new ConflictException();
+    const createdUser = new CreatedUser(
+      await this.usersService.createUser(formattedUser),
+    );
 
-    await this.authRepository.createUser(formattedUser);
-
-    return await this.login(user);
+    return this.login(createdUser);
   }
 }

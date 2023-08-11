@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement()) @map("USER_ID")
+  id        Int      @id @default(autoincrement())
   nickname  String   @unique
   email     String   @unique
   password  String
@@ -47,7 +47,7 @@ model RacketReview {
   starRating Int
   review     String
   racketId   Int      @map("racket_id")
-  userId     Int      @map("uesr_id")
+  userId     Int      @map("user_id")
   racket     Racket   @relation(fields: [racketId], references: [id])
   user       User     @relation(fields: [userId], references: [id])
   createdAt  DateTime @default(now()) @map("created_at")
