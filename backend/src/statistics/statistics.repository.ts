@@ -23,7 +23,6 @@ export class StatisticsRepository {
         },
       },
     });
-
     return aggregateByField(result, 'gender');
   }
 

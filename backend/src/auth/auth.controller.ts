@@ -10,16 +10,19 @@ import {
   Req,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport/dist';
-import { Response } from 'express';
+import { AuthGuard } from '@nestjs/passport';
+import { Request, Response } from 'express';
 import { AuthService } from 'auth/auth.service';
+import { RequestWithUser } from 'auth/types/auth.interface';
+import { TokenExpiredError } from 'jsonwebtoken';
+import { SignupForm } from 'auth/dto/signUpDto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/verify-email')
-  async sendVerifyMail(@Body() body) {
+  async sendVerifyMail(@Body() body: { email: string }) {
     await this.authService.sendVerifyEmail(body.email);
   }
 
@@ -31,7 +34,10 @@ export class AuthController {
   @Post('/login')
   @UseGuards(AuthGuard('local'))
   @HttpCode(200)
-  async login(@Req() req, @Res({ passthrough: true }) res: Response) {
+  async login(
+    @Req() req: RequestWithUser,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const { accessToken, refreshToken, user } = await this.authService.login(
       req.user,
     );
@@ -47,7 +53,7 @@ export class AuthController {
   }
 
   @Get('/validate-token')
-  async validateToken(@Req() req, @Res() res: Response) {
+  async validateToken(@Req() req: Request, @Res() res: Response) {
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
@@ -57,7 +63,7 @@ export class AuthController {
       const result = this.authService.validateRefreshToken(refreshToken);
       res.send(result);
     } catch (e) {
-      if (e.name === 'TokenExpiredError') {
+      if (e instanceof TokenExpiredError) {
         res.clearCookie('refreshToken');
         throw new UnauthorizedException({ message: 'Token is Expired' });
       }
@@ -78,9 +84,12 @@ export class AuthController {
   }
 
   @Post('/signup')
-  async signup(@Body() body, @Res({ passthrough: true }) res: Response) {
+  async signup(
+    @Body() signupForm: SignupForm,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const { accessToken, refreshToken, user } = await this.authService.signup(
-      body,
+      signupForm,
     );
 
     res.cookie('refreshToken', refreshToken, {

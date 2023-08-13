@@ -6,4 +6,9 @@ export class LoginDto {
 
   @IsString()
   password: string;
+
+  constructor(loginForm: { email: string; password: string }) {
+    this.email = loginForm.email;
+    this.password = loginForm.password;
+  }
 }
