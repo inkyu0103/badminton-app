@@ -10,6 +10,7 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import { AuthModule } from 'auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { StatisticsModule } from 'statistics/statistics.module';
+import { ClubsModule } from 'clubs/clubs.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { StatisticsModule } from 'statistics/statistics.module';
     }),
     AuthModule,
     StatisticsModule,
+    ClubsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
