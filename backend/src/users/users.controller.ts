@@ -1,4 +1,13 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
+import { ClubsGuard } from 'clubs/clubs.guard';
 import { UsersService } from 'users/users.service';
 
 @Controller('users')
@@ -10,6 +19,7 @@ export class UsersController {
     return await this.usersService.isUsableNickname(nickname);
   }
 
+  @UseGuards(JwtAuthGuard, ClubsGuard)
   @Get('/:userId/clubs')
   async getUserClubs(@Param('userId', ParseIntPipe) userId: number) {
     return await this.usersService.getUserClubs(userId);
