@@ -1,10 +1,14 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { CreateUser } from '../auth/types/auth.interface';
 import { UsersRepository } from 'users/users.repository';
+import { UserClubService } from 'user-clubs/user-club.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly userClubService: UserClubService,
+  ) {}
 
   async createUser(createUser: CreateUser) {
     const user = await this.getUser(createUser.email);
@@ -26,5 +30,9 @@ export class UsersService {
     }
 
     return true;
+  }
+
+  getUserClubs(userId: number) {
+    return this.userClubService.getUserClubs(userId);
   }
 }

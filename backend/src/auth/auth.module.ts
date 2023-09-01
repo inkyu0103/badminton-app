@@ -7,6 +7,8 @@ import { UsersRepository } from 'users/users.repository';
 import { LocalStrategy } from 'auth/strategies/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from 'auth/strategies/jwt.strategy';
+import { UserClubService } from 'user-clubs/user-club.service';
+import { UserClubRepository } from 'user-clubs/user-club.repository';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { JwtStrategy } from 'auth/strategies/jwt.strategy';
     UsersRepository,
     LocalStrategy,
     JwtStrategy,
+    UserClubService,
+    UserClubRepository,
   ],
   controllers: [AuthController],
 })

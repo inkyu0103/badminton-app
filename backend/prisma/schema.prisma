@@ -7,6 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Club {
+  id        String     @id @default(uuid())
+  name      String
+  createAt  DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt() @map("updated_at")
+  UserClub  UserClub[]
+
+  @@map("club")
+}
+
+model UserClub {
+  id     String   @id @default(uuid())
+  userId Int
+  clubId String
+  user   User     @relation(references: [id], fields: [userId])
+  club   Club     @relation(references: [id], fields: [clubId])
+  role   ClubRole @default(MEMBER)
+
+  @@map("user_club")
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   nickname  String   @unique
@@ -18,7 +39,8 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt() @map("updated_at")
 
-  Review RacketReview[]
+  Review   RacketReview[]
+  UserClub UserClub[]
 
   @@map("user")
 }
@@ -102,4 +124,10 @@ enum Shaft {
   STIFF
   MEDIUM
   FLEXIBLE
+}
+
+enum ClubRole {
+  OWNER
+  MANAGER
+  MEMBER
 }

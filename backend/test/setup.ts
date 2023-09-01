@@ -12,5 +12,11 @@ module.exports = async function () {
       ...process.env,
     },
   });
+
+  execSync('npx ts-node ./test/seed.ts', {
+    env: {
+      ...process.env,
+    },
+  });
   console.log('test db 생성 완료!');
 };
