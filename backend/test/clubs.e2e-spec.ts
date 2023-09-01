@@ -1,19 +1,24 @@
-import * as cookieParser from 'cookie-parser';
 import * as request from 'supertest';
-
-import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import { ReviewsModule } from 'reviews/reviews.module';
+import { PrismaModule } from 'prisma/prisma.module';
+import { ConfigModule } from '@nestjs/config';
+import {} from '../test/seed';
 import { AuthModule } from 'auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { PrismaModule } from 'prisma/prisma.module';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { ClubsModule } from 'clubs/clubs.module';
 
-describe('auth와 관련된 E2E 테스트를 진행합니다.', () => {
+describe('모임과 관련된 E2E 테스트를 진행합니다.', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
+        ClubsModule,
+        ConfigModule,
+        ReviewsModule,
         PrismaModule,
         AuthModule,
         MailerModule.forRootAsync({
@@ -43,8 +48,6 @@ describe('auth와 관련된 E2E 테스트를 진행합니다.', () => {
     }).compile();
 
     app = moduleRef.createNestApplication();
-
-    app.use(cookieParser());
     await app.init();
   });
 
@@ -52,44 +55,21 @@ describe('auth와 관련된 E2E 테스트를 진행합니다.', () => {
     await app.close();
   });
 
-  it('POST /auth/signup', () => {
-    return request(app.getHttpServer())
-      .post('/auth/signup')
-      .send({
-        email: 'mobae@test.com',
-        password: 'testpassword',
-        birthday: new Date().toISOString(),
-        rank: 'A',
-        gender: 'MALE',
-        nickname: '닉네임',
-      })
-      .expect(201);
-  });
+  it('POST /clubs', async () => {
+    await request(app.getHttpServer()).post('/auth/logout').expect(200);
 
-  it('POST /auth/login', () => {
-    return request(app.getHttpServer())
-      .post('/auth/login')
-      .send({
-        email: 'mobae@test.com',
-        password: 'testpassword',
-      })
-      .expect(200);
-  });
-
-  it('GET /auth/validate-token', async () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
-      .send({ email: 'mobae@test.com', password: 'testpassword' });
-
-    const { header } = response;
-
-    return request(app.getHttpServer())
-      .get('/auth/validate-token')
-      .set('Cookie', [...header['set-cookie']])
+      .send({ email: 'test@test.com', password: 'testPassword' })
       .expect(200);
-  });
 
-  it('POST /auth/logout', async () => {
-    return await request(app.getHttpServer()).post('/auth/logout').expect(200);
+    const { header, body } = response;
+
+    return await request(app.getHttpServer())
+      .post('/clubs/3000')
+      .set('Authorization', `Bearer ${body['accessToken']}`)
+      .set('Cookie', [...header['set-cookie']])
+      .send({ clubName: 'testClub' })
+      .expect(201);
   });
 });
