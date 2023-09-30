@@ -8,18 +8,16 @@ const RacketDetail = () => {
   const { data: racket } = useRacketQuery();
 
   return (
-    <div>
-      <div className="px-4 max-w-[1200px] mx-auto mb-9">
-        <h1 className="my-10 text-3xl font-bold">{racket?.name}</h1>
-        <RacketSpec
-          balance={racket?.balance as Tbalance}
-          score={racket?.score as number}
-          shaft={racket?.shaft as Tshaft}
-          weight={racket?.weight as Tweight[]}
-        />
-        <RacketStatistics />
-        <ReviewList />
-      </div>
+    <div className="px-4 mb-9">
+      <h1 className="my-10 text-3xl font-bold">{racket?.name}</h1>
+      <RacketSpec
+        balance={racket?.balance as Tbalance}
+        score={racket?.score as number}
+        shaft={racket?.shaft as Tshaft}
+        weight={racket?.weight as Tweight[]}
+      />
+      <RacketStatistics />
+      <ReviewList />
     </div>
   );
 };

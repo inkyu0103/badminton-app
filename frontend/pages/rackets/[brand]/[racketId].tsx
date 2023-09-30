@@ -10,7 +10,7 @@ const RacketDetail = dynamic(() => import("components/rackets/RacketDetail"), {
 const RacketDetailPage = () => (
   <div className="flex-1">
     <Head>
-      <title>라켓 상세보기</title>
+      <title>라켓 상세보기 | 모두의 배드민턴</title>
     </Head>
     <RacketDetail />
   </div>
