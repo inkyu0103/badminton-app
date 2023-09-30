@@ -16,11 +16,7 @@ const racketColConfig = {
 const setColNumber = (width: number): string | undefined => {
   const columns = Math.floor(width / 300);
 
-  if (columns >= 4) {
-    return racketColConfig["4"];
-  }
-
-  if (columns === 3) {
+  if (columns >= 3) {
     return racketColConfig["3"];
   }
 
@@ -69,11 +65,9 @@ export const RacketListView = ({
   }, []);
 
   return (
-    <div className="flex flex-col max-w-[1200px] mx-auto p-4">
+    <div className="flex flex-col p-4">
       <h1 className="text-3xl font-bold">{brand}</h1>
-      <div
-        className={`md:grid  md:gap-4 md:mx-auto  ${setColNumber(clientWidth)}`}
-      >
+      <div className={`md:grid  md:gap-4 ${setColNumber(clientWidth)}`}>
         {data.rackets.map((racket) => (
           <Racket
             score={racket.score}

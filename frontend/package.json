@@ -32,13 +32,15 @@
     "react-datepicker": "^4.10.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "^4.0.3",
+    "react-feather": "^2.0.10",
     "react-hook-form": "^7.43.5",
     "react-simple-star-rating": "^5.1.7",
     "react-slick": "^0.29.0",
     "react-tooltip": "^5.13.1",
     "recharts": "^2.3.2",
     "recoil": "^0.7.7",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "swiper": "^10.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

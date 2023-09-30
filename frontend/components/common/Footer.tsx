@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="flex justify-between items-center w-full px-4 py-5 bg-black">
+    <footer className="flex justify-between items-center w-full px-4 py-5 bg-slate-600">
       <p className="text-xl font-semibold text-white ">모두의 배드민턴</p>
       <div className="flex gap-x-1">
         <Link
