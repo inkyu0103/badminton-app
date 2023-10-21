@@ -14,7 +14,7 @@ const SignupForms = dynamic(() => import("components/forms/SignupForms"), {
 const Signup = () => (
   <ErrorBoundary fallback={<BadRequest />}>
     <Head>
-      <title>회원가입</title>
+      <title>회원가입 | 모두의 배드민턴</title>
     </Head>
     <SignupForms />
   </ErrorBoundary>

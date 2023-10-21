@@ -1,6 +1,10 @@
+import { Auth } from "aws-amplify";
+import { useAuth } from "hooks/useAuth";
 import Link from "next/link";
 
 const Menu = () => {
+  const auth = useAuth();
+
   return (
     <div>
       <ul className="menu text-lg">
@@ -12,9 +16,15 @@ const Menu = () => {
             </li>
           </ul>
         </li>
-        <li>
-          <Link href="/login">로그인</Link>
-        </li>
+        {auth === "authenticated" ? (
+          <li onClick={async () => await Auth.signOut()}>
+            <div>로그아웃</div>
+          </li>
+        ) : (
+          <li>
+            <Link href="/login">로그인</Link>
+          </li>
+        )}
       </ul>
     </div>
   );
