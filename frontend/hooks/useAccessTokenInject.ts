@@ -4,6 +4,7 @@ import { setBearerToken } from "query/interceptors";
 import { queryKeys } from "query/queryKeys";
 
 const AccessTokenInject = () => {
+  console.log("gma..");
   const queryClient = useQueryClient();
 
   const data = queryClient.getQueryData<ILoginResponse | null>(

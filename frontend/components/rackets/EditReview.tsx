@@ -7,7 +7,7 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 
 interface EditReviewProps {
-  reviewId: number | null;
+  reviewId: string | null;
   handleCloseModal: () => void;
 }
 

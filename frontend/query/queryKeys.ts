@@ -9,7 +9,7 @@ export const queryKeys = Object.freeze({
   rackets: {
     all: ["rackets"],
     list: (brand: string, page: number) => ["rackets", "list", brand, { page }],
-    single: (racketId: number) => [
+    single: (racketId: string) => [
       ...queryKeys.rackets.all,
       "single",
       racketId,
@@ -18,18 +18,18 @@ export const queryKeys = Object.freeze({
 
   reviews: {
     all: ["reviews"],
-    list: (racketId: number | undefined, page: number) => [
+    list: (racketId: string | undefined, page: number) => [
       ...queryKeys.reviews.all,
       "list",
       racketId,
       page,
     ],
-    single: (reviewId: number | undefined) => ["reviews", "single", reviewId],
+    single: (reviewId: string | undefined) => ["reviews", "single", reviewId],
   },
 
   statistics: {
     all: ["statistics"],
-    single: (racketId: number, rank: StatisticsRank) => [
+    single: (racketId: string, rank: StatisticsRank) => [
       ...queryKeys.statistics.all,
       racketId,
       rank,

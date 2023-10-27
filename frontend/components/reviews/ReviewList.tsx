@@ -6,10 +6,10 @@ import EditReview from "components/rackets/EditReview";
 import Review from "components/rackets/Review";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
+import { TAuthState, useAuth } from "hooks/useAuth";
 import useUser from "hooks/useUser";
 import { IReviewListResponse } from "interface/Review.interface";
 import { User } from "interface/User.interface";
-import { isNil } from "lodash";
 import { useRouter } from "next/router";
 import {
   useDeleteRacketReviewMutation,
@@ -28,22 +28,25 @@ export interface ReviewListViewProps {
   rewiewList: IReviewListResponse;
   user: User | undefined;
   curPage: number;
-  handleDeleteReview: (reviewId: number) => void;
+  handleDeleteReview: (reviewId: string) => void;
+  auth: TAuthState;
 }
 
 const isModalOpen = (value: null | string) => value !== null;
 
 const ReviewList = () => {
   const { data: reviewList } = useReviewList();
+  const auth = useAuth();
   const [, user] = useUser();
   const router = useRouter();
   const curPage = Number.parseInt(router.query.page as string) || 1;
   const { mutate: deleteRacketReview } = useDeleteRacketReviewMutation();
-  const handleDeleteReview = (reviewId: number) => deleteRacketReview(reviewId);
+  const handleDeleteReview = (reviewId: string) => deleteRacketReview(reviewId);
 
   return (
     <ReviewListView
       reviewList={reviewList}
+      auth={auth}
       user={user}
       curPage={curPage}
       handleDeleteReview={handleDeleteReview}
@@ -53,6 +56,7 @@ const ReviewList = () => {
 export default ReviewList;
 
 export const ReviewListView = ({
+  auth,
   reviewList,
   user,
   curPage,
@@ -66,7 +70,7 @@ export const ReviewListView = ({
       <section className="mx-auto">
         <div className="flex items-center justify-between">
           <p className="my-4 text-2xl font-bold">리뷰</p>
-          {!isNil(user) && (
+          {auth === "authenticated" && (
             <EvaluateButton
               handleClick={() => setModalState(MODAL_TYPE.CREATE)}
             />

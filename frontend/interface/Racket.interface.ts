@@ -1,6 +1,6 @@
 export interface RacketProps {
   name: string;
-  racketId: number;
+  racketId: string;
   score: number;
 }
 
