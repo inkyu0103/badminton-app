@@ -9,7 +9,7 @@ import axios from "query/axios";
 import { IMutationConfig } from "query/query.interface";
 import { queryKeys } from "query/queryKeys";
 
-const getRacketReviewList = async (racketId: number, page: number) => {
+const getRacketReviewList = async (racketId: string, page: number) => {
   const { data } = await axios.get(`/reviews/${racketId}/all`, {
     params: {
       page,
@@ -18,13 +18,13 @@ const getRacketReviewList = async (racketId: number, page: number) => {
   return data;
 };
 
-const getRacketReview = async (reviewId: number | undefined) => {
+const getRacketReview = async (reviewId: string | undefined) => {
   const { data } = await axios.get(`/reviews/${reviewId}`);
   return data;
 };
 
 const createRacketReview = async (
-  racketId: number,
+  racketId: string,
   reviewForm: ICreateOrEditReview,
 ) => {
   const { data } = await axios.post(`/reviews/${racketId}`, {
@@ -34,8 +34,8 @@ const createRacketReview = async (
 };
 
 const editRacketReview = async (
-  racketId: number,
-  reviewId: number,
+  racketId: string,
+  reviewId: string,
   reviewForm: ICreateOrEditReview,
 ) => {
   const { data } = await axios.patch(
@@ -52,7 +52,7 @@ const editRacketReview = async (
   return data;
 };
 
-const deleteRacketReview = async (racketId: number, reviewId: number) => {
+const deleteRacketReview = async (racketId: string, reviewId: string) => {
   const { data } = await axios.delete(`/reviews/${reviewId}`, {
     params: {
       racketId,
@@ -82,7 +82,7 @@ export const useReviewList = () => {
   );
 };
 
-export const useRacketReview = (reviewId: number | undefined) => {
+export const useRacketReview = (reviewId: string | undefined) => {
   return useQuery<IReviewResponse>(
     queryKeys.reviews.single(reviewId),
     () => getRacketReview(reviewId),
@@ -111,7 +111,7 @@ export const useCreateRacketReviewMutation = () => {
 };
 
 export const useEditRacketReviewMutation = (
-  reviewId: number,
+  reviewId: string,
   mutationConfig: IMutationConfig,
 ) => {
   const queryClient = useQueryClient();
@@ -134,10 +134,10 @@ export const useEditRacketReviewMutation = (
 export const useDeleteRacketReviewMutation = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const racketId = Number(router.query.racketId);
+  const racketId = router.query.racketId;
 
   return useMutation(
-    (reviewId: number) => deleteRacketReview(racketId, reviewId),
+    (reviewId: string) => deleteRacketReview(racketId, reviewId),
     {
       onSuccess: () => {
         queryClient.invalidateQueries();

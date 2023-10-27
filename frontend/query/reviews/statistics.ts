@@ -47,7 +47,7 @@ const colorMaper = {
   },
 };
 
-const getReviewStatistics = async (racketId: number, rank: StatisticsRank) => {
+const getReviewStatistics = async (racketId: string, rank: StatisticsRank) => {
   const { data } = await axios(`/statistics/${racketId}`, {
     params: {
       rank,

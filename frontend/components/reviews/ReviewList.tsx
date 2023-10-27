@@ -10,7 +10,6 @@ import { TAuthState, useAuth } from "hooks/useAuth";
 import useUser from "hooks/useUser";
 import { IReviewListResponse } from "interface/Review.interface";
 import { User } from "interface/User.interface";
-import { isNil } from "lodash";
 import { useRouter } from "next/router";
 import {
   useDeleteRacketReviewMutation,
@@ -29,7 +28,7 @@ export interface ReviewListViewProps {
   rewiewList: IReviewListResponse;
   user: User | undefined;
   curPage: number;
-  handleDeleteReview: (reviewId: number) => void;
+  handleDeleteReview: (reviewId: string) => void;
   auth: TAuthState;
 }
 
@@ -42,7 +41,7 @@ const ReviewList = () => {
   const router = useRouter();
   const curPage = Number.parseInt(router.query.page as string) || 1;
   const { mutate: deleteRacketReview } = useDeleteRacketReviewMutation();
-  const handleDeleteReview = (reviewId: number) => deleteRacketReview(reviewId);
+  const handleDeleteReview = (reviewId: string) => deleteRacketReview(reviewId);
 
   return (
     <ReviewListView

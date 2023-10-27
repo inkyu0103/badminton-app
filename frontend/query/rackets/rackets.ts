@@ -30,7 +30,7 @@ export const useRacketListQuery = () => {
   );
 };
 
-const getRacket = async (racketId: number): Promise<IRacket> => {
+const getRacket = async (racketId: string): Promise<IRacket> => {
   const { data } = await axios.get<IRacket>(`/rackets/${racketId}/detail`);
   return data;
 };

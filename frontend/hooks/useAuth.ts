@@ -10,6 +10,7 @@ export const useAuth = () => {
   useEffect(() => {
     (async () => {
       const user: CognitoUser | null = await Auth.currentAuthenticatedUser();
+
       const token = user
         ?.getSignInUserSession()
         ?.getAccessToken()
